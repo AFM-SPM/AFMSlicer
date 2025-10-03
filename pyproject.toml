@@ -10,9 +10,9 @@ authors = [
 ]
 description = "Package for slicing AFM images."
 readme = "README.md"
-license = "GNU GPLv3"
-license-files = ["COPYING"]
-requires-python = ">=3.9"
+license = "GPL-3.0-or-later"
+license-files = ["COPYING.md"]
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 1 - Planning",
   "Intended Audience :: Science/Research",
@@ -21,7 +21,6 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -41,11 +40,20 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 
 [project.optional-dependencies]
 test = [
-  "pytest >=6",
-  "pytest-cov >=3",
+  "pytest",
+  "pytest-cov",
 ]
 dev = [
-  { include-group = "test" },
+  "afmslicer[test]",
+  "black",
+  "codespell",
+  "ipdb",
+  "pre-commit",
+  "pydocstyle[toml]",
+  "pylint",
+  "pytest-testmon",
+  "ruff",
+  "tomli"
 ]
 docs = [
   "mkdocs",
