@@ -1,6 +1,9 @@
 ci:
-  autoupdate_commit_msg: "chore: update pre-commit hooks"
-  autofix_commit_msg: "style: pre-commit fixes"
+  autofix_prs: true
+  autofix_commit_msg: "[pre-commit.ci] Fixing issues with pre-commit"
+  autoupdate_schedule: monthly
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit-autoupdate"
+  skip: [pylint, pytest] # Optionally list ids of hooks to skip on CI
 
 exclude: ^.cruft.json|.copier-answers.yml$
 
@@ -24,6 +27,7 @@ repos:
       - id: mixed-line-ending
       - id: name-tests-test
         args: ["--pytest-test-first"]
+      # - id: no-commit-to-branch
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
@@ -45,7 +49,7 @@ repos:
     rev: "v0.13.2"
     hooks:
       - id: ruff-check
-        args: ["--fix", "--show-fixes"]
+        args: ["--fix", "--show-fixes", "--exit-non-zero-on-fix"]
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
@@ -89,3 +93,31 @@ repos:
       - id: check-dependabot
       - id: check-github-workflows
       - id: check-readthedocs
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.18.1
+    hooks:
+      - id: markdownlint-cli2
+        args: []
+
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.9.0
+    hooks:
+      - id: numpydoc-validation
+
+  - repo: local
+    hooks:
+      - id: pylint
+        args: ["--rcfile=.pylintrc"]
+        name: Pylint
+        entry: python -m pylint
+        language: system
+        files: \.py$
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Pytest (testmon)
+        entry: pytest --testmon
+        language: system
+        files: \.py$

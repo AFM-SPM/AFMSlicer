@@ -187,3 +187,6 @@ Thumbs.db
 *~
 *.swp
 \#*
+
+# pytest-testmon
+.testmondata*
