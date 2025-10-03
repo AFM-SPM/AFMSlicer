@@ -39,7 +39,7 @@ Discussions = "https://github.com/ns-rse/AFMSlicer/discussions"
 Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 
 
-[dependency-groups]
+[project.optional-dependencies]
 test = [
   "pytest >=6",
   "pytest-cov >=3",
@@ -48,11 +48,11 @@ dev = [
   { include-group = "test" },
 ]
 docs = [
-  "sphinx>=7.0",
-  "myst_parser>=0.13",
-  "sphinx_copybutton",
-  "sphinx_autodoc_typehints",
-  "furo>=2023.08.17",
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocs-mermaid2-plugin",
+  "mkdocstrings[python]",
+  "numpydoc",
 ]
 
 
