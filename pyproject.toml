@@ -44,7 +44,7 @@ tests = [
   "pytest-cov",
 ]
 dev = [
-  "afmslicer[test]",
+  "afmslicer[tests]",
   "black",
   "codespell",
   "ipdb",
