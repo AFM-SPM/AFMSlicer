@@ -39,7 +39,7 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 
 
 [project.optional-dependencies]
-test = [
+tests = [
   "pytest",
   "pytest-cov",
 ]
@@ -48,6 +48,7 @@ dev = [
   "black",
   "codespell",
   "ipdb",
+  "numpydoc",
   "pre-commit",
   "pydocstyle[toml]",
   "pylint",
@@ -60,7 +61,6 @@ docs = [
   "mkdocs-material",
   "mkdocs-mermaid2-plugin",
   "mkdocstrings[python]",
-  "numpydoc",
 ]
 
 
