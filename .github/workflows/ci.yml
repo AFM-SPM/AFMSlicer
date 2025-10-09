@@ -31,9 +31,13 @@ jobs:
 
       - uses: astral-sh/setup-uv@v6
 
+      - name: Install pytest and pylint
+        run: pip install -e .[dev]
+
       - uses: pre-commit/action@v3.0.1
         with:
           extra_args: --hook-stage manual --all-files
+
       - name: Run Pylint
         run: uvx nox -s pylint -- --output-format=github
 

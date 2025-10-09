@@ -48,6 +48,7 @@ dev = [
   "black",
   "codespell",
   "ipdb",
+  "nox",
   "numpydoc",
   "pre-commit",
   "pydocstyle[toml]",
