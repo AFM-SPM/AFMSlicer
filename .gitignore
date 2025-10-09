@@ -190,3 +190,7 @@ Thumbs.db
 
 # pytest-testmon
 .testmondata*
+
+# Other directories to exclude
+orig/
+tmp/
