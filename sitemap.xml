@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/installation/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/introduction/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/usage/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/workflow/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/api/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+    <url>
+         <loc>https://AFMSlicer.readthedocs.org/api/afmslicer/</loc>
+         <lastmod>2025-10-09</lastmod>
+    </url>
+</urlset>
