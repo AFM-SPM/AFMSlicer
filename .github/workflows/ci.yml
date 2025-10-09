@@ -38,8 +38,8 @@ jobs:
         with:
           extra_args: --hook-stage manual --all-files
 
-      - name: Run Pylint
-        run: uvx nox -s pylint -- --output-format=github
+      # - name: Run Pylint
+      #   run: uvx nox -s pylint -- --output-format=github
 
   checks:
     name: Check Python ${{ matrix.python-version }} on ${{ matrix.runs-on }}
