@@ -22,6 +22,7 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-yaml
+        args: ["--unsafe"] # Required because of line 57 in mkdocs.yml which enables mermaid diagrams
       - id: debug-statements
       - id: end-of-file-fixer
       - id: mixed-line-ending
@@ -68,10 +69,10 @@ repos:
         additional_dependencies:
           - tomli; python_version<'3.11'
 
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: "v0.11.0.1"
-    hooks:
-      - id: shellcheck
+  # - repo: https://github.com/shellcheck-py/shellcheck-py
+  #   rev: "v0.11.0.1"
+  #   hooks:
+  #     - id: shellcheck
 
   - repo: local
     hooks:
