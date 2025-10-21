@@ -34,6 +34,7 @@ dependencies = [
   "art",
   "TopoStats",
   "loguru",
+  "pydantic",
   "schema",
   "tqdm",
 ]
@@ -107,10 +108,14 @@ disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
 [[tool.mypy.overrides]]
-module = "afmslicer.*"
+module = [
+  # "afmslicer.*",
+  "numpy.*",
+  "snoop.*",
+]
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
-
+ignore_missing_imports = true
 
 [tool.ruff]
 
