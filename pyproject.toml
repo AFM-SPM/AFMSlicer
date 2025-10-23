@@ -29,7 +29,14 @@ classifiers = [
   "Typing :: Typed",
 ]
 dynamic = ["version"]
-dependencies = []
+dependencies = [
+  "afmreader @ git+https://github.com/AFM-SPM/AFMReader@main",
+  "art",
+  "TopoStats",
+  "loguru",
+  "schema",
+  "tqdm",
+]
 
 [project.urls]
 Homepage = "https://github.com/ns-rse/AFMSlicer"
@@ -42,6 +49,7 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 tests = [
   "pytest",
   "pytest-cov",
+  "syrupy",
 ]
 dev = [
   "afmslicer[tests]",
@@ -54,7 +62,7 @@ dev = [
   "pylint",
   "pytest-testmon",
   "ruff",
-  "tomli"
+  "tomli",
 ]
 docs = [
   "mkdocs",
@@ -90,7 +98,7 @@ report.exclude_also = [
 
 [tool.mypy]
 files = ["src", "tests"]
-python_version = "3.9"
+python_version = "3.10"
 warn_unused_configs = true
 strict = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
@@ -133,6 +141,7 @@ extend-select = [
 ignore = [
   "PLR09",    # Too many <...>
   "PLR2004",  # Magic value used in comparison
+  "G004",     # Logging statement uses f-string
 ]
 isort.required-imports = ["from __future__ import annotations"]
 # Uncomment if using a _compat.typing backport
@@ -184,3 +193,6 @@ skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004,uv.lock'
 count = ''
 quiet-level = 3
 ignore-words-list = 'OT'
+
+[project.scripts]
+afmslicer = "afmslicer.entry_point:entry_point"
