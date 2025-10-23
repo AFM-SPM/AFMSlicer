@@ -208,7 +208,8 @@ some links to articles on how to do so are provided.
 [black]: https://github.com/psf/black
 [code_smell]: https://en.wikipedia.org/wiki/Code_smell
 [flake8]: https://flake8.pycqa.org/en/latest/
-[git_clone]: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+[git_clone]:
+  https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
 [gh_fork]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
 [isort]: https://pycqa.github.io/isort/
 [markdownlint-cli2]: https://github.com/DavidAnson/markdownlint-cli2
