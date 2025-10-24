@@ -1,4 +1,3 @@
----
 site_name: AFMSlicer
 site_url: https://AFMSlicer.readthedocs.org/
 repo_url: https://github.com/ns-rse/AFMSlicer/
@@ -31,18 +30,42 @@ nav:
   - Introduction: introduction.md
   - Installation: installation.md
   - Usage: usage.md
+  - Configuration: configuration.md
   - Workflow: workflow.md
-  - Contributing: contributing.md
+  - Contributing:
+      - Overview: contributing/index.md
+      - Adding Modules: contributing/adding_modules.md
   - API:
-      - afmslicer: api/afmslicer.md
+      # - afmslicer: api/afmslicer.md
+      - API: api/index.md
+      - slicer: api/slicer.md
+      - validation: api/validation.md
+
 extra:
   version:
     provider: mike
+
 plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          inventories:
+            - https://docs.python.org/3/objects.inv
+          paths: [src]
+          options.extra:
+          docstring_options:
+            ignore_init_summary: true
+          docstring_section_style: true
+          signature_crossrefs: true
+          inherited_members: true
+          summary: true
+          heading_level: 1
+          parameter_headings: true
+          type_parameter_headings: true
   - autorefs
   - mermaid2
   - search
-  - mkdocstrings
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true

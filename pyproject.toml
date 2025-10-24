@@ -7,6 +7,8 @@ build-backend = "setuptools.build_meta"
 name = "AFMSlicer"
 authors = [
   { name = "Neil Shephard", email = "n.shephard@sheffield.ac.uk" },
+  { name = "Laia Pasquina-Lemonche", email = "l.pasquinalemonche@sheffield.ac.uk"},
+  { name = "Matthew Barker", email = "mjbarker2@sheffield.ac.uk"},
 ]
 description = "Package for slicing AFM images."
 readme = "README.md"
@@ -32,7 +34,7 @@ dynamic = ["version"]
 dependencies = [
   "afmreader @ git+https://github.com/AFM-SPM/AFMReader@main",
   "art",
-  "TopoStats",
+  "topostats @ git+https://github.com/AFM-SPM/TopoStats@ns-rse/1102-switching-to-TopoStats-class",
   "loguru",
   "pydantic",
   "schema",
@@ -57,6 +59,7 @@ dev = [
   "black",
   "codespell",
   "ipdb",
+  "mypy",
   "numpydoc",
   "pre-commit",
   "pydocstyle[toml]",
@@ -106,11 +109,15 @@ enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 warn_unreachable = true
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+# This should help resolve some of the typing issues that arise from using class inheritance of TopoStats
+# plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
 module = [
   # "afmslicer.*",
   "numpy.*",
+  "pydantic.*",
+  "topostats.*",
   "snoop.*",
 ]
 disallow_untyped_defs = true

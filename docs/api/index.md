@@ -1,3 +1,6 @@
 # API
 
-- [`afmslicer`](afmslicer.md)
+<!-- - [`afmslicer`](afmslicer.md) -->
+
+- [`slicer`](slicer.md)
+- [`validation`](validation.md)
