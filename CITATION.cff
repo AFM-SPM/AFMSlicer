@@ -1,0 +1,35 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: AFMSlicer
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Neil
+    family-names: Shephard
+    email: n.shephard@sheffield.ac.uk
+    affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0000-0001-8301-6857'
+  - given-names: Laia
+    family-names: Pasquina-Lemonche
+    affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0000-0002-8592-9542'
+    email: l.pasquinalemonche@sheffield.ac.uk
+  - given-names: Matthew
+    family-names: Barker
+    affiliation: University of Sheffield
+    email: mjbarker2@sheffield.ac.uk
+repository-code: 'https://github.com/AFM-SPM/AFMSlicer'
+url: 'https://afm-spm.github.io/AFMSlicer'
+abstract: >-
+  AFMSlicer is a TopoStats module for analysing images of
+  bacterial cell walls.
+keywords:
+  - imaging
+  - python
+  - topostats
+  - atomic force microscopy
+license: GPL-3.0
