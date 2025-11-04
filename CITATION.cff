@@ -21,6 +21,7 @@ authors:
   - given-names: Matthew
     family-names: Barker
     affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0009-0001-7513-9061'
     email: mjbarker2@sheffield.ac.uk
 repository-code: 'https://github.com/AFM-SPM/AFMSlicer'
 url: 'https://afm-spm.github.io/AFMSlicer'
