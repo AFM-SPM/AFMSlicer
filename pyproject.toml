@@ -118,7 +118,9 @@ module = [
   # "afmslicer.*",
   "numpy.*",
   "pydantic.*",
+  "pydantic_numpy.*",
   "topostats.*",
+  "skimage.*",
   "snoop.*",
   "yaml.*",
 ]

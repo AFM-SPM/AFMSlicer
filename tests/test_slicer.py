@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import numpy as np
 import numpy.typing as npt
 import pytest
 
 from afmslicer import slicer
 
-# pylint: disable=too-many-arguments,too-many-positional-arguments
+# pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access
 
 
 @pytest.mark.parametrize(
@@ -54,7 +52,7 @@ def test_slicer(
             None,
             None,
             None,
-            "simple_height_array_mask_stacked",
+            "simple_height_array_mask_stacked_5",
             id="simple array, no slices/min/max",
         ),
     ],
@@ -80,73 +78,116 @@ def test_mask_slices(
 
 
 @pytest.mark.parametrize(
-    (
-        "fixture",
-        "filename",
-        "img_path",
-        "slices",
-        "min_height",
-        "max_height",
-        "layers",
-        "sliced_array_fixture",
-        "sliced_mask_fixture",
-        "pixel_to_nm_scaling",
-    ),
+    ("array", "expected"),
     [
         pytest.param(
-            "afmslicer_basic",
-            "simple_afmslice",
-            "tmp",
-            5,
-            0,
-            5,
-            np.asarray([0.0, 1.25, 2.5, 3.75, 5.0]),
-            "layered_height_array",
-            "simple_height_array_mask_stacked",
-            1.0,
-            id="basic",
-        ),
-        pytest.param(
-            "afmslicer_with_attributes",
-            "simple_afmslice_with_attr",
-            "tmp",
-            2,
-            1.0,
-            4.0,
-            np.asarray([1.0, 4.0]),
-            "layered_height_array",
-            "simple_height_array_mask_stacked_thin",
-            0.5,
-            id="basic with min_height=1, max_height=4, layers=2",
+            np.array(
+                [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                    [0, 1, 0, 0, 1, 0, 1, 1, 1, 0],
+                    [0, 1, 0, 0, 1, 0, 1, 0, 1, 0],
+                    [0, 1, 1, 1, 1, 0, 1, 0, 1, 0],
+                    [0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+                    [0, 1, 1, 1, 1, 0, 1, 0, 1, 0],
+                    [0, 1, 0, 0, 1, 0, 1, 1, 1, 0],
+                    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                ],
+                dtype=np.int32,
+            ),
+            np.array(
+                [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+                    [0, 1, 0, 0, 1, 0, 2, 2, 2, 0],
+                    [0, 1, 0, 0, 1, 0, 2, 0, 2, 0],
+                    [0, 1, 1, 1, 1, 0, 2, 0, 2, 0],
+                    [0, 0, 0, 0, 0, 0, 2, 0, 2, 0],
+                    [0, 3, 3, 3, 3, 0, 2, 0, 2, 0],
+                    [0, 3, 0, 0, 3, 0, 2, 2, 2, 0],
+                    [0, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                ],
+                dtype=np.int32,
+            ),
+            id="unconnected",
         ),
     ],
 )
-def test_AFMSlicer(
-    fixture: str,
-    filename: str,
-    img_path: Path,
-    slices: int,
-    min_height: int | float,
-    max_height: int | float,
-    layers: npt.NDArray[np.float64],
-    sliced_array_fixture: str,
-    sliced_mask_fixture: str,
-    pixel_to_nm_scaling: float,
+def test_label(array: npt.NDArray, expected: npt.NDArray) -> None:
+    """Test for slicer._label()."""
+    np.testing.assert_array_equal(slicer._label(array), expected)
+
+
+@pytest.mark.parametrize(
+    ("fixture", "expected"),
+    [
+        pytest.param(
+            "basic_three_segments",
+            np.array(
+                [
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 2, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 2, 2, 2, 1, 1, 3, 1, 1],
+                    [1, 1, 2, 2, 2, 1, 1, 3, 3, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 3, 3, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 3, 3, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 3, 3, 1],
+                    [1, 1, 4, 4, 4, 1, 1, 3, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                ],
+                dtype=np.int32,
+            ),
+            id="unconnected",
+        ),
+    ],
+)
+def test_watershed(fixture: str, expected: npt.NDArray, request) -> None:
+    """Test for slicer._watershed()."""
+    array = request.getfixturevalue(fixture)
+    np.testing.assert_array_equal(slicer._watershed(array), expected)
+
+
+@pytest.mark.parametrize(
+    ("sliced_mask_fixture", "method", "sliced_segments_fixture"),
+    [
+        pytest.param(
+            "simple_height_array_mask_stacked_5",
+            "label",
+            "simple_height_array_mask_stacked_5",
+            id="simple height array (5 layers)",
+        ),
+        pytest.param(
+            "simple_height_array_mask_stacked_2",
+            "label",
+            "simple_height_array_mask_stacked_2",
+            id="simple height array (2 layers)",
+        ),
+        pytest.param(
+            "three_layer_three_segments",
+            "label",
+            "three_layer_three_segments_label",
+            id="simple three layers with three segments using label",
+        ),
+        pytest.param(
+            "three_layer_three_segments",
+            "watershed",
+            "three_layer_three_segments_watershed",
+            id="simple three layers with three segments using watershed",
+        ),
+    ],
+)
+def test_slices(
+    sliced_mask_fixture: npt.NDArray[np.bool],
+    method: str,
+    sliced_segments_fixture: str,
     request,
 ) -> None:
-    """Test for creating ``AFMSlicer`` object."""
-    sliced_array = request.getfixturevalue(sliced_array_fixture)
+    """Test slicer.segment_slices()."""
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
-    afmslicer_object = request.getfixturevalue(fixture)
-    assert afmslicer_object.filename == filename
-    assert afmslicer_object.img_path == img_path
-    assert afmslicer_object.slices == slices
-    assert afmslicer_object.min_height == min_height
-    assert afmslicer_object.max_height == max_height
-    np.testing.assert_array_equal(afmslicer_object.layers, layers)
-    np.testing.assert_array_equal(afmslicer_object.sliced_array, sliced_array)
-    np.testing.assert_array_equal(afmslicer_object.sliced_mask, sliced_mask)
-    assert afmslicer_object.pixel_to_nm_scaling == pixel_to_nm_scaling
-    assert sliced_array.shape == (11, 11, 5)
-    assert sliced_mask.shape == (11, 11, 5)
-
+    sliced_segments = request.getfixturevalue(sliced_segments_fixture)
+    np.testing.assert_array_equal(
+        slicer.segment_slices(sliced_mask, method), sliced_segments
+    )
