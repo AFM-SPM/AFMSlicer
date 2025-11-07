@@ -3,74 +3,17 @@
 # from loguru import logger
 from __future__ import annotations
 
+from collections.abc import Callable
+from typing import Any
+
 import numpy as np
 import numpy.typing as npt
-from pydantic import ConfigDict
-from pydantic.dataclasses import dataclass
-from topostats.classes import TopoStats
-
-
-@dataclass(
-    repr=True,
-    eq=True,
-    config=ConfigDict(arbitrary_types_allowed=True),
-    validate_on_init=True,
-)
-class AFMSlicer(TopoStats):
-    """
-    Class for AFMSlicer data and attributes.
-
-    The class inherits ``TopoStats`` class.
-
-    Attributes
-    ----------
-    image : npt.NDArray[np.float64]
-        Two-dimensional array of heights.
-    min_height : float, optional
-        Minimum height. Determined from the data if not provided.
-    max_height : float, optional
-        Maximum height. Determined from the data if not provided.
-    slices : int, optional
-        The number of slices taken through the image between the ``min_height`` and ``max_height``.
-    layers : npt.NDArray[np.float64], optional
-        The boundaries of heights for sliced layers to be taken through the original image.
-    sliced_array : npt.NDArray[np.float64], optional
-        Three dimensional array of ``slices`` of the original ``image``.
-    sliced_mask : npt.NDArray[bool], optional
-        A three dimensional array of ``slices`` where each layer is a mask for the heights given in ``layers``.
-    """
-
-    image: npt.NDArray[np.float64]
-    min_height: float | None = None
-    max_height: float | None = None
-    slices: int = 255
-    layers: npt.NDArray[np.float64] | None = None
-    sliced_array: npt.NDArray[np.float64] | None = None
-    sliced_mask: npt.NDArray[np.bool] | None = None
-
-    def __post_init__(self) -> None:
-        """
-        Set attributes for the ``AFMSlice`` class on instantiation.
-        """
-        self.min_height = (
-            np.min(self.image) if self.min_height is None else self.min_height
-        )
-        self.max_height = (
-            np.max(self.image) if self.max_height is None else self.max_height
-        )
-        self.layers = np.linspace(self.min_height, self.max_height, self.slices)
-        self.sliced_array = slicer(heights=self.image, slices=self.slices)
-        self.sliced_mask = mask_slices(
-            sliced_array=self.sliced_array,
-            slices=self.slices,
-            layers=self.layers,
-            min_height=self.min_height,
-            max_height=self.max_height,
-        )
+from skimage.measure import label  # pylint: disable=no-name-in-module
+from skimage.segmentation import clear_border, watershed
 
 
 def mask_slices(
-    sliced_array: npt.NDArray,
+    stacked_array: npt.NDArray,
     slices: int | None = 255,
     layers: npt.NDArray | None = None,
     min_height: np.float64 | None = None,
@@ -85,7 +28,7 @@ def mask_slices(
 
     Parameters
     ----------
-    sliced_array : npt.NDArray
+    stacked_array : npt.NDArray
         Three-dimensional numpy array of image heights, each layer should be a copy of the original.
     slices : int, optional
         Number of slices to mask. Determined directly from data if not provided (i.e. depth of three-dimensional array).
@@ -101,16 +44,16 @@ def mask_slices(
     npt.NDArray[bool]
         Three-dimensional array of masks.
     """
-    slices = sliced_array.shape[2] if slices is None else slices
-    min_height = np.min(sliced_array) if min_height is None else min_height
-    max_height = np.max(sliced_array) if max_height is None else max_height
+    slices = stacked_array.shape[2] if slices is None else slices
+    min_height = np.min(stacked_array) if min_height is None else min_height
+    max_height = np.max(stacked_array) if max_height is None else max_height
     layers = np.linspace(min_height, max_height, slices) if layers is None else layers
-    sliced_mask = sliced_array.copy()
+    sliced_mask = stacked_array.copy()
     for layer, height in enumerate(layers):
-        sliced_mask[:, :, layer] = np.where(sliced_array[:, :, layer] > height, 1, 0)
+        sliced_mask[:, :, layer] = np.where(stacked_array[:, :, layer] > height, 1, 0)
     # We want to capture the maximum...
     sliced_mask[:, :, slices - 1] = np.where(
-        sliced_array[:, :, slices - 1] >= max_height, 1, 0
+        stacked_array[:, :, slices - 1] >= max_height, 1, 0
     )
     return sliced_mask
 
@@ -171,3 +114,136 @@ def show_layers(array: npt.NDArray) -> None:
     assert len(array.shape) == 3, f"Array is not 3D : {array.shape=}"
     for layer in np.arange(0, array.shape[-1]):
         print(f"\nLayer {layer} \n{array[...,layer]=}\n")  # noqa: T201
+
+
+def segment(
+    array: npt.NDArray,
+    method: str | None = "label",
+    tidy_border: bool = True,
+    **kwargs: dict[str, Any] | None,
+) -> npt.NDArray:
+    """
+    Segment an array.
+
+    Parameters
+    ----------
+    array : npt.NDArray
+        Two-dimensional numpy array to segment.
+    method : str, optional
+        Segmentation method, supports the ``label`` (default) and ``watershed`` methods implemented by Scikit Image.
+    tidy_border : bool
+        Whether to remove objects that straddle the border of the image.
+    **kwargs : dict[str, Any], optional
+        Additional arguments to pass for segmentation.
+
+    Returns
+    -------
+    npt.NDArray
+        Labelled array of objects.
+    """
+    if method is None:
+        method = "label"
+        # logger.info("No segmentation method specified, defaulting to 'label'.")
+    if tidy_border:
+        array = clear_border(array)
+        # logger.info("")
+    segmenter = _get_segments(method)
+    return segmenter(array, **kwargs)
+
+
+def _get_segments(
+    method: str = "",
+) -> Callable[[npt.NDArray[np.bool]], npt.NDArray[np.int32]]:
+    """
+    Creator component which determines which threshold method to use.
+
+    Parameters
+    ----------
+    method : str
+        Segmentation method to use, currently supports ``label`` (default) and ``watershed``.
+
+    Returns
+    -------
+    Callable
+        Returns function appropriate for the required segmentation method.
+
+    Raises
+    ------
+    ValueError
+        Unsupported methods result in ``ValueError``.
+    """
+    if method == "watershed":
+        return _watershed
+    if method == "label":
+        return _label
+    raise ValueError()
+
+
+def _watershed(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
+    """
+    Segment array using ``watershed`` method.
+
+    Uses the `watershed
+    <https://scikit-image.org/docs/stable/api/skimage.segmentation.html#skimage.segmentation.watershed>`__ method from
+    Scikit Image to segment the image.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.bool]
+        Boolean array.
+    **kwargs : dict[str, Any], optional
+        Additional arguments to pass to ``watershed``.
+
+    Returns
+    -------
+    npt.NDArray[np.int32]
+        Labelled image.
+    """
+    return watershed(array, **kwargs)
+
+
+def _label(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
+    """
+    Segment array using ``label`` method.
+
+    Uses the `label <https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.label>`__
+    method from Scikit Image to segment the image.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.bool]
+        Boolean array.
+    **kwargs : dict[str, Any], optional
+        Additional arguments to pass to ``label``.
+
+    Returns
+    -------
+    npt.NDArray[np.int32]
+        Labelled image.
+    """
+    return label(array, **kwargs)
+
+
+def segment_slices(
+    array: npt.NDArray[np.bool], method: str | None = "label", tidy_border: bool = False
+) -> npt.NDArray[np.int32]:
+    """
+    Segment individual layers of a three-dimensional numpy array.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.bool]
+        Three-dimensional boolean array to be segmented.
+    method : str
+        Sgementation method to use. Currne options are ``label`` (default) and ``watershed``.
+    tidy_border : bool
+        Whether to tidy the border.
+
+    Returns
+    -------
+    npt.NDArray[np.int32]
+        Three-dimensional array of labelled layers.
+    """
+    for layer in np.arange(array.shape[2]):
+        array[:, :, layer] = segment(array[:, :, layer], method, tidy_border)
+    return array

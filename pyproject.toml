@@ -53,6 +53,7 @@ tests = [
   "pytest",
   "pytest-cov",
   "syrupy",
+  "yaml",
 ]
 dev = [
   "afmslicer[tests]",
@@ -117,8 +118,11 @@ module = [
   # "afmslicer.*",
   "numpy.*",
   "pydantic.*",
+  "pydantic_numpy.*",
   "topostats.*",
+  "skimage.*",
   "snoop.*",
+  "yaml.*",
 ]
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
