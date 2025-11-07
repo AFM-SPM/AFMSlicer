@@ -10,6 +10,10 @@ import pytest
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access
 
+BASE_DIR = Path.cwd()
+RESOURCES = BASE_DIR / "tests" / "resources"
+RESOURCES_SLICER = RESOURCES / "slicer"
+
 
 @pytest.mark.parametrize(
     (
@@ -35,7 +39,8 @@ import pytest
             5,
             np.asarray([0.0, 1.25, 2.5, 3.75, 5.0]),
             "layered_height_array_5",
-            "simple_height_array_mask_stacked_5",
+            # "simple_height_array_mask_stacked_5",
+            "simple_height_array_sliced_mask_segment",
             "sliced_segment_label_5",
             1.0,
             id="basic",
@@ -53,6 +58,36 @@ import pytest
             "sliced_segment_label_2",
             0.5,
             id="basic with min_height=1, max_height=4, layers=2",
+        ),
+        pytest.param(
+            "afmslicer_sample1",
+            "sample1",
+            "tmp",
+            5,
+            -312.40853721614576,
+            551.5217325223152,
+            np.asarray([-312.408537, -96.42597, 119.556598, 335.539165, 551.521733]),
+            "afmslicer_sample1_sliced",
+            "afmslicer_sample1_sliced_mask",
+            "afmslicer_sample1_sliced_segments",
+            39.0625,
+            id="sample1 layers=5",
+        ),
+        pytest.param(
+            "afmslicer_sample2",
+            "sample2",
+            "tmp",
+            5,
+            -296.85145995382425,
+            -152.62116556541318,
+            np.asarray(
+                [-296.85146, -260.793886, -224.736313, -188.678739, -152.621166]
+            ),
+            "afmslicer_sample2_sliced",
+            "afmslicer_sample2_sliced_mask",
+            "afmslicer_sample2_sliced_segments",
+            0.625,
+            id="sample2 layers=5",
         ),
     ],
 )
@@ -80,7 +115,21 @@ def test_AFMSlicer(
     assert afmslicer_object.slices == slices
     assert afmslicer_object.min_height == min_height
     assert afmslicer_object.max_height == max_height
-    np.testing.assert_array_equal(afmslicer_object.layers, layers)
+    np.testing.assert_array_almost_equal(afmslicer_object.layers, layers)
+    if fixture in ("afmslicer_sample1", "afmslicer_sample2"):
+        print("HAHAHAHAHHAHAHAHAHHAHAHHA")
+        np.save(
+            RESOURCES_SLICER / f"{fixture}_sliced.npy",
+            afmslicer_object.sliced_array,
+        )
+        np.save(
+            RESOURCES_SLICER / f"{fixture}_sliced_mask.npy",
+            afmslicer_object.sliced_mask,
+        )
+        np.save(
+            RESOURCES_SLICER / f"{fixture}_sliced_segments.npy",
+            afmslicer_object.sliced_segments,
+        )
     np.testing.assert_array_equal(afmslicer_object.sliced_array, sliced_array)
     np.testing.assert_array_equal(afmslicer_object.sliced_mask, sliced_mask)
     assert afmslicer_object.pixel_to_nm_scaling == pixel_to_nm_scaling

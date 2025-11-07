@@ -46,7 +46,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     # We may need to set a default_factory see
     # https://stackoverflow.com/questions/70306311/pydantic-initialize-numpy-ndarray
     # https://docs.pydantic.dev/latest/concepts/dataclasses/
-    # image: npt.NDArray[np.float64] = Field(default_factory=lambda: np.zeros(10))
     layers: npt.NDArray[np.float64] | None = None
     sliced_array: npt.NDArray[np.float64] | None = None
     sliced_mask: npt.NDArray[np.bool] | None = None
@@ -67,7 +66,11 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         self.max_height = (
             np.max(self.image) if self.max_height is None else self.max_height
         )
-        self.layers = np.linspace(self.min_height, self.max_height, self.slices)
+        self.layers = (
+            np.linspace(self.min_height, self.max_height, self.slices)
+            if self.layers is None
+            else self.layers
+        )
         self.sliced_array = slicer.slicer(heights=self.image, slices=self.slices)
         self.sliced_mask = slicer.mask_slices(
             stacked_array=self.sliced_array,
