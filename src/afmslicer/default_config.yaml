@@ -29,4 +29,5 @@ filter:
     max_scar_width: 4 # Maximum thickness of scars in pixels.
     min_scar_length: 16 # Minimum length of scars in pixels.
 slicing:
-  n_slices: 255 # Number of slices to create through the image between the min and max height
+  slices: 255 # Number of slices to create through the image between the min and max height
+  segment_method: label # Method for segmenting images. Options : label, watershed

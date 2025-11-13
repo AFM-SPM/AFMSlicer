@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import numpy.typing as npt
 import pytest
@@ -10,16 +12,31 @@ from afmslicer import slicer
 
 # pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access
 
+BASE_DIR = Path.cwd()
+RESOURCES = BASE_DIR / "tests" / "resources"
+RESOURCES_SLICER = RESOURCES / "slicer"
+
 
 @pytest.mark.parametrize(
-    ("height_fixture", "slices", "shape", "height_stacked_fixture"),
+    ("height_fixture", "slices", "shape"),
     [
         pytest.param(
             "simple_height_array",
             5,
             (11, 11, 5),
-            "simple_height_array_stacked",
             id="simple",
+        ),
+        pytest.param(
+            "sample1_spm",
+            5,
+            (512, 512, 5),
+            id="simple1",
+        ),
+        pytest.param(
+            "sample2_spm",
+            5,
+            (640, 640, 5),
+            id="simple2",
         ),
     ],
 )
@@ -27,54 +44,73 @@ def test_slicer(
     height_fixture: str,
     slices: int,
     shape: tuple[int],
-    height_stacked_fixture: str,
     request,
+    snapshot,
 ) -> None:
     """Test for slicer() function."""
-    heights = request.getfixturevalue(height_fixture)
-    stacked_mask = request.getfixturevalue(height_stacked_fixture)
-    sliced_mask = slicer.slicer(heights=heights, slices=slices)
-    assert sliced_mask.shape == shape
-    np.testing.assert_array_equal(sliced_mask, stacked_mask)
+    if height_fixture == "simple_height_array":
+        heights = request.getfixturevalue(height_fixture)
+    else:
+        heights, _ = request.getfixturevalue(height_fixture)
+    sliced = slicer.slicer(heights=heights, slices=slices)
+    assert sliced.shape == shape
+    # np.save(RESOURCES_SLICER / f"{sliced_fixture}_sliced.npy", sliced)
+    # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
+    #         https://github.com/syrupy-project/syrupy/issues/887
+    assert np.array2string(sliced) == snapshot
 
 
 @pytest.mark.parametrize(
     (
-        "height_stacked_fixture",
+        "sliced_fixture",
         "slices",
         "min_height",
         "max_height",
-        "mask_stacked_fixture",
     ),
     [
         pytest.param(
-            "simple_height_array_stacked",
+            "simple_height_array_sliced",
             None,
             None,
             None,
-            "simple_height_array_mask_stacked_5",
             id="simple array, no slices/min/max",
+        ),
+        pytest.param(
+            "sample1_spm_sliced",
+            None,
+            None,
+            None,
+            id="sample1, no slices/min/max",
+        ),
+        pytest.param(
+            "sample2_spm_sliced",
+            None,
+            None,
+            None,
+            id="sample2, no slices/min/max",
         ),
     ],
 )
 def test_mask_slices(
-    height_stacked_fixture: npt.NDArray[np.int8],
+    sliced_fixture: npt.NDArray[np.int8],
     slices: int,
     min_height: float,
     max_height: float,
-    mask_stacked_fixture: npt.NDArray[np.int8],
     request,
+    snapshot,
 ) -> None:
     """Test for mask_slices()."""
-    stacked_array = request.getfixturevalue(height_stacked_fixture)
-    sliced_mask = request.getfixturevalue(mask_stacked_fixture)
+    sliced_array = request.getfixturevalue(sliced_fixture)
     masked_slices = slicer.mask_slices(
-        stacked_array=stacked_array,
+        stacked_array=sliced_array,
         slices=slices,
         min_height=min_height,
         max_height=max_height,
     )
-    np.testing.assert_array_equal(masked_slices, sliced_mask)
+    # np.save(RESOURCES_SLICER / f"{sliced_fixture}_mask.npy", masked_slices)
+    # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
+    #         https://github.com/syrupy-project/syrupy/issues/887
+    assert np.array2string(masked_slices) == snapshot
 
 
 @pytest.mark.parametrize(
@@ -151,43 +187,48 @@ def test_watershed(fixture: str, expected: npt.NDArray, request) -> None:
 
 
 @pytest.mark.parametrize(
-    ("sliced_mask_fixture", "method", "sliced_segments_fixture"),
+    ("sliced_mask_fixture", "method"),
     [
         pytest.param(
-            "simple_height_array_mask_stacked_5",
+            "simple_height_array_sliced_mask",
             "label",
-            "simple_height_array_mask_stacked_5",
             id="simple height array (5 layers)",
         ),
         pytest.param(
             "simple_height_array_mask_stacked_2",
             "label",
-            "simple_height_array_mask_stacked_2",
             id="simple height array (2 layers)",
         ),
         pytest.param(
             "three_layer_three_segments",
             "label",
-            "three_layer_three_segments_label",
             id="simple three layers with three segments using label",
         ),
         pytest.param(
             "three_layer_three_segments",
             "watershed",
-            "three_layer_three_segments_watershed",
             id="simple three layers with three segments using watershed",
+        ),
+        pytest.param(
+            "sample1_spm_sliced_mask", "label", id="sample1 segment with label"
+        ),
+        pytest.param(
+            "sample2_spm_sliced_mask", "label", id="sample2 segment with label"
         ),
     ],
 )
-def test_slices(
+def test_segment_slices(
     sliced_mask_fixture: npt.NDArray[np.bool],
     method: str,
-    sliced_segments_fixture: str,
     request,
+    snapshot,
 ) -> None:
     """Test slicer.segment_slices()."""
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
-    sliced_segments = request.getfixturevalue(sliced_segments_fixture)
-    np.testing.assert_array_equal(
-        slicer.segment_slices(sliced_mask, method), sliced_segments
-    )
+    sliced_mask_segment = slicer.segment_slices(sliced_mask, method)
+    # np.save(
+    #     RESOURCES_SLICER / f"{sliced_mask_fixture}_segment.npy", sliced_mask_segment
+    # )
+    # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
+    #         https://github.com/syrupy-project/syrupy/issues/887
+    assert np.array2string(sliced_mask_segment) == snapshot
