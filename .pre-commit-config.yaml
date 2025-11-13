@@ -30,7 +30,7 @@ repos:
         exclude: |
           (?x)^(
               tests/resources/spm/*.spm|
-              tests/__snapshots__/*.ambr
+              tests/__snapshots__/test_slicer.ambr
           )$
       - id: mixed-line-ending
       - id: name-tests-test

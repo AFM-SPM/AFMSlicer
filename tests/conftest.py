@@ -59,19 +59,22 @@ def fixture_simple_height_array() -> npt.NDArray[np.int32]:
 @pytest.fixture
 def simple_height_array_sliced() -> npt.NDArray[np.float64]:
     """Simple pyramidal two-dimensional numpy array sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "simple_height_array_sliced.npy")
+    with np.load(RESOURCES_SLICER / "simple_height_array_sliced.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
 def sample1_spm_sliced() -> npt.NDArray[np.float64]:
     """Sample 1 image sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "sample1_spm_sliced.npy")
+    with np.load(RESOURCES_SLICER / "sample1_spm_sliced.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
 def sample2_spm_sliced() -> npt.NDArray[np.float64]:
     """Sample 2 image sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "sample2_spm_sliced.npy")
+    with np.load(RESOURCES_SLICER / "sample2_spm_sliced.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
@@ -229,19 +232,22 @@ def simple_height_array_mask_stacked_2() -> npt.NDArray[np.bool]:
 @pytest.fixture
 def simple_height_array_sliced_mask() -> npt.NDArray[np.float64]:
     """Simple pyramidal two-dimensional numpy array sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "simple_height_array_sliced_mask.npy")
+    with np.load(RESOURCES_SLICER / "simple_height_array_sliced_mask.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
 def sample1_spm_sliced_mask() -> npt.NDArray[np.float64]:
     """Sample 1 image sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "sample1_spm_sliced_mask.npy")
+    with np.load(RESOURCES_SLICER / "sample1_spm_sliced_mask.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
 def sample2_spm_sliced_mask() -> npt.NDArray[np.float64]:
     """Sample 2 image sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "sample2_spm_sliced_mask.npy")
+    with np.load(RESOURCES_SLICER / "sample2_spm_sliced_mask.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
