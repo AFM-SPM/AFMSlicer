@@ -5,7 +5,13 @@ ci:
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit-autoupdate"
   skip: [pylint, pytest] # Optionally list ids of hooks to skip on CI
 
-exclude: ^.cruft.json|.copier-answers.yml$
+exclude: |
+  \.ambr$|
+  \.spm$|
+  ^.cruft.json$|
+  ^.copier-answers.yml$|
+  ^tests/resources/.*$|
+  __snapshots__/.*$
 
 repos:
   - repo: https://github.com/adamchainz/blacken-docs
@@ -27,11 +33,7 @@ repos:
       - id: debug-statements
       - id: end-of-file-fixer
         types: [python, yaml, markdown]
-        exclude: |
-          (?x)^(
-              tests/resources/spm/*.spm|
-              tests/__snapshots__/test_slicer.ambr
-          )$
+        exclude: ^(tests/resources|tests/__snapshots__)/.*$
       - id: mixed-line-ending
       - id: name-tests-test
         args: ["--pytest-test-first"]

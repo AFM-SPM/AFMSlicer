@@ -13,7 +13,7 @@ import yaml
 from topostats.filters import Filters
 from topostats.io import LoadScans
 
-from afmslicer.classes import AFMSlicer
+from afmslicer.classes import AFMSlicer  # type: ignore[import-not-found]
 
 BASE_DIR = Path.cwd()
 RESOURCES = BASE_DIR / "tests" / "resources"
@@ -26,17 +26,17 @@ def fixture_default_config() -> dict[
     str, int | float | str | list[Any] | dict[str, int | float | str | list[Any]]
 ]:
     """Sample configuration"""
-    default_config_file: bytes = get_data(
+    default_config_file: bytes | None = get_data(
         package="afmslicer", resource="default_config.yaml"
     )
-    config = yaml.safe_load(default_config_file.decode("utf-8"))
+    config = yaml.safe_load(default_config_file.decode("utf-8"))  # type: ignore[union-attr]
     # Modify parameters for all tests here
     config["filter"]["remove_scars"]["run"] = True
     return config  # type: ignore[no-any-return]
 
 
-@pytest.fixture(name="simple_height_array")
-def fixture_simple_height_array() -> npt.NDArray[np.int32]:
+@pytest.fixture(name="pyramid_array")
+def fixture_pyramid_array() -> npt.NDArray[np.int32]:
     """Simple pyramidal two-dimensional numpy array."""
     return np.asarray(
         [
@@ -57,262 +57,14 @@ def fixture_simple_height_array() -> npt.NDArray[np.int32]:
 
 
 @pytest.fixture
-def simple_height_array_sliced() -> npt.NDArray[np.float64]:
+def pyramid_array_sliced() -> npt.NDArray[np.float64]:
     """Simple pyramidal two-dimensional numpy array sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "simple_height_array_sliced.npz") as data:
+    with np.load(RESOURCES_SLICER / "pyramid_array_sliced.npz") as data:
         return data["arr_0"]
 
 
 @pytest.fixture
-def sample1_spm_sliced() -> npt.NDArray[np.float64]:
-    """Sample 1 image sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "sample1_spm_sliced.npz") as data:
-        return data["arr_0"]
-
-
-@pytest.fixture
-def sample2_spm_sliced() -> npt.NDArray[np.float64]:
-    """Sample 2 image sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "sample2_spm_sliced.npz") as data:
-        return data["arr_0"]
-
-
-@pytest.fixture
-def simple_height_array_mask_stacked_2() -> npt.NDArray[np.bool]:
-    """Simple pyramidal two-dimensional numpy array stacked 2 times and masked for thinner layer."""
-    return np.asarray(
-        [
-            [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 1],
-                [1, 1],
-                [1, 1],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 1],
-                [1, 1],
-                [1, 1],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 1],
-                [1, 1],
-                [1, 1],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [1, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-            ],
-            [
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-                [0, 0],
-            ],
-        ]
-    )
-
-
-@pytest.fixture
-def simple_height_array_sliced_mask() -> npt.NDArray[np.float64]:
-    """Simple pyramidal two-dimensional numpy array sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "simple_height_array_sliced_mask.npz") as data:
-        return data["arr_0"]
-
-
-@pytest.fixture
-def sample1_spm_sliced_mask() -> npt.NDArray[np.float64]:
-    """Sample 1 image sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "sample1_spm_sliced_mask.npz") as data:
-        return data["arr_0"]
-
-
-@pytest.fixture
-def sample2_spm_sliced_mask() -> npt.NDArray[np.float64]:
-    """Sample 2 image sliced 5 times."""
-    with np.load(RESOURCES_SLICER / "sample2_spm_sliced_mask.npz") as data:
-        return data["arr_0"]
-
-
-@pytest.fixture
-def simple_height_array_sliced_mask_segment() -> npt.NDArray[np.float64]:
-    """Simple pyramidal two-dimensional numpy array sliced 5 times."""
-    return np.load(RESOURCES_SLICER / "simple_height_array_sliced_mask_segment.npy")
-
-
-@pytest.fixture
-def layered_height_array_5(
-    simple_height_array: npt.NDArray[np.int32],
-) -> npt.NDArray[np.int32]:
-    """Repeated layers (n = 5) of the ``simple_height_array``."""
-    array = simple_height_array.copy()
-    return np.repeat(array[:, :, np.newaxis], 5, axis=2)
-
-
-@pytest.fixture
-def layered_height_array_2(
-    simple_height_array: npt.NDArray[np.int32],
-) -> npt.NDArray[np.int32]:
-    """Repeated layers (n = 2) of the ``simple_height_array``."""
-    array = simple_height_array.copy()
-    return np.repeat(array[:, :, np.newaxis], 2, axis=2)
-
-
-@pytest.fixture
-def afmslicer_basic(simple_height_array: npt.NDArray[np.int32]) -> AFMSlicer:
-    """
-    A simple AFMSlicer object with just the heights and metadata.
-
-    On instantiation the image should be sliced by the ``__post_init__()`` method using parameters derived from the data
-    itself.
-    """
-    return AFMSlicer(
-        image=simple_height_array,
-        filename="simple_afmslice",
-        img_path="tmp",
-        pixel_to_nm_scaling=1.0,
-        slices=5,
-        segment_method="label",
-    )
-
-
-@pytest.fixture
-def afmslicer_with_attributes(simple_height_array: npt.NDArray[np.int32]) -> AFMSlicer:
-    """
-    An AFMSlicer object with heights and user specified min, max, layers and metadata.
-
-    On instantiation the image should be sliced by the ``__post_init__()`` method using the supplied parameters.
-    """
-    return AFMSlicer(
-        image=simple_height_array,
-        filename="simple_afmslice_with_attr",
-        img_path="tmp",
-        pixel_to_nm_scaling=0.5,
-        slices=2,
-        min_height=1.0,
-        max_height=4.0,
-        segment_method="label",
-    )
-
-
-@pytest.fixture
-def sliced_segment_label_5() -> npt.NDArray[np.int32]:
+def pyramid_segment_label_5() -> npt.NDArray[np.int32]:
     """A 5-layer sliced image with each layer segmented."""
     return np.array(
         [
@@ -465,9 +217,9 @@ def sliced_segment_label_5() -> npt.NDArray[np.int32]:
 
 
 @pytest.fixture
-def sliced_segment_label_2() -> npt.NDArray[np.int32]:
-    """A 2-layer sliced image with each layer segmented."""
-    return np.array(
+def pyramid_array_mask_2() -> npt.NDArray[np.bool]:
+    """Simple pyramidal two-dimensional numpy array stacked 2 times and masked for thinner layer."""
+    return np.asarray(
         [
             [
                 [0, 0],
@@ -612,9 +364,270 @@ def sliced_segment_label_2() -> npt.NDArray[np.int32]:
                 [0, 0],
                 [0, 0],
             ],
+        ]
+    )
+
+
+@pytest.fixture
+def pyramid_array_mask_stacked_2() -> npt.NDArray[np.bool]:
+    """Simple pyramidal two-dimensional numpy array stacked 2 times and masked for thinner layer."""
+    return np.asarray(
+        [
+            [
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 1],
+                [1, 1],
+                [1, 1],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 1],
+                [1, 1],
+                [1, 1],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 1],
+                [1, 1],
+                [1, 1],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [1, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+            ],
+            [
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+            ],
+        ]
+    )
+
+
+@pytest.fixture
+def pyramid_array_sliced_mask() -> npt.NDArray[np.float64]:
+    """Simple pyramidal two-dimensional numpy array sliced 5 times."""
+    with np.load(RESOURCES_SLICER / "pyramid_array_sliced_mask.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def pyramid_array_sliced_mask_segment() -> npt.NDArray[np.float64]:
+    """Simple pyramidal two-dimensional numpy array sliced 5 times."""
+    with np.load(RESOURCES_SLICER / "pyramid_array_sliced_mask_segment.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def pyramid_height_array_5(
+    pyramid_array: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Repeated layers (n = 5) of the ``pyramid_array``."""
+    array = pyramid_array.copy()
+    return np.repeat(array[:, :, np.newaxis], 5, axis=2)
+
+
+@pytest.fixture
+def pyramid_height_array_2(
+    pyramid_array: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Repeated layers (n = 2) of the ``pyramid_array``."""
+    array = pyramid_array.copy()
+    return np.repeat(array[:, :, np.newaxis], 2, axis=2)
+
+
+@pytest.fixture
+def afmslicer_basic(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer:
+    """
+    A simple AFMSlicer object with just the heights and metadata.
+
+    On instantiation the image should be sliced by the ``__post_init__()`` method using parameters derived from the data
+    itself.
+    """
+    return AFMSlicer(
+        image=pyramid_array,
+        filename="simple_afmslice",
+        img_path="tmp",
+        pixel_to_nm_scaling=1.0,
+        slices=5,
+        segment_method="label",
+    )
+
+
+@pytest.fixture
+def afmslicer_with_attributes(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer:
+    """
+    An AFMSlicer object with heights and user specified min, max, layers and metadata.
+
+    On instantiation the image should be sliced by the ``__post_init__()`` method using the supplied parameters.
+    """
+    return AFMSlicer(
+        image=pyramid_array,
+        filename="simple_afmslice_with_attr",
+        img_path="tmp",
+        pixel_to_nm_scaling=0.5,
+        slices=2,
+        min_height=1.0,
+        max_height=4.0,
+        segment_method="label",
+    )
+
+
+# Square of 5x5x5
+# Volume : 125
+# Centroid : (3, 3, 3)
+@pytest.fixture(name="square_array")
+def fixture_square_array() -> npt.NDArray[np.int32]:
+    """Simple square two-dimensional numpy array."""
+    return np.asarray(
+        [
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 5, 5, 5, 5, 5, 0],
+            [0, 5, 5, 5, 5, 5, 0],
+            [0, 5, 5, 5, 5, 5, 0],
+            [0, 5, 5, 5, 5, 5, 0],
+            [0, 5, 5, 5, 5, 5, 0],
+            [0, 0, 0, 0, 0, 0, 0],
         ],
         dtype=np.int32,
     )
+
+
+@pytest.fixture
+def square_array_sliced() -> npt.NDArray[np.float64]:
+    """Simple square two-dimensional numpy array sliced 5 times."""
+    with np.load(RESOURCES_SLICER / "square_array_sliced.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def square_array_sliced_mask() -> npt.NDArray[np.float64]:
+    """Simple squareal two-dimensional numpy array sliced 5 times."""
+    with np.load(RESOURCES_SLICER / "square_array_sliced_mask.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def square_array_sliced_mask_segment() -> npt.NDArray[np.float64]:
+    """Simple squareal two-dimensional numpy array sliced 5 times."""
+    with np.load(RESOURCES_SLICER / "square_array_sliced_mask_segment.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture(name="basic_three_segments")
@@ -784,21 +797,31 @@ def fixture_afmslicer_sample1(sample1_spm) -> AFMSlicer:
 
 
 @pytest.fixture
-def afmslicer_sample1_sliced() -> npt.NDArray[np.float64]:
+def sample1_scaling(sample1_spm) -> float:
+    """Scaling (aka pixel_to_nm_scaling) for Sample 1."""
+    _, scaling = sample1_spm
+    return scaling  # type: ignore[no-any-return]
+
+
+@pytest.fixture
+def sample1_spm_sliced() -> npt.NDArray[np.float64]:
     """Expected sliced array for sample1."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced.npy")
+    with np.load(RESOURCES_SLICER / "sample1_spm_sliced.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
-def afmslicer_sample1_sliced_mask() -> npt.NDArray[np.float64]:
+def sample1_spm_sliced_mask() -> npt.NDArray[np.float64]:
     """Expected sliced array after masking for sample1."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced_mask.npy")
+    with np.load(RESOURCES_SLICER / "sample1_spm_sliced_mask.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
-def afmslicer_sample1_sliced_segments() -> npt.NDArray[np.float64]:
+def sample1_spm_sliced_segment() -> npt.NDArray[np.float64]:
     """Expected sliced segments array for sample1."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced_segments.npy")
+    with np.load(RESOURCES_SLICER / "sample1_spm_sliced_mask_segment.npz") as data:
+        return data["arr_0"]
 
 
 # Fixtures for testing the instantiation of AFMSlicer with sample2.spm
@@ -817,18 +840,71 @@ def fixture_afmslicer_sample2(sample2_spm) -> AFMSlicer:
 
 
 @pytest.fixture
-def afmslicer_sample2_sliced() -> npt.NDArray[np.float64]:
+def sample2_scaling(sample2_spm) -> float:
+    """Scaling (aka pixel_to_nm_scaling) for Sample 2."""
+    _, scaling = sample2_spm
+    return scaling  # type: ignore[no-any-return]
+
+
+@pytest.fixture
+def sample2_spm_sliced() -> npt.NDArray[np.float64]:
     """Expected sliced array for sample2."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced.npy")
+    with np.load(RESOURCES_SLICER / "sample2_spm_sliced.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
-def afmslicer_sample2_sliced_mask() -> npt.NDArray[np.float64]:
+def sample2_spm_sliced_mask() -> npt.NDArray[np.float64]:
     """Expected sliced array after masking for sample2."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced_mask.npy")
+    with np.load(RESOURCES_SLICER / "sample2_spm_sliced_mask.npz") as data:
+        return data["arr_0"]
 
 
 @pytest.fixture
-def afmslicer_sample2_sliced_segments() -> npt.NDArray[np.float64]:
+def sample2_spm_sliced_segment() -> npt.NDArray[np.float64]:
     """Expected sliced segments array for sample2."""
-    return np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced_segments.npy")
+    with np.load(RESOURCES_SLICER / "sample2_spm_sliced_mask_segment.npz") as data:
+        return data["arr_0"]
+
+
+# Fixtures for test_classes.py
+@pytest.fixture
+def afmslicer_sample1_sliced() -> npt.NDArray[np.float64]:
+    """Sample 1 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample1_sliced_mask() -> npt.NDArray[np.int32]:
+    """Sample 1 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced_mask.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample1_sliced_segment() -> npt.NDArray[np.float64]:
+    """Sample 1 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample1_sliced_segment.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample2_sliced() -> npt.NDArray[np.float64]:
+    """Sample 2 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample2_sliced_mask() -> npt.NDArray[np.int32]:
+    """Sample 2 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced_mask.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample2_sliced_segment() -> npt.NDArray[np.float64]:
+    """Sample 2 sliced."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample2_sliced_segment.npz") as data:
+        return data["arr_0"]
