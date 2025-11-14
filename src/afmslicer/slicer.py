@@ -8,7 +8,7 @@ from typing import Any
 
 import numpy as np
 import numpy.typing as npt
-from skimage.measure import label  # pylint: disable=no-name-in-module
+from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
 from skimage.segmentation import clear_border, watershed
 
 
@@ -226,7 +226,7 @@ def _label(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
 
 def segment_slices(
     array: npt.NDArray[np.bool], method: str | None = "label", tidy_border: bool = False
-) -> npt.NDArray[np.int32]:
+) -> npt.NDArray[np.bool]:
     """
     Segment individual layers of a three-dimensional numpy array.
 
@@ -241,9 +241,28 @@ def segment_slices(
 
     Returns
     -------
-    npt.NDArray[np.int32]
+    npt.NDArray[np.bool]
         Three-dimensional array of labelled layers.
     """
     for layer in np.arange(array.shape[2]):
         array[:, :, layer] = segment(array[:, :, layer], method, tidy_border)
     return array
+
+
+def calculate_region(array: npt.NDArray[np.int32], spacing: float) -> Any:
+    """
+    Calculate the region properties on an segmented array.
+
+    Parameters
+    ----------
+    array : npt.NDArray
+        Array of labelled regions.
+    spacing : float
+        Pixel to nm scaling.
+
+    Returns
+    -------
+    list[RegionProperties]
+        A list of ``RegionProperties``.
+    """
+    return regionprops(array.astype(np.int32), spacing=spacing)
