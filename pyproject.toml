@@ -14,7 +14,7 @@ description = "Package for slicing AFM images."
 readme = "README.md"
 license = "GPL-3.0-or-later"
 license-files = ["COPYING.md"]
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.12"  # Match restrictions in place on TopoStats
 classifiers = [
   "Development Status :: 1 - Planning",
   "Intended Audience :: Science/Research",
@@ -32,7 +32,7 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
-  "afmreader @ git+https://github.com/AFM-SPM/AFMReader@main",
+  "afmreader",
   "art",
   "topostats @ git+https://github.com/AFM-SPM/TopoStats@ns-rse/1102-switching-to-TopoStats-class",
   "loguru",
@@ -52,8 +52,8 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 tests = [
   "pytest",
   "pytest-cov",
+  "pytest-xdist",
   "syrupy",
-  "yaml",
 ]
 dev = [
   "afmslicer[tests]",
