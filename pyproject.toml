@@ -14,7 +14,7 @@ description = "Package for slicing AFM images."
 readme = "README.md"
 license = "GPL-3.0-or-later"
 license-files = ["COPYING.md"]
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.12"  # Match restrictions in place on TopoStats
 classifiers = [
   "Development Status :: 1 - Planning",
   "Intended Audience :: Science/Research",

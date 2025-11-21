@@ -179,7 +179,7 @@ def _get_segments(
     raise ValueError()
 
 
-def _watershed(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
+def _watershed(array: npt.NDArray[np.int32], **kwargs) -> npt.NDArray[np.int32]:
     """
     Segment array using ``watershed`` method.
 
@@ -189,7 +189,7 @@ def _watershed(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
 
     Parameters
     ----------
-    array : npt.NDArray[np.bool]
+    array : npt.NDArray[np.int32]
         Boolean array.
     **kwargs : dict[str, Any], optional
         Additional arguments to pass to ``watershed``.
@@ -199,10 +199,10 @@ def _watershed(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
     npt.NDArray[np.int32]
         Labelled image.
     """
-    return watershed(array, **kwargs)
+    return watershed(array, **kwargs).astype(np.int32)
 
 
-def _label(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
+def _label(array: npt.NDArray[np.int32], **kwargs) -> npt.NDArray[np.int32]:
     """
     Segment array using ``label`` method.
 
@@ -211,7 +211,7 @@ def _label(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
 
     Parameters
     ----------
-    array : npt.NDArray[np.bool]
+    array : npt.NDArray[np.int32]
         Boolean array.
     **kwargs : dict[str, Any], optional
         Additional arguments to pass to ``label``.
@@ -221,7 +221,7 @@ def _label(array: npt.NDArray[np.bool], **kwargs) -> npt.NDArray[np.int32]:
     npt.NDArray[np.int32]
         Labelled image.
     """
-    return label(array, **kwargs)
+    return label(array, **kwargs).astype(np.int32)
 
 
 def segment_slices(
@@ -249,9 +249,14 @@ def segment_slices(
     return array
 
 
-def calculate_region(array: npt.NDArray[np.int32], spacing: float) -> Any:
+def calculate_region_properties(array: npt.NDArray[np.int32], spacing: float) -> Any:
     """
-    Calculate the region properties on an segmented array.
+    Calculate the region properties on a segmented array.
+
+    The arrays can be either individual slices from a three-dimensional image or the full three-dimensional array
+    itself. If the later then the resulting attribute ``area`` will be a "volume". By including the ``spacing``
+    argument, which should be the ``pixel_to_nm_scaling`` attribute of the ``AFMSlicer`` object the area/volume is
+    in the actual units measured rather than pixels.
 
     Parameters
     ----------
@@ -265,4 +270,31 @@ def calculate_region(array: npt.NDArray[np.int32], spacing: float) -> Any:
     list[RegionProperties]
         A list of ``RegionProperties``.
     """
-    return regionprops(array.astype(np.int32), spacing=spacing)
+    return regionprops(array.astype(np.int8), spacing=spacing)
+
+
+def region_properties_by_slices(
+    array: npt.NDArray[np.int32], spacing: float
+) -> list[Any]:
+    """
+    Calculate region properties for each layer in a three-dimensinoal sliced array.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.int32]
+        Three-dimensional sliced and labelled array.
+    spacing : float
+        Pixel to nanometer scaling.
+
+    Returns
+    -------
+    dict[int, Any]
+        Dictionary of ``regionprops`` calculated using skimage.
+    """
+
+    slice_properties = []
+    for layer in range(array.shape[2]):
+        slice_properties.append(
+            regionprops(array[:, :, layer].astype(np.int32), spacing=spacing)
+        )
+    return slice_properties
