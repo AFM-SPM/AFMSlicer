@@ -20,6 +20,9 @@ RESOURCES = BASE_DIR / "tests" / "resources"
 RESOURCES_SLICER = RESOURCES / "slicer"
 RESOURCES_SPM = RESOURCES / "spm"
 
+
+RNG = np.random.default_rng(seed=65011934213)
+
 # pylint: disable=too-many-lines
 
 
@@ -625,14 +628,14 @@ def square_array_sliced() -> npt.NDArray[np.float64]:
 
 
 @pytest.fixture
-def square_array_sliced_mask() -> npt.NDArray[np.float64]:
+def square_array_sliced_mask() -> npt.NDArray[np.int32]:
     """Simple squareal two-dimensional numpy array sliced 5 times."""
     with np.load(RESOURCES_SLICER / "square_array_sliced_mask.npz") as data:
         return data["arr_0"]
 
 
 @pytest.fixture
-def square_array_sliced_mask_segment() -> npt.NDArray[np.float64]:
+def square_array_sliced_mask_segment() -> npt.NDArray[np.int32]:
     """Simple squareal two-dimensional numpy array sliced 5 times."""
     with np.load(RESOURCES_SLICER / "square_array_sliced_mask_segment.npz") as data:
         return data["arr_0"]
