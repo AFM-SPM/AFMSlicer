@@ -63,7 +63,7 @@ def test_slicer(
         heights, _ = request.getfixturevalue(height_fixture)
     sliced = slicer.slicer(heights=heights, slices=slices)
     assert sliced.shape == shape
-    np.savez_compressed(RESOURCES_SLICER / f"{height_fixture}_sliced.npz", sliced)
+    # np.savez_compressed(RESOURCES_SLICER / f"{height_fixture}_sliced.npz", sliced)
     # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
     #         https://github.com/syrupy-project/syrupy/issues/887
     assert np.array2string(sliced) == snapshot
@@ -123,7 +123,7 @@ def test_mask_slices(
         min_height=min_height,
         max_height=max_height,
     )
-    np.savez_compressed(RESOURCES_SLICER / f"{sliced_fixture}_mask.npz", masked_slices)
+    # np.savez_compressed(RESOURCES_SLICER / f"{sliced_fixture}_mask.npz", masked_slices)
     # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
     #         https://github.com/syrupy-project/syrupy/issues/887
     assert np.array2string(masked_slices) == snapshot
@@ -234,9 +234,9 @@ def test_segment_slices(
     """Test slicer.segment_slices()."""
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
     sliced_mask_segment = slicer.segment_slices(sliced_mask, method)
-    np.savez_compressed(
-        RESOURCES_SLICER / f"{sliced_mask_fixture}_segment.npz", sliced_mask_segment
-    )
+    # np.savez_compressed(
+    #     RESOURCES_SLICER / f"{sliced_mask_fixture}_segment.npz", sliced_mask_segment
+    # )
     # ns-rse: syrupy doesn't yet support numpy arrays so we convert to string
     #         https://github.com/syrupy-project/syrupy/issues/887
     assert np.array2string(sliced_mask_segment) == snapshot
@@ -278,7 +278,7 @@ def test_segment_slices(
             "sample2_scaling",
             84,
             id="sample2",
-            marks=pytest.mark.skip(reason="development"),
+            # marks=pytest.mark.skip(reason="development"),
         ),
     ],
 )

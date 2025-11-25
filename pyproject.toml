@@ -52,6 +52,7 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 tests = [
   "pytest",
   "pytest-cov",
+  "pytest-mpl",
   "pytest-xdist",
   "syrupy",
 ]
@@ -82,8 +83,8 @@ write_to = "src/afmslicer/_version.py"
 
 
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+minversion = "8.0"
+addopts = ["-ra", "--mpl", "--cov", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
 filterwarnings = [
   "error",
@@ -116,10 +117,13 @@ disallow_incomplete_defs = false
 [[tool.mypy.overrides]]
 module = [
   # "afmslicer.*",
+  "loguru.*",
+  "matplotlib.*",
   "numpy.*",
   "pydantic.*",
   "pydantic_numpy.*",
   "topostats.*",
+  "schema.*",
   "skimage.*",
   "snoop.*",
   "yaml.*",
