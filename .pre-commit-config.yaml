@@ -35,6 +35,8 @@ repos:
         types: [python, yaml, markdown]
         exclude: ^(tests/resources|tests/__snapshots__)/.*$
       - id: mixed-line-ending
+        types: [python, yaml, markdown]
+        exclude: ^(tests/resources|tests/__snapshots__)/.*$
       - id: name-tests-test
         args: ["--pytest-test-first"]
       - id: no-commit-to-branch
