@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
 import pytest
@@ -15,6 +16,7 @@ RESOURCES = BASE_DIR / "tests" / "resources"
 RESOURCES_SLICER = RESOURCES / "slicer"
 
 
+@pytest.mark.mpl_image_compare(baseline_dir="img/classes/")
 @pytest.mark.parametrize(
     (
         "fixture",
@@ -66,9 +68,6 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             -312.40853721614576,
             551.5217325223152,
             np.asarray([-312.408537, -96.42597, 119.556598, 335.539165, 551.521733]),
-            # "sample1_spm_sliced",
-            # "sample1_spm_sliced_mask",
-            # "sample1_spm_sliced_segment",
             "afmslicer_sample1_sliced",
             "afmslicer_sample1_sliced_mask",
             "afmslicer_sample1_sliced_segment",
@@ -85,9 +84,6 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             np.asarray(
                 [-296.85146, -260.793886, -224.736313, -188.678739, -152.621166]
             ),
-            # "sample2_spm_sliced",
-            # "sample2_spm_sliced_mask",
-            # "sample2_spm_sliced_segment",
             "afmslicer_sample2_sliced",
             "afmslicer_sample2_sliced_mask",
             "afmslicer_sample2_sliced_segment",
@@ -109,33 +105,18 @@ def test_AFMSlicer(
     sliced_segments_fixture: str,
     pixel_to_nm_scaling: float,
     request,
-) -> None:
+) -> plt.Figure:
     """Test for creating ``AFMSlicer`` object."""
     sliced_array = request.getfixturevalue(sliced_array_fixture)
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
     sliced_segments = request.getfixturevalue(sliced_segments_fixture)
     afmslicer_object = request.getfixturevalue(fixture)
-    print(f"\n{afmslicer_object=}\n")
     assert afmslicer_object.filename == filename
     assert afmslicer_object.img_path == img_path
     assert afmslicer_object.slices == slices
     assert afmslicer_object.min_height == min_height
     assert afmslicer_object.max_height == max_height
     np.testing.assert_array_almost_equal(afmslicer_object.layers, layers)
-    # if fixture in ("afmslicer_sample1", "afmslicer_sample2"):
-    #     print(f"\nSAVING FILES!!!!\n")
-    #     np.savez_compressed(
-    #         RESOURCES_SLICER / f"{fixture}_sliced.npz",
-    #         afmslicer_object.sliced_array,
-    #     )
-    #     np.savez_compressed(
-    #         RESOURCES_SLICER / f"{fixture}_sliced_mask.npz",
-    #         afmslicer_object.sliced_mask,
-    #     )
-    #     np.savez_compressed(
-    #         RESOURCES_SLICER / f"{fixture}_sliced_segment.npz",
-    #         afmslicer_object.sliced_segments,
-    #     )
     assert afmslicer_object.sliced_array.shape == sliced_array.shape
     np.testing.assert_array_equal(afmslicer_object.sliced_array, sliced_array)
     assert afmslicer_object.sliced_mask.shape == sliced_mask.shape
@@ -143,3 +124,10 @@ def test_AFMSlicer(
     assert afmslicer_object.pixel_to_nm_scaling == pixel_to_nm_scaling
     assert afmslicer_object.sliced_segments.shape == sliced_segments.shape
     np.testing.assert_array_equal(afmslicer_object.sliced_segments, sliced_segments)
+    assert isinstance(afmslicer_object.fig_objects_per_layer, tuple)
+    assert isinstance(afmslicer_object.fig_objects_per_layer[0], plt.Figure)
+    assert isinstance(afmslicer_object.fig_objects_per_layer[1], plt.Axes)
+    assert isinstance(afmslicer_object.fig_log_objects_per_layer, tuple)
+    assert isinstance(afmslicer_object.fig_log_objects_per_layer[0], plt.Figure)
+    assert isinstance(afmslicer_object.fig_log_objects_per_layer[1], plt.Axes)
+    return afmslicer_object.fig_objects_per_layer[0]

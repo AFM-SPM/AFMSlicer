@@ -564,7 +564,9 @@ def pyramid_array_volume() -> npt.NDArray[np.float64]:
 
 
 @pytest.fixture
-def afmslicer_basic(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer:
+def afmslicer_basic(
+    pyramid_array: npt.NDArray[np.int32], default_config: dict[str, Any]
+) -> AFMSlicer:
     """
     A simple AFMSlicer object with just the heights and metadata.
 
@@ -578,11 +580,14 @@ def afmslicer_basic(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer:
         pixel_to_nm_scaling=1.0,
         slices=5,
         segment_method="label",
+        config=default_config,
     )
 
 
 @pytest.fixture
-def afmslicer_with_attributes(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer:
+def afmslicer_with_attributes(
+    pyramid_array: npt.NDArray[np.int32], default_config: dict[str, Any]
+) -> AFMSlicer:
     """
     An AFMSlicer object with heights and user specified min, max, layers and metadata.
 
@@ -597,6 +602,7 @@ def afmslicer_with_attributes(pyramid_array: npt.NDArray[np.int32]) -> AFMSlicer
         min_height=1.0,
         max_height=4.0,
         segment_method="label",
+        config=default_config,
     )
 
 
@@ -777,7 +783,7 @@ def fixture_sample1_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, fl
 
 
 @pytest.fixture(name="afmslicer_sample1")
-def fixture_afmslicer_sample1(sample1_spm) -> AFMSlicer:
+def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample1.spm."""
     height, pixel_to_nm_scaling = sample1_spm
     return AFMSlicer(
@@ -787,6 +793,7 @@ def fixture_afmslicer_sample1(sample1_spm) -> AFMSlicer:
         pixel_to_nm_scaling=pixel_to_nm_scaling,
         slices=5,
         segment_method="label",
+        config=default_config,
     )
 
 
@@ -844,7 +851,7 @@ def fixture_sample2_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, fl
 
 
 @pytest.fixture(name="afmslicer_sample2")
-def fixture_afmslicer_sample2(sample2_spm) -> AFMSlicer:
+def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample2.spm."""
     height, pixel_to_nm_scaling = sample2_spm
     return AFMSlicer(
@@ -854,6 +861,7 @@ def fixture_afmslicer_sample2(sample2_spm) -> AFMSlicer:
         pixel_to_nm_scaling=pixel_to_nm_scaling,
         slices=5,
         segment_method="label",
+        config=default_config,
     )
 
 

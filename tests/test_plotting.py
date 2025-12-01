@@ -9,7 +9,7 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from afmslicer import plotting
+from afmslicer import plotting, slicer, statistics
 
 # pylint: disable=too-many-positional-arguments
 
@@ -287,4 +287,81 @@ def test_plot_all_layers(
     assert isinstance(plots, dict)
     assert len(plots) == array.shape[2]
     fig, _ = plots[layer]
+    return fig
+
+
+@pytest.mark.mpl_image_compare(baseline_dir="img/plot_pores_by_layer/")
+@pytest.mark.parametrize(
+    (
+        "sliced_labels_fixture",
+        "scaling_fixture",
+        "img_name",
+        "format",
+        "objects_per_layer",
+    ),
+    [
+        pytest.param(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, "basic", "png", None, id="basic"
+        ),
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            "pyramid",
+            ".png",
+            [1, 1, 1, 1, 1],
+            id="pyramid heights",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "sample1_spm_sliced_segment",
+            1,
+            "sample1",
+            ".png",
+            [1, 43, 31, 63, 1],
+            id="sample1",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "sample2_spm_sliced_segment",
+            1,
+            "sample2",
+            ".png",
+            [1, 76, 84, 56, 1],
+            id="sample2",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+    ],
+)
+def test_plot_pores_by_layer(
+    sliced_labels_fixture: str | list[int],
+    scaling_fixture: int | str,
+    img_name: str,
+    format: str,  # pylint: disable=redefined-builtin
+    objects_per_layer: list[int] | None,
+    tmp_path: Path,
+    request,
+) -> plt.Figure:
+    """Test for ``plot_layer()``."""
+    if objects_per_layer is not None:
+        labelled_array = request.getfixturevalue(sliced_labels_fixture)
+        spacing = (
+            request.getfixturevalue(scaling_fixture)
+            if isinstance(scaling_fixture, str)
+            else scaling_fixture
+        )
+        sliced_region_properties = slicer.region_properties_by_slices(
+            labelled_array, spacing
+        )
+        pores_per_layer = statistics.count_pores(
+            sliced_region_properties=sliced_region_properties
+        )
+        assert pores_per_layer == objects_per_layer
+    else:
+        pores_per_layer = sliced_labels_fixture  # type: ignore[assignment]
+    fig, _ = plotting.plot_pores_by_layer(
+        pores_per_layer=pores_per_layer,
+        outdir=tmp_path,
+        img_name=img_name,
+        format=format,
+    )
     return fig

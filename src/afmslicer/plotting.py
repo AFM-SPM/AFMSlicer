@@ -6,6 +6,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.typing as mpt
+import numpy as np
 import numpy.typing as npt
 
 # import numpy as np
@@ -112,3 +113,55 @@ def plot_all_layers(
             array[:, :, layer], img_name, layer, outdir, format, cmap
         )
     return plots
+
+
+def plot_pores_by_layer(
+    pores_per_layer: list[int],
+    img_name: str | None = None,
+    outdir: str | Path | None = None,
+    format: str | None = None,  # pylint: disable=redefined-builtin
+    log: bool | None = False,
+) -> tuple[plt.Figure, plt.Axes]:
+    """
+    Plot the layer v number of pores within it.
+
+    Parameters
+    ----------
+    pores_per_layer : list[int]
+        A list of the number of pores in each layer.
+    img_name : str, optional
+        Image name.
+    outdir : str | Path, optional
+        Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
+    format : str, optional
+        Output file format as a string, defaults to ``png`` if not specified.
+    log : bool
+        Whether to plot with the logarithm (base10) of the number of pores.
+
+    Returns
+    -------
+    tuple[plt.Figure, plt.Axes]
+        Returns a tuple of Matplotlib ``fig`` and ``ax``.
+    """
+    format = "png" if format is None else format.replace(".", "")
+    if log:
+        pores_per_layer = np.log10(pores_per_layer)
+        ylabel = "log(n)"
+        outfile = f"{img_name}_pores_per_layer_log.{format}"
+    else:
+        ylabel = "n"
+        outfile = f"{img_name}_pores_per_layer.{format}"
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(pores_per_layer)
+    ax.set_title("Pores per layer")
+    ax.set_xlabel("Layer")
+    ax.set_ylabel(ylabel)
+    if outdir is not None:
+        assert img_name is not None, (
+            "If saving output you must supply an `img_name` parameter."
+        )
+        outdir = outdir if isinstance(outdir, Path) else Path(outdir)
+        outdir.mkdir(parents=True, exist_ok=True)
+        plt.savefig(fname=outdir / outfile, format=format)
+        logger.info(f"Image saved to : {outdir!s}/{outfile}")
+    return (fig, ax)
