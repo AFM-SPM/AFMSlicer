@@ -26,11 +26,11 @@ authors:
 repository-code: 'https://github.com/AFM-SPM/AFMSlicer'
 url: 'https://afm-spm.github.io/AFMSlicer'
 abstract: >-
-  AFMSlicer is a TopoStats module for analysing images of
+  AFMSlicer is a package module for analysing images of
   bacterial cell walls.
 keywords:
   - imaging
   - python
-  - topostats
+  - afmslicer
   - atomic force microscopy
 license: GPL-3.0
