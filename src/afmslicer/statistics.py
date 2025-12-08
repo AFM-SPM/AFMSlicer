@@ -42,7 +42,9 @@ def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
     return [[props.area for props in layer] for layer in sliced_region_properties]
 
 
-def centroid_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
+def centroid_pores(
+    sliced_region_properties: list[list[Any]],
+) -> list[list[tuple[float, float]]]:
     """
     Extract centroid of objects in each layer.
 

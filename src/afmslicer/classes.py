@@ -49,10 +49,20 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Maximum height. Determined from the data if not provided.
     slices : int, optional
         The number of slices taken through the image between the ``min_height`` and ``max_height``.
-    fig_objects_per_layer : tuple[plt.Figure, plt.Axes]
+    fig_objects_per_layer : tuple[plt.Figure, plt.Axes], optional
         Matplotlib figure and axes objects from plotting the layer vs the number of objects.
-    fig_log_objects_per_layer : tuple[plt.Figure, plt.Axes]
+    fig_log_objects_per_layer : tuple[plt.Figure, plt.Axes], optional
         Matplotlib figure and axes objects from plotting the layer vs the log number of objects.
+    fig_area_per_layer : tuple[plt.Figure, plt.Axes], optional
+        Matplotlib figure and axes objects from plotting the layer vs the total area of objects.
+    fig_log_area_per_layer : tuple[plt.Figure, plt.Axes], optional
+        Matplotlib figure and axes objects from plotting the layer vs the log of the total area of objects.
+    area_by_layer : : list[list[float]], optional
+        List of the area of each object within a given layer.
+    centroid_by_layer: list[list[tuple[float, float]]], optional
+        List of the centroid (as a tuple) of each object within a given layer.
+    feret_maximum_by_layer: list[list[float]], optional
+        List of the maximum feret distance of each object within a given layer.
     """
 
     # We may need to set a default_factory see
@@ -70,6 +80,11 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     slices: int | None = None
     fig_objects_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     fig_log_objects_per_layer: tuple[plt.Figure, plt.Axes] | None = None
+    fig_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
+    fig_log_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
+    area_by_layer: list[list[float]] | None = None
+    centroid_by_layer: list[list[tuple[float, float]]] | None = None
+    feret_maximum_by_layer: list[list[float]] | None = None
 
     def __post_init__(self) -> None:
         """
@@ -134,16 +149,32 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         # Optionally calculate additional statistics
         # Areas
         if self.config["slicing"]["area"]:
-            self.sliced_area = statistics.area_pores(
+            self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
+            )
+            # Plot area per layer
+            self.fig_area_per_layer = plotting.plot_area_by_layer(
+                area_per_layer=self.area_by_layer,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["slicing"]["format"],
+                log=False,
+            )
+            # Plot log area per layer
+            self.fig_log_area_per_layer = plotting.plot_area_by_layer(
+                area_per_layer=self.area_by_layer,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["slicing"]["format"],
+                log=True,
             )
         # Centroid
         if self.config["slicing"]["centroid"]:
-            self.sliced_area = statistics.centroid_pores(
+            self.centroid_by_layer = statistics.centroid_pores(
                 sliced_region_properties=self.sliced_region_properties
             )
         # Feret Maximum
         if self.config["slicing"]["feret_maximum"]:
-            self.sliced_area = statistics.feret_diameter_maximum_pores(
+            self.feret_maximum_by_layer = statistics.feret_diameter_maximum_pores(
                 sliced_region_properties=self.sliced_region_properties
             )

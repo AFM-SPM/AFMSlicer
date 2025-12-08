@@ -165,3 +165,56 @@ def plot_pores_by_layer(
         plt.savefig(fname=outdir / outfile, format=format)
         logger.info(f"Image saved to : {outdir!s}/{outfile}")
     return (fig, ax)
+
+
+def plot_area_by_layer(
+    area_per_layer: list[list[float]],
+    img_name: str | None = None,
+    outdir: str | Path | None = None,
+    format: str | None = None,  # pylint: disable=redefined-builtin
+    log: bool | None = False,
+) -> tuple[plt.Figure, plt.Axes]:
+    """
+    Plot the layer v total area of pores within it.
+
+    Parameters
+    ----------
+    area_per_layer : list[list[float]]
+        A list of lists of the area of pores within each layer.
+    img_name : str, optional
+        Image name.
+    outdir : str | Path, optional
+        Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
+    format : str, optional
+        Output file format as a string, defaults to ``png`` if not specified.
+    log : bool
+        Whether to plot with the logarithm (base10) of the number of pores.
+
+    Returns
+    -------
+    tuple[plt.Figure, plt.Axes]
+        Returns a tuple of Matplotlib ``fig`` and ``ax``.
+    """
+    format = "png" if format is None else format.replace(".", "")
+    total_area_per_layer = [sum(layer) for layer in area_per_layer]
+    if log:
+        total_area_per_layer = np.log10(total_area_per_layer)
+        ylabel = "log(Area)"
+        outfile = f"{img_name}_area_per_layer_log.{format}"
+    else:
+        ylabel = "Area"
+        outfile = f"{img_name}_area_per_layer.{format}"
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(total_area_per_layer)
+    ax.set_title("Area per layer")
+    ax.set_xlabel("Layer")
+    ax.set_ylabel(ylabel)
+    if outdir is not None:
+        assert img_name is not None, (
+            "If saving output you must supply an `img_name` parameter."
+        )
+        outdir = outdir if isinstance(outdir, Path) else Path(outdir)
+        outdir.mkdir(parents=True, exist_ok=True)
+        plt.savefig(fname=outdir / outfile, format=format)
+        logger.info(f"Image saved to : {outdir!s}/{outfile}")
+    return (fig, ax)
