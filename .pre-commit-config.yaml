@@ -42,6 +42,8 @@ repos:
       - id: no-commit-to-branch
       - id: requirements-txt-fixer
       - id: trailing-whitespace
+        types: [python, yaml, markdown]
+        exclude: ^(tests/resources|tests/__snapshots__)/.*$
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.10.0"
@@ -116,6 +118,7 @@ repos:
     rev: v1.9.0
     hooks:
       - id: numpydoc-validation
+        exclude: "notebooks/"
 
   - repo: local
     hooks:

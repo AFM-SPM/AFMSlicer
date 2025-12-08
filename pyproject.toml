@@ -36,6 +36,7 @@ dependencies = [
   "art",
   "topostats @ git+https://github.com/AFM-SPM/TopoStats@ns-rse/1102-switching-to-TopoStats-class",
   "loguru",
+  "marimo",
   "pydantic",
   "schema",
   "tqdm",
@@ -170,7 +171,14 @@ isort.required-imports = ["from __future__ import annotations"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]
 "noxfile.py" = ["T20"]
-
+"notebooks/AFMSlicer.py" = [
+  "B018",
+  "F841",
+  "PLC0415",
+  "PLR1711",
+  "T201",
+  "T203",
+]
 
 [tool.pylint]
 py-version = "3.9"
