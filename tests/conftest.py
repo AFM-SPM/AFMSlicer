@@ -10,6 +10,7 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 import yaml
+from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
 from topostats.filters import Filters
 from topostats.io import LoadScans
 
@@ -1101,3 +1102,65 @@ def sample2_volumes() -> npt.NDArray[np.float64]:
         ],
         dtype=np.float64,
     )
+
+
+@pytest.fixture(name="small_artefacts_array")
+def fixture_small_artefacts_array() -> npt.NDArray[np.int32]:
+    """Basic array with small artefacts."""
+    return np.asarray(
+        [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        dtype=np.int32,
+    )
+
+
+@pytest.fixture(name="small_artefacts_labelled")
+def fixture_small_artefacts_labelled(
+    small_artefacts_array: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Basic array with small artefacts labelled using ``skimage.label()``."""
+    return label(small_artefacts_array)
+
+
+@pytest.fixture(name="small_artefacts_region_properties")
+def fixture_small_artefacts_region_properties(
+    small_artefacts_labelled: npt.NDArray[np.int32],
+) -> Any:
+    """Region properties for ``small_artefacts_array``."""
+    return regionprops(small_artefacts_labelled)
+
+
+@pytest.fixture
+def small_artefacts_layered(
+    small_artefacts_labelled: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Three-dimensional array of labelled layers (both are identical)."""
+    return np.stack((small_artefacts_labelled, small_artefacts_labelled), axis=2)
+
+
+@pytest.fixture
+def small_artefacts_layered_region_properties(
+    small_artefacts_region_properties: Any,
+) -> list[Any]:
+    """List of region properties for stacked layers (both are identical)."""
+    return [small_artefacts_region_properties, small_artefacts_region_properties]
