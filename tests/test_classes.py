@@ -29,6 +29,9 @@ RESOURCES_SLICER = RESOURCES / "slicer"
         "sliced_array_fixture",
         "sliced_mask_fixture",
         "sliced_segments_fixture",
+        "sliced_segments_clean_fixture",
+        "sliced_region_properties_fixture",
+        "sliced_clean_region_properties_fixture",
         "pixel_to_nm_scaling",
     ),
     [
@@ -43,6 +46,9 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             "pyramid_height_array_5",
             "pyramid_array_sliced_mask_segment",
             "pyramid_segment_label_5",
+            "pyramid_sliced_segments_clean_5",
+            "pyramid_sliced_region_properties_5",
+            "pyramid_sliced_clean_region_properties_5",
             1.0,
             id="basic",
         ),
@@ -57,6 +63,9 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             "pyramid_height_array_2",
             "pyramid_array_mask_2",
             "pyramid_array_mask_stacked_2",
+            "pyramid_sliced_segments_clean_2",
+            "pyramid_sliced_region_properties_2",
+            "pyramid_sliced_clean_region_properties_2",
             0.5,
             id="basic with min_height=1, max_height=4, layers=2",
         ),
@@ -71,6 +80,9 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             "afmslicer_sample1_sliced",
             "afmslicer_sample1_sliced_mask",
             "afmslicer_sample1_sliced_segment",
+            "afmslicer_sample1_segments_clean",
+            "afmslicer_sample1_region_properties",
+            "afmslicer_sample1_clean_region_properties",
             39.0625,
             id="sample1 layers=5",
         ),
@@ -87,6 +99,9 @@ RESOURCES_SLICER = RESOURCES / "slicer"
             "afmslicer_sample2_sliced",
             "afmslicer_sample2_sliced_mask",
             "afmslicer_sample2_sliced_segment",
+            "afmslicer_sample2_segments_clean",
+            "afmslicer_sample2_region_properties",
+            "afmslicer_sample2_clean_region_properties",
             0.625,
             id="sample2 layers=5",
         ),
@@ -103,6 +118,9 @@ def test_AFMSlicer(
     sliced_array_fixture: str,
     sliced_mask_fixture: str,
     sliced_segments_fixture: str,
+    sliced_segments_clean_fixture: str,
+    sliced_region_properties_fixture: str,
+    sliced_clean_region_properties_fixture: str,
     pixel_to_nm_scaling: float,
     request,
 ) -> plt.Figure:
@@ -111,11 +129,18 @@ def test_AFMSlicer(
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
     sliced_segments = request.getfixturevalue(sliced_segments_fixture)
     afmslicer_object = request.getfixturevalue(fixture)
+    sliced_segments_clean = request.getfixturevalue(sliced_segments_clean_fixture)
+    sliced_region_properties = request.getfixturevalue(sliced_region_properties_fixture)
+    sliced_clean_region_properties = request.getfixturevalue(
+        sliced_clean_region_properties_fixture
+    )
+    assert isinstance(afmslicer_object.config, dict)
     assert afmslicer_object.filename == filename
     assert afmslicer_object.img_path == img_path
     assert afmslicer_object.slices == slices
     assert afmslicer_object.min_height == min_height
     assert afmslicer_object.max_height == max_height
+    # Check different arrays
     np.testing.assert_array_almost_equal(afmslicer_object.layers, layers)
     assert afmslicer_object.sliced_array.shape == sliced_array.shape
     np.testing.assert_array_equal(afmslicer_object.sliced_array, sliced_array)
@@ -124,6 +149,37 @@ def test_AFMSlicer(
     assert afmslicer_object.pixel_to_nm_scaling == pixel_to_nm_scaling
     assert afmslicer_object.sliced_segments.shape == sliced_segments.shape
     np.testing.assert_array_equal(afmslicer_object.sliced_segments, sliced_segments)
+    np.testing.assert_array_equal(
+        afmslicer_object.sliced_segments_clean, sliced_segments_clean
+    )
+    # np.savez_compressed(
+    #     RESOURCES_SLICER / f"{sliced_segments_clean_fixture}.npz",
+    #     afmslicer_object.sliced_segments_clean,
+    # )
+    # output = RESOURCES_SLICER / f"{sliced_clean_region_properties_fixture}.pkl"
+    # with output.open(mode="wb") as f:
+    #     pkl.dump(afmslicer_object.sliced_clean_region_properties, f)
+
+    # Check region properties across slices
+    # 2026-01-08 - skip three of the region properties for now as getting from the __eq__ method...
+    #   NotImplementedError: `moments_hu` supports spacing = (1, 1) only
+    if sliced_region_properties_fixture not in {
+        "pyramid_sliced_region_properties_2",
+        "afmslicer_sample1_region_properties",
+        "afmslicer_sample2_region_properties",
+    }:
+        assert afmslicer_object.sliced_region_properties == sliced_region_properties
+    if sliced_clean_region_properties_fixture not in {
+        "pyramid_sliced_clean_region_properties_5",  # Whole image is masked
+        "pyramid_sliced_clean_region_properties_2",  # Whole image is masked
+        "afmslicer_sample1_clean_region_properties",  # Same moments_hu error as above
+        "afmslicer_sample2_clean_region_properties",  # Same moments_hu error as above
+    }:
+        assert (
+            afmslicer_object.sliced_clean_region_properties
+            == sliced_clean_region_properties
+        )
+    # Check plots
     assert isinstance(afmslicer_object.fig_objects_per_layer, tuple)
     assert isinstance(afmslicer_object.fig_objects_per_layer[0], plt.Figure)
     assert isinstance(afmslicer_object.fig_objects_per_layer[1], plt.Axes)

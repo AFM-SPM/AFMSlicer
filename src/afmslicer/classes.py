@@ -39,6 +39,10 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     sliced_mask : npt.NDArray[bool], optional
         A three dimensional array of ``slices`` where each layer is a mask for the heights given in ``layers``.
     sliced_segments : npt.NDArray[np.int32]
+        A three dimensional array of ``slices`` where each layer has been segmented.
+    sliced_segments_clean : npt.NDArray[np.int32]
+        A three dimensional array of ``slices`` where small objects have been masked. The threshold for masking comes
+        from the configuration file under ``slicing.minimum_size`` and is ``8000`` nanometres squared by default.
     sliced_region_properties : list[list[Any]]
         A list of ``region_props`` for each object in each layer. There is one list for each layer.
     segment_method : str, optional
@@ -72,7 +76,9 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     sliced_array: npt.NDArray[np.float64] | None = None
     sliced_mask: npt.NDArray[np.bool] | None = None
     sliced_segments: npt.NDArray[np.int32] | None = None
+    sliced_segments_clean: npt.NDArray[np.int32] | None = None
     sliced_region_properties: list[Any] | None = None
+    sliced_clean_region_properties: list[Any] | None = None
     pores_per_layer: list[int] | None = None
     segment_method: str | None = None
     min_height: float | None = None
@@ -116,16 +122,31 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         self.sliced_segments = slicer.segment_slices(
             self.sliced_mask, method=self.segment_method
         )
+        # ns-rse 2025-12-10 : Consider first pass of areas using skimage.measure.moments() to quickly get _just_ areas
+        # so that small objects can be excluded, only then calculate regionprops on remaining items. Could possibly be
+        # extended to only do regionprops on the layers of interest after the Full-Width Half Max has been determeind.
         # Calculate region properties
         self.sliced_region_properties = slicer.region_properties_by_slices(
             array=self.sliced_segments, spacing=self.pixel_to_nm_scaling
         )
+        # Remove small objects
+        self.sliced_segments_clean = slicer.mask_small_artefacts_all_layers(
+            labelled_array=self.sliced_segments,
+            properties=self.sliced_region_properties,
+            minimum_size=self.config["slicing"]["minimum_size"],
+        )
+        # ns-rse 2025-12-10 : Need to redo sliced_region_properties using "clean" version with small regions masked
+        # Calculate region properties on clean slices after removal of small objects
+        self.sliced_clean_region_properties = slicer.region_properties_by_slices(
+            array=self.sliced_segments_clean, spacing=self.pixel_to_nm_scaling
+        )
+        # Count the number of pores per layer
         self.pores_per_layer = statistics.count_pores(
             sliced_region_properties=self.sliced_region_properties
         )
         # Plot all segmented layers
         plotting.plot_all_layers(
-            array=self.sliced_segments,
+            array=self.sliced_segments_clean,
             img_name=self.filename,
             outdir=self.config["output_dir"],
             format=self.config["slicing"]["format"],

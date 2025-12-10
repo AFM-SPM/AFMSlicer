@@ -362,15 +362,12 @@ def mask_small_artefacts_all_layers(
         f"The three-dimensional array has {labelled_array.shape[2]} layers which differs from the number of layer "
         f"properties {len(properties)}"
     )
+    masked_array = np.ma.masked_all_like(labelled_array)
     # For each layer extract the area to a dictionary
     for layer in range(labelled_array.shape[2]):
-        masked_layer = mask_small_artefacts(
+        masked_array[:, :, layer] = mask_small_artefacts(
             labelled_array=labelled_array[:, :, layer],
             properties=properties[layer],
             minimum_size=minimum_size,
         )
-        if layer == 0:
-            masked_array = masked_layer
-        else:
-            masked_array = np.ma.stack((masked_array, masked_layer), axis=2)
     return masked_array
