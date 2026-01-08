@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import pickle as pkl
 from pathlib import Path
 from pkgutil import get_data
 from typing import Any
@@ -10,6 +11,7 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 import yaml
+from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
 from topostats.filters import Filters
 from topostats.io import LoadScans
 
@@ -526,6 +528,13 @@ def pyramid_array_mask_stacked_2() -> npt.NDArray[np.bool]:
 
 
 @pytest.fixture
+def pyramid_sliced_segments_clean_2() -> npt.NDArray:
+    """Sliced segments after cleaning for two layer pyramid."""
+    with np.load(RESOURCES_SLICER / "pyramid_sliced_segments_clean_2.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
 def pyramid_array_sliced_mask() -> npt.NDArray[np.float64]:
     """Simple pyramidal two-dimensional numpy array sliced 5 times."""
     with np.load(RESOURCES_SLICER / "pyramid_array_sliced_mask.npz") as data:
@@ -540,6 +549,13 @@ def pyramid_array_sliced_mask_segment() -> npt.NDArray[np.float64]:
 
 
 @pytest.fixture
+def pyramid_sliced_segments_clean_5() -> npt.NDArray:
+    """Sliced segments after cleaning for five layer pyramid."""
+    with np.load(RESOURCES_SLICER / "pyramid_sliced_segments_clean_5.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
 def pyramid_height_array_5(
     pyramid_array: npt.NDArray[np.int32],
 ) -> npt.NDArray[np.int32]:
@@ -549,12 +565,52 @@ def pyramid_height_array_5(
 
 
 @pytest.fixture
+def pyramid_sliced_region_properties_5() -> Any:
+    """Region properties for slices of pyramid with five layers."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "pyramid_sliced_region_properties_5.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
+def pyramid_sliced_clean_region_properties_5() -> Any:
+    """Region properties for cleaned slices of pyramid with five layers."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "pyramid_sliced_clean_region_properties_5.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
 def pyramid_height_array_2(
     pyramid_array: npt.NDArray[np.int32],
 ) -> npt.NDArray[np.int32]:
     """Repeated layers (n = 2) of the ``pyramid_array``."""
     array = pyramid_array.copy()
     return np.repeat(array[:, :, np.newaxis], 2, axis=2)
+
+
+@pytest.fixture
+def pyramid_sliced_region_properties_2() -> Any:
+    """Region properties for slices of pyramid with two layers."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "pyramid_sliced_region_properties_2.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
+def pyramid_sliced_clean_region_properties_2() -> Any:
+    """Region properties for cleaned slices of pyramid with two layers."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "pyramid_sliced_clean_region_properties_2.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
 
 
 @pytest.fixture
@@ -916,6 +972,33 @@ def afmslicer_sample1_sliced_segment() -> npt.NDArray[np.float64]:
 
 
 @pytest.fixture
+def afmslicer_sample1_segments_clean() -> npt.NDArray:
+    """Sliced segments after cleaning for sample 1."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample1_segments_clean.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample1_region_properties() -> Any:
+    """Region properties for slices of sample1."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "afmslicer_sample1_region_properties.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
+def afmslicer_sample1_clean_region_properties() -> Any:
+    """Region properties for cleaned slices of sample1."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "afmslicer_sample1_clean_region_properties.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
 def sample1_volumes() -> npt.NDArray[np.float64]:
     """Array of the volume of objects in from sample1."""
     return np.asarray(
@@ -1010,6 +1093,33 @@ def afmslicer_sample2_sliced_segment() -> npt.NDArray[np.float64]:
 
 
 @pytest.fixture
+def afmslicer_sample2_segments_clean() -> npt.NDArray:
+    """Sliced segments after cleaning for sample 2."""
+    with np.load(RESOURCES_SLICER / "afmslicer_sample2_segments_clean.npz") as data:
+        return data["arr_0"]
+
+
+@pytest.fixture
+def afmslicer_sample2_region_properties() -> Any:
+    """Region properties for slices of sample2."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "afmslicer_sample2_region_properties.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
+def afmslicer_sample2_clean_region_properties() -> Any:
+    """Region properties for cleaned slices of sample2."""
+    with Path.open(  # pylint: disable=unspecified-encoding
+        RESOURCES_SLICER / "afmslicer_sample2_clean_region_properties.pkl",
+        mode="rb",
+    ) as f:
+        return pkl.load(f)
+
+
+@pytest.fixture
 def sample2_volumes() -> npt.NDArray[np.float64]:
     """Array of the volume of objects in from sample2."""
     return np.asarray(
@@ -1101,3 +1211,65 @@ def sample2_volumes() -> npt.NDArray[np.float64]:
         ],
         dtype=np.float64,
     )
+
+
+@pytest.fixture(name="small_artefacts_array")
+def fixture_small_artefacts_array() -> npt.NDArray[np.int32]:
+    """Basic array with small artefacts."""
+    return np.asarray(
+        [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ],
+        dtype=np.int32,
+    )
+
+
+@pytest.fixture(name="small_artefacts_labelled")
+def fixture_small_artefacts_labelled(
+    small_artefacts_array: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Basic array with small artefacts labelled using ``skimage.label()``."""
+    return label(small_artefacts_array)
+
+
+@pytest.fixture(name="small_artefacts_region_properties")
+def fixture_small_artefacts_region_properties(
+    small_artefacts_labelled: npt.NDArray[np.int32],
+) -> Any:
+    """Region properties for ``small_artefacts_array``."""
+    return regionprops(small_artefacts_labelled)
+
+
+@pytest.fixture
+def small_artefacts_layered(
+    small_artefacts_labelled: npt.NDArray[np.int32],
+) -> npt.NDArray[np.int32]:
+    """Three-dimensional array of labelled layers (both are identical)."""
+    return np.stack((small_artefacts_labelled, small_artefacts_labelled), axis=2)
+
+
+@pytest.fixture
+def small_artefacts_layered_region_properties(
+    small_artefacts_region_properties: Any,
+) -> list[Any]:
+    """List of region properties for stacked layers (both are identical)."""
+    return [small_artefacts_region_properties, small_artefacts_region_properties]

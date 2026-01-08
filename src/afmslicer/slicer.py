@@ -13,7 +13,7 @@ from skimage.segmentation import clear_border, watershed
 
 
 def mask_slices(
-    stacked_array: npt.NDArray,
+    stacked_array: npt.NDArray[np.float64],
     slices: int | None = 255,
     layers: npt.NDArray | None = None,
     min_height: np.float64 | None = None,
@@ -97,7 +97,7 @@ def slicer(heights: npt.NDArray[np.float64], slices: int) -> npt.NDArray[np.floa
             :,
             np.newaxis,
         ],
-        slices,
+        repeats=slices,
         axis=2,
     )
 
@@ -298,3 +298,76 @@ def region_properties_by_slices(
             regionprops(array[:, :, layer].astype(np.int32), spacing=spacing)
         )
     return slice_properties
+
+
+def mask_small_artefacts(
+    labelled_array: npt.NDArray[np.int32],
+    properties: dict[int, Any],
+    minimum_size: float,
+) -> npt.NDArray[np.int32]:
+    """
+    Mask labelled features that are less than a specified size from two-dimensional array.
+
+    Parameters
+    ----------
+    labelled_array : npt.NDArray[np.int32]
+        A three-dimensional array with labelled regions.
+    properties : dict[int, Any]
+        The properties of labelled objects for each layer.
+    minimum_size : float
+        Minimum size below which labelled regions are removed.
+
+    Returns
+    -------
+    npt.NDArray[np.int32]
+        Masked array with labelled regions smaller than ``minimum_size`` masked.
+    """
+    assert len(labelled_array.shape) == 2, (
+        "The labelled array should only have two dimensions."
+    )
+    masked_array = np.ma.MaskedArray(
+        labelled_array, mask=np.zeros_like(labelled_array, dtype=bool), copy=True
+    )
+    for region, prop in enumerate(properties, start=1):
+        if prop.area <= np.float64(minimum_size):  # type: ignore[attr-defined]
+            masked_array.mask = np.where(
+                masked_array.data == region, True, masked_array.mask
+            )
+    return masked_array
+
+
+def mask_small_artefacts_all_layers(
+    labelled_array: npt.NDArray[np.int32],
+    properties: list[Any],
+    minimum_size: float,
+):
+    """
+    Mask labelled features that are less than a specified size from three-dimensional array.
+
+    Parameters
+    ----------
+    labelled_array : npt.NDArray[np.int32]
+        A three-dimensional array with labelled regions.
+    properties : dict[int, Any]
+        The properties of labelled objects for each layer.
+    minimum_size : float
+        Minimum size below which labelled regions are removed.
+
+    Returns
+    -------
+    npt.NDArray[np.int32]
+        Masked array with labelled regions smaller than ``minimum_size`` masked.
+    """
+    assert labelled_array.shape[2] == len(properties), (
+        f"The three-dimensional array has {labelled_array.shape[2]} layers which differs from the number of layer "
+        f"properties {len(properties)}"
+    )
+    masked_array = np.ma.masked_all_like(labelled_array)
+    # For each layer extract the area to a dictionary
+    for layer in range(labelled_array.shape[2]):
+        masked_array[:, :, layer] = mask_small_artefacts(
+            labelled_array=labelled_array[:, :, layer],
+            properties=properties[layer],
+            minimum_size=minimum_size,
+        )
+    return masked_array

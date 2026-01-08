@@ -31,7 +31,8 @@ filter:
 slicing:
   slices: 255 # Number of slices to create through the image between the min and max height
   segment_method: watershed # Method for segmenting images. Options : label, watershed
-  area: true # Whether to calculate the area of pores on each slice.
+  area: true # Whether to calculate the area of pores on each slice, pretty much always needed!
+  minimum_size: 8000 # Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded
   centroid: false # Whether to calculate the centroid of pores on each slice.
   feret_maximum: false # Whether to calculate the maximum feret distance of pores on each slice
   format: png
