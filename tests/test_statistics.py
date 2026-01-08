@@ -185,7 +185,7 @@ def test_area_pores(
 def test_centroid_pores(
     sliced_labels_fixture: str,
     scaling_fixture: int | str,
-    objects_per_layer: list[list[float]] | None,
+    objects_per_layer: list[list[tuple[float, float]]] | None,
     request,
     snapshot,
 ) -> None:
