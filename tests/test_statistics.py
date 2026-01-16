@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import numpy as np
+import numpy.typing as npt
 import pytest
 
 from afmslicer import slicer, statistics
@@ -30,14 +32,14 @@ RELATIVE_TOLERANCE = 1e-5
             "pyramid_array_sliced_mask_segment",
             1,
             5,
-            [1, 1, 1, 1, 1],
+            np.asarray([1, 1, 1, 1, 1]),
             id="pyramid array",
         ),
         pytest.param(
             "square_array_sliced_mask_segment",
             1,
             5,
-            [1, 1, 1, 1, 1],
+            np.asarray([1, 1, 1, 1, 1]),
             id="square array",
             # marks=pytest.mark.skip(reason="testing"),
         ),
@@ -45,14 +47,14 @@ RELATIVE_TOLERANCE = 1e-5
             "sample1_spm_sliced_segment",
             "sample1_scaling",
             5,
-            [1, 43, 31, 63, 1],
+            np.asarray([1, 43, 31, 63, 1]),
             id="sample1",
         ),
         pytest.param(
             "sample2_spm_sliced_segment",
             "sample2_scaling",
             5,
-            [1, 76, 84, 56, 1],
+            np.asarray([1, 76, 84, 56, 1]),
             id="sample2",
         ),
     ],
@@ -75,9 +77,9 @@ def test_count_pores(
         labelled_array, spacing
     )
     assert len(sliced_region_properties) == layers
-    assert (
-        statistics.count_pores(sliced_region_properties=sliced_region_properties)
-        == objects_per_layer
+    np.testing.assert_array_equal(
+        statistics.count_pores(sliced_region_properties=sliced_region_properties),
+        objects_per_layer,
     )
 
 
@@ -293,6 +295,32 @@ def test_feret_diameter_maximum_pores(
             )
             == snapshot
         )
+
+
+@pytest.mark.parametrize(
+    ("array", "expected_layer", "expected_std"),
+    [
+        pytest.param(
+            np.array([1, 1, 1, 1, 10, 1, 1, 1, 1]),
+            5.0,
+            1.8257418583505538,
+            id="narrow distribution",
+        ),
+        pytest.param(
+            np.array([0, 1, 2, 3, 4, 3, 2, 1, 0]),
+            5.0,
+            1.5811388300841898,
+            id="wide distribution",
+        ),
+    ],
+)
+def test_fit_gaussian(
+    array: npt.NDArray, expected_layer: float, expected_std: float
+) -> None:
+    """Test for fit_gaussian()."""
+    layer, std = statistics.fit_gaussian(array=array)
+    assert layer == expected_layer
+    assert std == expected_std
 
 
 # @pytest.mark.parametrize(

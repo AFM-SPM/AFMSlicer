@@ -308,7 +308,7 @@ def test_plot_all_layers(
             1,
             "pyramid",
             ".png",
-            [1, 1, 1, 1, 1],
+            np.asarray([1, 1, 1, 1, 1]),
             id="pyramid heights",
             # marks=pytest.mark.skip(reason="development"),
         ),
@@ -317,7 +317,7 @@ def test_plot_all_layers(
             1,
             "sample1",
             ".png",
-            [1, 43, 31, 63, 1],
+            np.asarray([1, 43, 31, 63, 1]),
             id="sample1",
             # marks=pytest.mark.skip(reason="development"),
         ),
@@ -326,7 +326,7 @@ def test_plot_all_layers(
             1,
             "sample2",
             ".png",
-            [1, 76, 84, 56, 1],
+            np.asarray([1, 76, 84, 56, 1]),
             id="sample2",
             # marks=pytest.mark.skip(reason="development"),
         ),
@@ -355,7 +355,7 @@ def test_plot_pores_by_layer(
         pores_per_layer = statistics.count_pores(
             sliced_region_properties=sliced_region_properties
         )
-        assert pores_per_layer == objects_per_layer
+        np.testing.assert_array_equal(pores_per_layer, objects_per_layer)
     else:
         pores_per_layer = sliced_labels_fixture  # type: ignore[assignment]
     fig, _ = plotting.plot_pores_by_layer(

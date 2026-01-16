@@ -5,9 +5,11 @@ from __future__ import annotations
 from typing import Any
 
 # import polars as pl
+import numpy as np
+import numpy.typing as npt
 
 
-def count_pores(sliced_region_properties: list[Any]) -> list[int]:
+def count_pores(sliced_region_properties: list[Any]) -> npt.NDArray[np.int32]:
     """
     Count the number of ``region_properties``, each of which represents a pore for all layers.
 
@@ -18,10 +20,10 @@ def count_pores(sliced_region_properties: list[Any]) -> list[int]:
 
     Returns
     -------
-    list[int]
+    npt.NDArray[np.int32]
         A list of the number of region properties detected in each layer.
     """
-    return [len(region_props) for region_props in sliced_region_properties]
+    return np.asarray([len(region_props) for region_props in sliced_region_properties])
 
 
 def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
@@ -83,6 +85,30 @@ def feret_diameter_maximum_pores(
         [props.feret_diameter_max for props in layer]
         for layer in sliced_region_properties
     ]
+
+
+def fit_gaussian(array: npt.NDArray[int | np.float64]) -> tuple[float, float]:
+    """
+    Calculate the weighted mean layer and standard deviation from the data.
+
+    It is assumed the number of pores follow a Gaussian distribution moving through the layers. As we have the number of
+    pores for each layer we weight the layers by the number of pores to get the centrality of the fitted gaussian
+    distribution and the variance in layers around this.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.int | np.float64]
+        Array for which Gaussian curve is to be fitted.
+
+    Returns
+    -------
+    tuple[float, float]
+        Returns the weighted layer mean and standard deviation of the data.
+    """
+    x_values = np.arange(1, len(array) + 1)
+    mean = np.average(x_values, weights=array)
+    std = np.sqrt(np.average((x_values - mean) ** 2, weights=array))
+    return (mean, std)
 
 
 # def aggregate_arrays(

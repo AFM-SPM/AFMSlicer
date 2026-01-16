@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from topostats.io import write_config_with_comments
+from topostats.config import write_config_with_comments
 
 from afmslicer import __version__
 from afmslicer.processing import filtering, process

@@ -91,6 +91,10 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     area_by_layer: list[list[float]] | None = None
     centroid_by_layer: list[list[tuple[float, float]]] | None = None
     feret_maximum_by_layer: list[list[float]] | None = None
+    pores_per_layer_mean: float | None = None
+    pores_per_layer_std: float | None = None
+    layer_max_pores: int | None = None
+    # slice_max_pores: dict[str, int | float] | None = None
 
     def __post_init__(self) -> None:
         """
@@ -144,6 +148,11 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         self.pores_per_layer = statistics.count_pores(
             sliced_region_properties=self.sliced_region_properties
         )
+        # Fit Gaussian to number of pores
+        self.pores_per_layer_mean, self.pores_per_layer_std = statistics.fit_gaussian(
+            array=self.pores_per_layer
+        )
+        self.layer_max_pores = np.round(self.pores_per_layer_mean)
         # Plot all segmented layers
         plotting.plot_all_layers(
             array=self.sliced_segments_clean,
@@ -157,6 +166,8 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             img_name=self.filename,
             outdir=self.config["output_dir"],
             format=self.config["slicing"]["format"],
+            mean=self.pores_per_layer_mean,
+            std=self.pores_per_layer_std,
             log=False,
         )
         # Plot pores per layer (log scale)

@@ -11,6 +11,7 @@ import numpy.typing as npt
 
 # import numpy as np
 from loguru import logger
+from scipy.stats import norm
 
 
 def plot_layer(  # pylint: disable=too-many-positional-arguments
@@ -115,11 +116,13 @@ def plot_all_layers(
     return plots
 
 
-def plot_pores_by_layer(
-    pores_per_layer: list[int],
+def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-many-locals
+    pores_per_layer: npt.NDArray[np.int32 | np.float64],
     img_name: str | None = None,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
+    mean: float | None = None,
+    std: float | None = None,
     log: bool | None = False,
 ) -> tuple[plt.Figure, plt.Axes]:
     """
@@ -135,7 +138,11 @@ def plot_pores_by_layer(
         Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
     format : str, optional
         Output file format as a string, defaults to ``png`` if not specified.
-    log : bool
+    mean : float, optional
+        Mean of ``pores_per_layer``.
+    std : float, optional
+        Standard deviation of ``pores_per_layer``.
+    log : bool, optional
         Whether to plot with the logarithm (base10) of the number of pores.
 
     Returns
@@ -153,6 +160,21 @@ def plot_pores_by_layer(
         outfile = f"{img_name}_pores_per_layer.{format}"
     fig, ax = plt.subplots(1, 1)
     ax.plot(pores_per_layer)
+    # Calculate the Gaussian and overlay
+    if not log:
+        if mean is None or std is None:
+            x_values = np.arange(1, len(pores_per_layer) + 1)
+            mean = np.average(x_values, weights=pores_per_layer)
+            std = np.sqrt(np.average((x_values - mean) ** 2, weights=pores_per_layer))
+        xmin, xmax = plt.xlim()
+        x_pdf = np.linspace(xmin, xmax, len(pores_per_layer))
+        # Scale the PDF to match the total counts and "bin width" (i.e. layers) for plotting
+        pdf_scaled = (
+            norm.pdf(x_pdf, loc=mean, scale=std)
+            * np.sum(pores_per_layer)
+            * (x_pdf[1] - x_pdf[0])
+        )
+        ax.plot(x_pdf, pdf_scaled, "k-", linewidth=1, label="Gaussian PDF (Scaled)")
     ax.set_title("Pores per layer")
     ax.set_xlabel("Layer")
     ax.set_ylabel(ylabel)
