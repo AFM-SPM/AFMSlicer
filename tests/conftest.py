@@ -12,18 +12,18 @@ import numpy.typing as npt
 import pytest
 import yaml
 from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
+from topostats.classes import TopoStats
 from topostats.filters import Filters
 from topostats.io import LoadScans
 
 from afmslicer.classes import AFMSlicer
+from afmslicer.filter import SlicingFilter
 
 BASE_DIR = Path.cwd()
 RESOURCES = BASE_DIR / "tests" / "resources"
 RESOURCES_SLICER = RESOURCES / "slicer"
 RESOURCES_SPM = RESOURCES / "spm"
 
-
-RNG = np.random.default_rng(seed=65011934213)
 
 # pylint: disable=too-many-lines
 
@@ -1273,3 +1273,33 @@ def small_artefacts_layered_region_properties(
 ) -> list[Any]:
     """List of region properties for stacked layers (both are identical)."""
     return [small_artefacts_region_properties, small_artefacts_region_properties]
+
+
+@pytest.fixture(name="random_image")
+def fixture_random_image() -> npt.NDArray[np.float64]:
+    """A random image for running through filtering."""
+    RNG = np.random.default_rng(seed=65011934213)
+    return RNG.random((5, 5), dtype=np.float64)
+
+
+@pytest.fixture(name="topostats_random")
+def fixture_topostats_random(
+    random_image: npt.NDArray[np.float64], tmp_path: Path
+) -> TopoStats:
+    """``TopoStats`` object using the random image."""
+    return TopoStats(
+        image_original=random_image,
+        filename="random_image",
+        pixel_to_nm_scaling=1.0,
+        img_path=tmp_path,
+    )
+
+
+@pytest.fixture
+def slicing_filter_random(
+    topostats_random: TopoStats, default_config: dict[str, Any]
+) -> SlicingFilter:
+    """``AFMFilter`` using the random image and default configuration."""
+    filter_config = default_config["filter"].copy()
+    filter_config.pop("run")
+    return SlicingFilter(topostats_object=topostats_random, **filter_config)
