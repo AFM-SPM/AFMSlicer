@@ -108,6 +108,11 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             if self.layers is None
             else self.layers
         )
+
+    def slice_image(self) -> None:
+        """
+        Slice the image.
+        """
         # Slice the array (i.e. duplicate it `slices` times)
         self.sliced_array = slicer.slicer(heights=self.image, slices=self.slices)
         # Mask each layer

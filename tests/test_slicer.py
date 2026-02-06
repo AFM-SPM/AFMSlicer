@@ -61,7 +61,8 @@ def test_slicer(
     if height_fixture in ["pyramid_array", "square_array"]:
         heights = request.getfixturevalue(height_fixture)
     else:
-        heights, _ = request.getfixturevalue(height_fixture)
+        afmslicer = request.getfixturevalue(height_fixture)
+        heights = afmslicer.image_original
     sliced = slicer.slicer(heights=heights, slices=slices)
     assert sliced.shape == shape
     # np.savez_compressed(RESOURCES_SLICER / f"{height_fixture}_sliced.npz", sliced)

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from topostats import scars
-from topostats.classes import TopoStats
 from topostats.filters import Filters
+
+from afmslicer.classes import AFMSlicer
 
 
 class SlicingFilter(Filters):
@@ -13,8 +14,8 @@ class SlicingFilter(Filters):
 
     Parameters
     ----------
-    topostats_object : TopoStats
-        A ``TopoStats`` object of the image to be filtered and flattened.
+    topostats_object : AFMSlicer
+        An ``AFMSlicer`` object of the image to be filtered and flattened.
     row_alignment_quantile : float, optional
         Quantile on which to align values, default is ``0.5`` (i.e. the median).
     gaussian_size : float, optional
@@ -27,7 +28,7 @@ class SlicingFilter(Filters):
 
     def __init__(
         self,
-        topostats_object: TopoStats,
+        topostats_object: AFMSlicer,
         row_alignment_quantile: float | None = None,
         gaussian_size: float | None = None,
         gaussian_mode: str | None = None,
@@ -39,10 +40,13 @@ class SlicingFilter(Filters):
         This class inherits from the ``topostats.Filters()`` class and methods are reused to filter and flatten the
         image.
 
+        NB - Because this class inherits from ``topostats.classes.TopoStats()`` class the main attribute inherits that
+        name.
+
         Parameters
         ----------
-        topostats_object : TopoStats
-            A ``TopoStats`` object of the image to be filtered and flattened.
+        topostats_object : AFMSlicer
+            A ``AFMSlicer`` object of the image to be filtered and flattened.
         row_alignment_quantile : float, optional
             Quantile on which to align values, default is ``0.5`` (i.e. the median).
         gaussian_size : float, optional
@@ -65,7 +69,7 @@ class SlicingFilter(Filters):
         >>> rng = np.random.default_rng(seed=32424308)
         >>> small_array = rng.random((5, 5), dtype=np.float64)
 
-        >>> topostats_object = TopoStats(
+        >>> afmslicer_object = TopoStats(
         >>>     image_original=small_array,
         >>>     filename="small_array",
         >>>     pixel_to_nm_scaling=1.0,
@@ -86,12 +90,15 @@ class SlicingFilter(Filters):
         >>> }
 
         >>> slicing_filter = SlicingFilter(
-        >>>     topostats_object=topostats_object,
+        >>>     topostats_object=afmslicer_object,
         >>>     **filter_config)
         >>> slicing_filter.filter_image()
 
         >>> slicing_filter.images["gaussian_filtered"]
         """
+        # ns-rse - Because we are inheriting from TopoStats the internal name/representation of the class object is
+        # topostats_object but we instantiate this attribute with AFMSlicer, which itself is a child of the TopoStats
+        # class. I don't know how to get around this.
         super().__init__(topostats_object)
         self.gaussian_size = gaussian_size
         self.gaussian_mode = gaussian_mode

@@ -13,7 +13,6 @@ import pytest
 import yaml
 from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
 from topostats.classes import TopoStats
-from topostats.filters import Filters
 from topostats.io import LoadScans
 
 from afmslicer.classes import AFMSlicer
@@ -815,38 +814,25 @@ def fixture_height_multiple_objects() -> npt.NDArray[np.int32]:
 
 # Sample 1
 @pytest.fixture(name="sample1_spm")
-def fixture_sample1_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, float]:
+def fixture_sample1_spm(default_config: dict[str, Any]) -> TopoStats:
     """Load an image and filter/flatten it ready for analysis."""
     scan_loader = LoadScans(
         [RESOURCES_SPM / "sample1.spm"], channel="Height", config=default_config
     )
     scan_loader.get_data()
-    # @ns-rse 2025-11-07 Expect TopoStats to change as TopoStats class will include the configuration and the arguments
-    # will be optional.
-    _filter = Filters(
-        topostats_object=scan_loader.img_dict["sample1"],
-        threshold_std_dev=default_config["filter"]["threshold_std_dev"],
-        threshold_method=default_config["filter"]["threshold_method"],
-        threshold_absolute=default_config["filter"]["threshold_absolute"],
-        otsu_threshold_multiplier=default_config["filter"]["otsu_threshold_multiplier"],
-        gaussian_size=default_config["filter"]["gaussian_size"],
-        gaussian_mode=default_config["filter"]["gaussian_mode"],
-        row_alignment_quantile=default_config["filter"]["row_alignment_quantile"],
-        remove_scars=default_config["filter"]["remove_scars"],
-    )
-    _filter.filter_image()
-    return (_filter.image, _filter.pixel_to_nm_scaling)
+    # return (scan_loader.img_dict["sample1.spmt"], _filter.pixel_to_nm_scaling)
+    return scan_loader.img_dict["sample1.spm"]
 
 
 @pytest.fixture(name="afmslicer_sample1")
 def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample1.spm."""
-    height, pixel_to_nm_scaling = sample1_spm
+    # height, pixel_to_nm_scaling = sample1_spm
     return AFMSlicer(
-        image=height,
+        image=sample1_spm.image_original,
         filename="sample1",
         img_path="tmp",
-        pixel_to_nm_scaling=pixel_to_nm_scaling,
+        pixel_to_nm_scaling=sample1_spm.pixel_to_nm_scaling,
         slices=5,
         segment_method="label",
         config=default_config,
@@ -856,8 +842,7 @@ def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AF
 @pytest.fixture
 def sample1_scaling(sample1_spm) -> float:
     """Scaling (aka pixel_to_nm_scaling) for Sample 1."""
-    _, scaling = sample1_spm
-    return scaling  # type: ignore[no-any-return]
+    return sample1_spm.pixel_to_nm_scaling  # type: ignore[no-any-return]
 
 
 @pytest.fixture
@@ -883,38 +868,23 @@ def sample1_spm_sliced_segment() -> npt.NDArray[np.float64]:
 
 # Sample 2
 @pytest.fixture(name="sample2_spm")
-def fixture_sample2_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, float]:
+def fixture_sample2_spm(default_config: dict[str, Any]) -> TopoStats:
     """Load an image and filter/flatten it ready for analysis."""
     scan_loader = LoadScans(
         [RESOURCES_SPM / "sample2.spm"], channel="Height", config=default_config
     )
     scan_loader.get_data()
-    # @ns-rse 2025-11-07 Expect TopoStats to change as TopoStats class will include the configuration and the arguments
-    # will be optional.
-    _filter = Filters(
-        topostats_object=scan_loader.img_dict["sample2"],
-        threshold_std_dev=default_config["filter"]["threshold_std_dev"],
-        threshold_method=default_config["filter"]["threshold_method"],
-        threshold_absolute=default_config["filter"]["threshold_absolute"],
-        otsu_threshold_multiplier=default_config["filter"]["otsu_threshold_multiplier"],
-        gaussian_size=default_config["filter"]["gaussian_size"],
-        gaussian_mode=default_config["filter"]["gaussian_mode"],
-        row_alignment_quantile=default_config["filter"]["row_alignment_quantile"],
-        remove_scars=default_config["filter"]["remove_scars"],
-    )
-    _filter.filter_image()
-    return (_filter.image, _filter.pixel_to_nm_scaling)
+    return scan_loader.img_dict["sample2.spm"]
 
 
 @pytest.fixture(name="afmslicer_sample2")
 def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample2.spm."""
-    height, pixel_to_nm_scaling = sample2_spm
     return AFMSlicer(
-        image=height,
+        image=sample2_spm.image_original,
         filename="sample2",
         img_path="tmp",
-        pixel_to_nm_scaling=pixel_to_nm_scaling,
+        pixel_to_nm_scaling=sample2_spm.pixel_to_nm_scaling,
         slices=5,
         segment_method="label",
         config=default_config,
@@ -924,8 +894,7 @@ def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AF
 @pytest.fixture
 def sample2_scaling(sample2_spm) -> float:
     """Scaling (aka pixel_to_nm_scaling) for Sample 2."""
-    _, scaling = sample2_spm
-    return scaling  # type: ignore[no-any-return]
+    return sample2_spm.pixel_to_nm_scaling  # type: ignore[no-any-return]
 
 
 @pytest.fixture
@@ -1282,11 +1251,11 @@ def fixture_random_image() -> npt.NDArray[np.float64]:
     return RNG.random((5, 5), dtype=np.float64)
 
 
-@pytest.fixture(name="topostats_random")
-def fixture_topostats_random(
+@pytest.fixture(name="afmslicer_random")
+def fixture_afmslicer_random(
     random_image: npt.NDArray[np.float64], tmp_path: Path
-) -> TopoStats:
-    """``TopoStats`` object using the random image."""
+) -> AFMSlicer:
+    """``AFMSlicer`` object using the random image."""
     return TopoStats(
         image_original=random_image,
         filename="random_image",
@@ -1297,9 +1266,9 @@ def fixture_topostats_random(
 
 @pytest.fixture
 def slicing_filter_random(
-    topostats_random: TopoStats, default_config: dict[str, Any]
+    afmslicer_random: AFMSlicer, default_config: dict[str, Any]
 ) -> SlicingFilter:
     """``AFMFilter`` using the random image and default configuration."""
     filter_config = default_config["filter"].copy()
     filter_config.pop("run")
-    return SlicingFilter(topostats_object=topostats_random, **filter_config)
+    return SlicingFilter(topostats_object=afmslicer_random, **filter_config)
