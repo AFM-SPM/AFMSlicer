@@ -13,6 +13,7 @@ with app.setup:
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
@@ -138,11 +139,18 @@ def _(npt, plt):
         plot_array(diff, cmap, arr1_name, arr2_name)
         return diff
 
-    def plot_array(array: npt.NDArray, cmap: str = "viridis", arr1_name: str | None = None, arr2_name: str | None = None) -> None:
+    def plot_array(
+        array: npt.NDArray,
+        cmap: str = "viridis",
+        arr1_name: str | None = None,
+        arr2_name: str | None = None,
+    ) -> None:
         fig, ax = plt.subplots()
         ax1 = ax.imshow(array, cmap=cmap)
         fig.colorbar(ax1, ax=ax)
-        ax.set_title(f"Mean (std) difference between {arr1_name} - {arr2_name} : {array.mean():.4f} ({array.std():.4f})")
+        ax.set_title(
+            f"Mean (std) difference between {arr1_name} - {arr2_name} : {array.mean():.4f} ({array.std():.4f})"
+        )
         plt.show()
 
     def plot_array_with_colorbar_title(
@@ -169,6 +177,7 @@ def _(npt, plt):
             Numpy array.
         """
         return arr1 - arr2
+
     return (
         compare_arrays,
         diff_arrays,
@@ -461,7 +470,9 @@ def _(
         return filter
 
     def plot_topostats_comparison(
-        topostats_object: TopoStats, filter: Filters, cmap: dict[str, str] = {"image": "gray", "diff": "viridis"}  # noqa: B006
+        topostats_object: TopoStats,
+        filter: Filters,
+        cmap: dict[str, str] = {"image": "gray", "diff": "viridis"},  # noqa: B006
     ) -> None:
         fig, axes = plt.subplots(nrows=7, ncols=3, figsize=(8, 12))
         plt.style.use("grayscale")
@@ -607,9 +618,7 @@ def _(
         cmap = "gray" if cmap is None else cmap["image"]
         ax16 = plt.subplot(7, 3, 16)
         fig, ax16 = plot_array_with_colorbar_title(
-            array=filter.images["initial_scar_removal"], 
-            fig=fig, ax=ax16,
-            cmap=cmap
+            array=filter.images["initial_scar_removal"], fig=fig, ax=ax16, cmap=cmap
         )
         # plt.title("Scar Removal")
         cmap = "viridis" if cmap is None else cmap["diff"]
@@ -640,10 +649,7 @@ def _(
         cmap = "gray" if cmap is None else cmap["image"]
         ax19 = plt.subplot(7, 3, 19)
         fig, ax19 = plot_array_with_colorbar_title(
-            array=filter.images["gaussian_filtered"],
-            fig=fig,
-            ax=ax19,
-            cmap=cmap
+            array=filter.images["gaussian_filtered"], fig=fig, ax=ax19, cmap=cmap
         )
         # plt.title("Gaussian Filtered")
         cmap = "viridis" if cmap is None else cmap["diff"]
@@ -2059,7 +2065,7 @@ app._unparsable_cell(
     fig_compare_slices.tight_layout()
     plt.show()
     """,
-    name="_"
+    name="_",
 )
 
 
