@@ -34,7 +34,7 @@ dynamic = ["version"]
 dependencies = [
   "afmreader",
   "art",
-  "topostats @ git+https://github.com/AFM-SPM/TopoStats@ns-rse/1102-switching-to-TopoStats-class",
+  "topostats @ git+https://github.com/AFM-SPM/TopoStats",
   "loguru",
   "marimo",
   "pydantic",
