@@ -45,7 +45,9 @@ def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
 
 
 def sum_area_by_layer(
-    areas: list[list[float] | int | float], min_size: float | None = None
+    areas: list[list[float] | int | float],
+    min_size: float | None = None,
+    drop_first_and_last: bool = False,
 ) -> list[float]:
     """
     Sum the area of pores on each layer.
@@ -56,6 +58,9 @@ def sum_area_by_layer(
         A list of areas of pores on each layer.
     min_size : float, optional
         Minimum size to include in calculation.
+    drop_first_and_last : bool
+        Drop the first and last elements of the summed areas. These correspond to the top and bottom slices which may be
+        which may either be all filled in (for the bottom slice) or all missing bar one pixel (for the top slice).
 
     Returns
     -------
@@ -78,6 +83,8 @@ def sum_area_by_layer(
         except TypeError:
             if isinstance(layer, (int, float)):
                 total_area_per_layer.append(layer)
+    if drop_first_and_last:
+        return total_area_per_layer[1:-1]
     return total_area_per_layer
 
 

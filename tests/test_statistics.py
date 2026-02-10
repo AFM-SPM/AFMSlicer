@@ -155,6 +155,7 @@ def test_area_pores(
         "min_size",
         "expected_area_per_layer",
         "total_area",
+        "drop_first_and_last",
     ),
     [
         pytest.param(
@@ -163,6 +164,7 @@ def test_area_pores(
             None,
             [81, 49, 25, 9, 1],
             165.0,
+            False,
             id="pyramid array, no min size",
         ),
         pytest.param(
@@ -171,6 +173,7 @@ def test_area_pores(
             10.0,
             [81, 49, 25, 0, 0],
             155.0,
+            False,
             id="pyramid array, min size 10",
         ),
         pytest.param(
@@ -179,7 +182,17 @@ def test_area_pores(
             None,
             [25, 25, 25, 25, 25],
             125.0,
+            False,
             id="square array, no min_size",
+        ),
+        pytest.param(
+            "square_array_sliced_mask_segment",
+            1,
+            None,
+            [25, 25, 25],
+            75.0,
+            True,
+            id="square array, no min_size, drop first and last",
         ),
         pytest.param(
             "sample1_spm_sliced_segment",
@@ -187,6 +200,7 @@ def test_area_pores(
             None,
             None,
             560981750.4882812,
+            False,
             id="sample1, no min_size",
         ),
         pytest.param(
@@ -195,6 +209,7 @@ def test_area_pores(
             10000,
             None,
             560919189.453125,
+            False,
             id="sample1, min_size 10000",
             # marks=pytest.mark.skip(reason="testing"),
         ),
@@ -204,22 +219,35 @@ def test_area_pores(
             None,
             None,
             386241.796875,
+            False,
             id="sample2, no min_size",
+            # marks=pytest.mark.skip(reason="testing"),
+        ),
+        pytest.param(
+            "sample2_spm_sliced_segment",
+            "sample2_scaling",
+            10000,
+            None,
+            225244.140625,
+            True,
+            id="sample2, min_size 10000, drop first and last",
             # marks=pytest.mark.skip(reason="testing"),
         ),
     ],
 )
-def test_area_by_layer(
+def test_sum_area_by_layer(
     sliced_labels_fixture: str,
     scaling_fixture: int | str,
     min_size: float | None,
     expected_area_per_layer: list[list[float]] | None,
     total_area: float,
+    drop_first_and_last: bool,
     request,
     snapshot,
 ) -> None:
     """Test summation of area of pores on each layer."""
     labelled_array = request.getfixturevalue(sliced_labels_fixture)
+    print(f"\n{labelled_array=}\n")
     spacing = (
         request.getfixturevalue(scaling_fixture)
         if isinstance(scaling_fixture, str)
@@ -232,13 +260,11 @@ def test_area_by_layer(
         sliced_region_properties=sliced_region_properties
     )
     area_per_layer = statistics.sum_area_by_layer(
-        areas=pore_areas_per_layer, min_size=min_size
+        areas=pore_areas_per_layer,
+        min_size=min_size,
+        drop_first_and_last=drop_first_and_last,
     )
     if expected_area_per_layer is not None:
-        print(
-            f"\n{statistics.sum_area_by_layer(areas=pore_areas_per_layer, min_size=min_size)=}\n"
-        )
-        print(f"\n{area_per_layer=}\n")
         assert area_per_layer == expected_area_per_layer
     else:
         assert area_per_layer == snapshot
