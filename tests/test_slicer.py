@@ -1012,7 +1012,6 @@ def test_mask_small_artefacts(
         properties=small_artefacts_region_properties,
         minimum_size=minimum_size,
     )
-    print(f"\n{cleaned_array=}\n")
     np.testing.assert_array_equal(cleaned_array, expected_array)
 
 

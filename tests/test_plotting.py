@@ -300,9 +300,9 @@ def test_plot_all_layers(
         "objects_per_layer",
     ),
     [
-        pytest.param(
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, "basic", "png", None, id="basic"
-        ),
+        # pytest.param(
+        #     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, "basic", "png", None, id="basic"
+        # ),
         pytest.param(
             "pyramid_array_sliced_mask_segment",
             1,
@@ -328,6 +328,15 @@ def test_plot_all_layers(
             ".png",
             np.asarray([1, 76, 84, 56, 1]),
             id="sample2",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            np.asarray([0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]),
+            1,
+            "sample2",
+            ".png",
+            None,
+            id="basic",
             # marks=pytest.mark.skip(reason="development"),
         ),
     ],
@@ -363,5 +372,106 @@ def test_plot_pores_by_layer(
         outdir=tmp_path,
         img_name=img_name,
         format=format,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(baseline_dir="img/plot_area_by_layer/")
+@pytest.mark.parametrize(
+    (
+        "sliced_labels_fixture",
+        "scaling_fixture",
+        "img_name",
+        "format",
+        "drop_first_and_last",
+    ),
+    [
+        pytest.param(
+            [1, 2, 3, 4, 5, 5, 4, 3, 2, 1],
+            1,
+            "basic",
+            "png",
+            False,
+            id="basic",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            [1, 2, 3, 4, 5, 5, 4, 3, 2, 1],
+            1,
+            "basic",
+            "png",
+            True,
+            id="basic, drop first and last",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            "pyramid",
+            ".png",
+            False,
+            id="pyramid heights",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            "pyramid",
+            ".png",
+            True,
+            id="pyramid heights, drop first and last",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "sample1_spm_sliced_segment",
+            1,
+            "sample1",
+            ".png",
+            False,
+            id="sample1",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            "sample2_spm_sliced_segment",
+            1,
+            "sample2",
+            ".png",
+            False,
+            id="sample2",
+            # marks=pytest.mark.skip(reason="development"),
+        ),
+    ],
+)
+def test_plot_area_by_layer(
+    sliced_labels_fixture: str | list[int],
+    scaling_fixture: int | str,
+    img_name: str,
+    format: str,  # pylint: disable=redefined-builtin
+    drop_first_and_last: bool,
+    tmp_path: Path,
+    request,
+) -> plt.Figure:
+    """Test for ``plot_layer()``."""
+    if isinstance(sliced_labels_fixture, str):
+        labelled_array = request.getfixturevalue(sliced_labels_fixture)
+        spacing = (
+            request.getfixturevalue(scaling_fixture)
+            if isinstance(scaling_fixture, str)
+            else scaling_fixture
+        )
+        sliced_region_properties = slicer.region_properties_by_slices(
+            labelled_array, spacing
+        )
+        pore_area_per_layer = statistics.area_pores(
+            sliced_region_properties=sliced_region_properties
+        )
+    else:
+        pore_area_per_layer = sliced_labels_fixture
+    fig, _ = plotting.plot_area_by_layer(
+        area_per_layer=pore_area_per_layer,
+        outdir=tmp_path,
+        img_name=img_name,
+        format=format,
+        drop_first_and_last=drop_first_and_last,
     )
     return fig

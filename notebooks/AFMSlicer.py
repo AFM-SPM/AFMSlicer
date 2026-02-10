@@ -1,8 +1,6 @@
-from __future__ import annotations
-
 import marimo
 
-__generated_with = "0.18.1"
+__generated_with = "0.19.7"
 app = marimo.App(width="medium")
 
 with app.setup:
@@ -13,7 +11,6 @@ with app.setup:
 @app.cell
 def _():
     import marimo as mo
-
     return (mo,)
 
 
@@ -35,15 +32,27 @@ def _():
     from topostats.io import LoadScans, read_yaml
 
     from afmslicer.classes import AFMSlicer
+    from afmslicer.plotting import plot_layer, plot_area_by_layer, plot_pores_by_layer
+    # from afmslicer.filter import Filters
 
     NOTEBOOK_DIR = Path.cwd()
-    BASE_DIR = NOTEBOOK_DIR / "../" if NOTEBOOK_DIR.name == "test" else NOTEBOOK_DIR
+    BASE_DIR = NOTEBOOK_DIR / "../" # if NOTEBOOK_DIR.name == "test" else NOTEBOOK_DIR
     RESOURCES = BASE_DIR / "tests" / "resources"
     RESOURCES_SLICER = RESOURCES / "slicer"
     RESOURCES_SPM = RESOURCES / "spm"
     default_config = read_yaml(BASE_DIR / "src/afmslicer/default_config.yaml")
     pprint(default_config)
-    return AFMSlicer, Filters, LoadScans, RESOURCES_SPM, default_config, plt
+    return (
+        AFMSlicer,
+        BASE_DIR,
+        Filters,
+        LoadScans,
+        RESOURCES_SPM,
+        default_config,
+        plot_area_by_layer,
+        plot_layer,
+        plt,
+    )
 
 
 @app.cell(hide_code=True)
@@ -80,7 +89,7 @@ def _(mo):
 
 @app.cell
 def _(plt, scan_loader):
-    sample1 = scan_loader.img_dict["sample1"]
+    sample1 = scan_loader.img_dict["sample1.spm"]
     plt.imshow(sample1.image_original)
     return (sample1,)
 
@@ -95,19 +104,16 @@ def _(mo):
 
 @app.cell
 def _(Filters, default_config, plt, sample1):
+    filter_config = default_config["filter"].copy()
+    try:
+        filter_config.pop("run")
+    except:
+        pass
     sample1_filtered = Filters(
         topostats_object=sample1,
-        threshold_std_dev=default_config["filter"]["threshold_std_dev"],
-        threshold_method=default_config["filter"]["threshold_method"],
-        threshold_absolute=default_config["filter"]["threshold_absolute"],
-        otsu_threshold_multiplier=default_config["filter"]["otsu_threshold_multiplier"],
-        gaussian_size=default_config["filter"]["gaussian_size"],
-        gaussian_mode=default_config["filter"]["gaussian_mode"],
-        row_alignment_quantile=default_config["filter"]["row_alignment_quantile"],
-        remove_scars=default_config["filter"]["remove_scars"],
-    )
+        **filter_config)
     plt.imshow(sample1_filtered.image)
-    return
+    return (sample1_filtered,)
 
 
 @app.cell
@@ -127,18 +133,18 @@ def _(mo):
 
 
 @app.cell
-def _():
-    # sample1_afmslicer = AFMSlicer(
-    #    image=sample1_filtered.image,
-    #    image_original=sample1.image_original,
-    #    filename="sample1",
-    #    img_path=RESOURCES_SPM / "sample1.spm",
-    #    pixel_to_nm_scaling=sample1_filtered.pixel_to_nm_scaling,
-    #    slices=default_config["slicing"]["slices"],
-    #    segment_method="label",
-    #    config=default_config,
-    # )
-    return
+def _(AFMSlicer, RESOURCES_SPM, default_config, sample1, sample1_filtered):
+    sample1_afmslicer = AFMSlicer(
+        image=sample1_filtered.image,
+        image_original=sample1.image_original,
+        filename="sample1",
+        img_path=RESOURCES_SPM / "sample1.spm",
+        pixel_to_nm_scaling=sample1_filtered.pixel_to_nm_scaling,
+        slices=default_config["slicing"]["slices"],
+        segment_method="label",
+        config=default_config,
+    )
+    return (sample1_afmslicer,)
 
 
 @app.cell(hide_code=True)
@@ -160,15 +166,15 @@ def _(mo):
 
 
 @app.cell
-def _():
-    # layer = 100
-    # plot_layer(
-    #    array=sample1_afmslicer.sliced_segments[:, :, layer],
-    #    outdir=BASE_DIR / "tmp" / "output",
-    #    img_name=sample1_afmslicer.filename,
-    #    layer=layer,
-    #    format="png",
-    # )
+def _(BASE_DIR, plot_layer, sample1_afmslicer):
+    layer = 60
+    plot_layer(
+        array=sample1_afmslicer.sliced_segments[:, :, layer],
+        outdir=BASE_DIR / "tmp" / "output",
+        img_name=sample1_afmslicer.filename,
+        layer=layer,
+        format="png",
+    )
     return
 
 
@@ -222,6 +228,12 @@ def _():
     return
 
 
+@app.cell
+def _(plot_area_by_layer, sample1_afmslicer):
+    plot_area_by_layer(area_per_layer=sample1_afmslicer.area_by_layer, min_size=100000)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -231,26 +243,26 @@ def _(mo):
 
 
 @app.cell
-def _():
-    # sample1_afmslicer.fig_objects_per_layer
+def _(sample1_afmslicer):
+    sample1_afmslicer.fig_objects_per_layer
     return
 
 
 @app.cell
-def _():
-    # sample1_afmslicer.fig_log_objects_per_layer
+def _(sample1_afmslicer):
+    sample1_afmslicer.fig_log_objects_per_layer
     return
 
 
 @app.cell
-def _():
-    # sample1_afmslicer.fig_area_per_layer
+def _(sample1_afmslicer):
+    sample1_afmslicer.fig_area_per_layer
     return
 
 
 @app.cell
-def _():
-    # sample1_afmslicer.fig_log_area_per_layer
+def _(sample1_afmslicer):
+    sample1_afmslicer.fig_log_area_per_layer
     return
 
 
@@ -274,7 +286,7 @@ def _(mo):
 
 @app.cell
 def _(plt, scan_loader):
-    sample2 = scan_loader.img_dict["sample2"]
+    sample2 = scan_loader.img_dict["sample2.spm"]
     plt.imshow(sample2.image_original)
     return (sample2,)
 

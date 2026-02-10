@@ -148,26 +148,19 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         self.pores_per_layer = statistics.count_pores(
             sliced_region_properties=self.sliced_region_properties
         )
-        # Fit Gaussian to number of pores
-        self.pores_per_layer_mean, self.pores_per_layer_std = statistics.fit_gaussian(
-            array=self.pores_per_layer
-        )
-        self.layer_max_pores = np.round(self.pores_per_layer_mean)
         # Plot all segmented layers
         plotting.plot_all_layers(
             array=self.sliced_segments_clean,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
+            format=self.config["plotting"]["format"],
         )
         # Plot pores per layer
         self.fig_objects_per_layer = plotting.plot_pores_by_layer(
             pores_per_layer=self.pores_per_layer,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
-            mean=self.pores_per_layer_mean,
-            std=self.pores_per_layer_std,
+            format=self.config["plotting"]["format"],
             log=False,
         )
         # Plot pores per layer (log scale)
@@ -175,7 +168,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             pores_per_layer=self.pores_per_layer,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
+            format=self.config["plotting"]["format"],
             log=True,
         )
         # Optionally calculate additional statistics
@@ -188,16 +181,18 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             self.fig_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
+                drop_first_and_last=self.config["plotting"]["drop_first_and_last"],
                 outdir=self.config["output_dir"],
-                format=self.config["slicing"]["format"],
+                format=self.config["plotting"]["format"],
                 log=False,
             )
             # Plot log area per layer
             self.fig_log_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
+                drop_first_and_last=self.config["plotting"]["drop_first_and_last"],
                 outdir=self.config["output_dir"],
-                format=self.config["slicing"]["format"],
+                format=self.config["plotting"]["format"],
                 log=True,
             )
         # Centroid

@@ -7,6 +7,8 @@ from typing import Any
 # import polars as pl
 import numpy as np
 import numpy.typing as npt
+from scipy.signal import find_peaks, peak_widths
+from scipy.stats import norm
 
 
 def count_pores(sliced_region_properties: list[Any]) -> npt.NDArray[np.int32]:
@@ -73,7 +75,7 @@ def sum_area_by_layer(
     if min_size:
         _areas = [
             [pore_area for pore_area in layer if pore_area > min_size]
-            for layer in areas
+            for layer in areas  # type: ignore[union-attr]
         ]
     else:
         _areas = areas
@@ -81,7 +83,7 @@ def sum_area_by_layer(
         try:
             total_area_per_layer.append(sum(layer))
         except TypeError:
-            if isinstance(layer, (int, float)):
+            if isinstance(layer, (int, float)):  # type: ignore[unreachable]
                 total_area_per_layer.append(layer)
     if drop_first_and_last:
         return total_area_per_layer[1:-1]
@@ -131,32 +133,51 @@ def feret_diameter_maximum_pores(
     ]
 
 
-def fit_gaussian(array: npt.NDArray[int | np.float64]) -> tuple[float, float]:
+def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
     """
-    Calculate the weighted mean layer and standard deviation from the data.
-
-    It is assumed the number of pores follow a Gaussian distribution moving through the layers. As we have the number of
-    pores for each layer we weight the layers by the number of pores to get the centrality of the fitted gaussian
-    distribution and the variance in layers around this.
+    Calculate the scaled probability density function for an array.
 
     Parameters
     ----------
-    array : npt.NDArray[np.int | np.float64]
-        Array for which Gaussian curve is to be fitted.
+    array : list[float]
+        Array of data points to be summarised.
+    xmin : int | float
+        Minimum value.
+    xmax : int | float
+        Maximum value.
 
     Returns
     -------
-    tuple[float, float]
-        Returns the weighted layer mean and standard deviation of the data.
+    dict[str, npt.NDArray]
+        Dictionary of x and y values for the PDF.
     """
-    x_values = np.arange(1, len(array) + 1)
+    x_values = np.arange(0, len(array))
     mean = np.average(x_values, weights=array)
     std = np.sqrt(np.average((x_values - mean) ** 2, weights=array))
-    return (mean, std)
+    x_pdf = np.linspace(xmin, xmax, len(array))
+    # Scale the PDF to match the total counts and "bin width" (i.e. layers) for plotting
+    y_pdf = norm.pdf(x_pdf, loc=mean, scale=std) * np.sum(array) * (x_pdf[1] - x_pdf[0])
+    return {"x": x_pdf, "y": y_pdf}
 
 
-# def aggregate_arrays(
-#     arrays: dict[str, npt.NDArray[np.float64]],
-# ) -> npt.NDArray[np.float64]:
-#     print(f"\n{list(arrays.values())=}\n")
-#     return np.concatenate(list(arrays.values()))
+def full_width_half_max(pdf: npt.NDArray) -> list[int]:
+    """
+    Calculate the full-width half max.
+
+    We are interested in the layers that cover the full-width half-max of the number of pores in an image. And therefore
+    extract the indices the calculated PDF (``y_pdf``)
+
+    Parameters
+    ----------
+    pdf : npt.NDArray
+        Array probability density function for which peak and full-width half-max are to be calculated.
+
+    Returns
+    -------
+    dict[str, int]
+        Dictionary of the lower and upper layers for the full-width half-max range.
+    """
+    peaks, _ = find_peaks(pdf)
+    _peak_widths = peak_widths(pdf, peaks, rel_height=0.5)
+    # Round these as we want indexes not absolute values
+    return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]

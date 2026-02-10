@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import numpy.typing as npt
 import pytest
+from scipy.stats import norm
 
 from afmslicer import slicer, statistics
 
@@ -247,7 +248,6 @@ def test_sum_area_by_layer(
 ) -> None:
     """Test summation of area of pores on each layer."""
     labelled_array = request.getfixturevalue(sliced_labels_fixture)
-    print(f"\n{labelled_array=}\n")
     spacing = (
         request.getfixturevalue(scaling_fixture)
         if isinstance(scaling_fixture, str)
@@ -401,9 +401,6 @@ def test_feret_diameter_maximum_pores(
     sliced_region_properties = slicer.region_properties_by_slices(
         labelled_array, spacing
     )
-    print(
-        f"\n{statistics.feret_diameter_maximum_pores(sliced_region_properties=sliced_region_properties)=}\n"
-    )
     if objects_per_layer is not None:
         assert (
             statistics.feret_diameter_maximum_pores(
@@ -421,29 +418,34 @@ def test_feret_diameter_maximum_pores(
 
 
 @pytest.mark.parametrize(
-    ("array", "expected_layer", "expected_std"),
+    ("pdf", "expected_fwhm"),
     [
         pytest.param(
-            np.array([1, 1, 1, 1, 10, 1, 1, 1, 1]),
-            5.0,
-            1.8257418583505538,
-            id="narrow distribution",
+            np.array([0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]),
+            [2, 8],
+            id="Array of 11",
         ),
         pytest.param(
-            np.array([0, 1, 2, 3, 4, 3, 2, 1, 0]),
-            5.0,
-            1.5811388300841898,
-            id="wide distribution",
+            1000 * norm.pdf(np.linspace(0, 100, 100), loc=47, scale=11),
+            [34, 59],
+            id="Array of 100, mean 47 (11)",
+        ),
+        pytest.param(
+            1000 * norm.pdf(np.linspace(0, 100, 100), loc=50, scale=20),
+            [27, 72],
+            id="Array of 100 mean 50 (20)",
+        ),
+        pytest.param(
+            1000 * norm.pdf(np.linspace(0, 100, 255), loc=50, scale=20),
+            [69, 185],
+            id="Array of 255 mean 50 (20)",
         ),
     ],
 )
-def test_fit_gaussian(
-    array: npt.NDArray, expected_layer: float, expected_std: float
-) -> None:
-    """Test for fit_gaussian()."""
-    layer, std = statistics.fit_gaussian(array=array)
-    assert layer == expected_layer
-    assert std == expected_std
+def test_full_width_half_max(pdf: npt.NDArray, expected_fwhm: dict[str, int]) -> None:
+    """Test for testname()."""
+    fwhm = statistics.full_width_half_max(pdf=pdf)
+    assert fwhm == expected_fwhm
 
 
 # @pytest.mark.parametrize(

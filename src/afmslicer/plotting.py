@@ -11,7 +11,8 @@ import numpy.typing as npt
 
 # import numpy as np
 from loguru import logger
-from scipy.stats import norm
+
+from afmslicer import statistics
 
 
 def plot_layer(  # pylint: disable=too-many-positional-arguments
@@ -20,7 +21,7 @@ def plot_layer(  # pylint: disable=too-many-positional-arguments
     layer: int | None = None,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
-    cmap: str | mpt.ColorType | None = None,
+    cmap: str | None = None,
 ) -> tuple[plt.Figure, plt.Axes]:
     """
     Plot a two-dimensional numpy array.
@@ -37,7 +38,7 @@ def plot_layer(  # pylint: disable=too-many-positional-arguments
         Target output directory, will be created if it does not exist.
     format : str, optional
         Image format for creating image. Default is ``png``.
-    cmap : str | mpt.ColorType, optional
+    cmap : str, optional
         Colormap to plot as, defaults to ``black`` for binary images, ``viridis`` for heights. Labelled images are
         plotted as is.
 
@@ -121,8 +122,6 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     img_name: str | None = None,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
-    mean: float | None = None,
-    std: float | None = None,
     log: bool | None = False,
 ) -> tuple[plt.Figure, plt.Axes]:
     """
@@ -138,10 +137,6 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
         Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
     format : str, optional
         Output file format as a string, defaults to ``png`` if not specified.
-    mean : float, optional
-        Mean of ``pores_per_layer``.
-    std : float, optional
-        Standard deviation of ``pores_per_layer``.
     log : bool, optional
         Whether to plot with the logarithm (base10) of the number of pores.
 
@@ -162,19 +157,12 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     ax.plot(pores_per_layer)
     # Calculate the Gaussian and overlay
     if not log:
-        if mean is None or std is None:
-            x_values = np.arange(1, len(pores_per_layer) + 1)
-            mean = np.average(x_values, weights=pores_per_layer)
-            std = np.sqrt(np.average((x_values - mean) ** 2, weights=pores_per_layer))
         xmin, xmax = plt.xlim()
-        x_pdf = np.linspace(xmin, xmax, len(pores_per_layer))
-        # Scale the PDF to match the total counts and "bin width" (i.e. layers) for plotting
-        pdf_scaled = (
-            norm.pdf(x_pdf, loc=mean, scale=std)
-            * np.sum(pores_per_layer)
-            * (x_pdf[1] - x_pdf[0])
-        )
-        ax.plot(x_pdf, pdf_scaled, "k-", linewidth=1, label="Gaussian PDF (Scaled)")
+        pdf = statistics.calculate_pdf(array=pores_per_layer, xmin=xmin, xmax=xmax)
+        ax.plot(pdf["x"], pdf["y"], "k-", linewidth=1, label="Gaussian PDF (Scaled)")
+        full_width_half_max_index = statistics.full_width_half_max(pdf=pdf["y"])
+        ymin, ymax = plt.ylim()
+        ax.vlines(full_width_half_max_index, ymin=ymin, ymax=ymax)
     ax.set_title("Pores per layer")
     ax.set_xlabel("Layer")
     ax.set_ylabel(ylabel)
@@ -189,9 +177,11 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     return (fig, ax)
 
 
-def plot_area_by_layer(
+def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
     area_per_layer: list[list[float]],
     img_name: str | None = None,
+    min_size: float | None = None,
+    drop_first_and_last: bool = False,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
     log: bool | None = False,
@@ -202,9 +192,13 @@ def plot_area_by_layer(
     Parameters
     ----------
     area_per_layer : list[list[float]]
-        A list of lists of the area of pores within each layer.
+        A list of the total area of pores within each layer.
     img_name : str, optional
         Image name.
+    min_size : float
+        Minimum size of objects to include when summing the area by layer.
+    drop_first_and_last : bool
+        Whether to drop the first and last layer from plotting.
     outdir : str | Path, optional
         Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
     format : str, optional
@@ -218,16 +212,24 @@ def plot_area_by_layer(
         Returns a tuple of Matplotlib ``fig`` and ``ax``.
     """
     format = "png" if format is None else format.replace(".", "")
-    total_area_per_layer = [sum(layer) for layer in area_per_layer]
+    total_area_per_layer = statistics.sum_area_by_layer(
+        areas=area_per_layer,
+        min_size=min_size,
+        drop_first_and_last=drop_first_and_last,
+    )
     if log:
         total_area_per_layer = np.log10(total_area_per_layer)
         ylabel = "log(Area)"
         outfile = f"{img_name}_area_per_layer_log.{format}"
     else:
-        ylabel = "Area"
+        ylabel = "Area (nm^2)"
         outfile = f"{img_name}_area_per_layer.{format}"
     fig, ax = plt.subplots(1, 1)
     ax.plot(total_area_per_layer)
+    if not log:
+        xmin, xmax = plt.xlim()
+        pdf = statistics.calculate_pdf(array=total_area_per_layer, xmin=xmin, xmax=xmax)
+        ax.plot(pdf["x"], pdf["y"], "k-", linewidth=1, label="Gaussian PDF (Scaled)")
     ax.set_title("Area per layer")
     ax.set_xlabel("Layer")
     ax.set_ylabel(ylabel)
