@@ -87,7 +87,7 @@ def test_count_pores(
     (
         "sliced_labels_fixture",
         "scaling_fixture",
-        "objects_per_layer",
+        "area_per_layer",
     ),
     [
         pytest.param(
@@ -122,11 +122,11 @@ def test_count_pores(
 def test_area_pores(
     sliced_labels_fixture: str,
     scaling_fixture: int | str,
-    objects_per_layer: list[list[float]] | None,
+    area_per_layer: list[list[float]] | None,
     request,
     snapshot,
 ) -> None:
-    """Test counting the number of pores on each layer."""
+    """Test extracting the area of pores on each layer."""
     labelled_array = request.getfixturevalue(sliced_labels_fixture)
     spacing = (
         request.getfixturevalue(scaling_fixture)
@@ -136,16 +136,113 @@ def test_area_pores(
     sliced_region_properties = slicer.region_properties_by_slices(
         labelled_array, spacing
     )
-    if objects_per_layer is not None:
+    if area_per_layer is not None:
         assert (
             statistics.area_pores(sliced_region_properties=sliced_region_properties)
-            == objects_per_layer
+            == area_per_layer
         )
     else:
         assert (
             statistics.area_pores(sliced_region_properties=sliced_region_properties)
             == snapshot
         )
+
+
+@pytest.mark.parametrize(
+    (
+        "sliced_labels_fixture",
+        "scaling_fixture",
+        "min_size",
+        "expected_area_per_layer",
+        "total_area",
+    ),
+    [
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            None,
+            [81, 49, 25, 9, 1],
+            165.0,
+            id="pyramid array, no min size",
+        ),
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            10.0,
+            [81, 49, 25, 0, 0],
+            155.0,
+            id="pyramid array, min size 10",
+        ),
+        pytest.param(
+            "square_array_sliced_mask_segment",
+            1,
+            None,
+            [25, 25, 25, 25, 25],
+            125.0,
+            id="square array, no min_size",
+        ),
+        pytest.param(
+            "sample1_spm_sliced_segment",
+            "sample1_scaling",
+            None,
+            None,
+            560981750.4882812,
+            id="sample1, no min_size",
+        ),
+        pytest.param(
+            "sample1_spm_sliced_segment",
+            "sample1_scaling",
+            10000,
+            None,
+            560919189.453125,
+            id="sample1, min_size 10000",
+            # marks=pytest.mark.skip(reason="testing"),
+        ),
+        pytest.param(
+            "sample2_spm_sliced_segment",
+            "sample2_scaling",
+            None,
+            None,
+            386241.796875,
+            id="sample2, no min_size",
+            # marks=pytest.mark.skip(reason="testing"),
+        ),
+    ],
+)
+def test_area_by_layer(
+    sliced_labels_fixture: str,
+    scaling_fixture: int | str,
+    min_size: float | None,
+    expected_area_per_layer: list[list[float]] | None,
+    total_area: float,
+    request,
+    snapshot,
+) -> None:
+    """Test summation of area of pores on each layer."""
+    labelled_array = request.getfixturevalue(sliced_labels_fixture)
+    spacing = (
+        request.getfixturevalue(scaling_fixture)
+        if isinstance(scaling_fixture, str)
+        else scaling_fixture
+    )
+    sliced_region_properties = slicer.region_properties_by_slices(
+        labelled_array, spacing
+    )
+    pore_areas_per_layer = statistics.area_pores(
+        sliced_region_properties=sliced_region_properties
+    )
+    area_per_layer = statistics.sum_area_by_layer(
+        areas=pore_areas_per_layer, min_size=min_size
+    )
+    if expected_area_per_layer is not None:
+        print(
+            f"\n{statistics.sum_area_by_layer(areas=pore_areas_per_layer, min_size=min_size)=}\n"
+        )
+        print(f"\n{area_per_layer=}\n")
+        assert area_per_layer == expected_area_per_layer
+    else:
+        assert area_per_layer == snapshot
+    assert sum(area_per_layer) == total_area
 
 
 @pytest.mark.parametrize(

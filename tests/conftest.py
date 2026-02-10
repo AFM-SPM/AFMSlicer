@@ -823,17 +823,10 @@ def fixture_sample1_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, fl
     scan_loader.get_data()
     # @ns-rse 2025-11-07 Expect TopoStats to change as TopoStats class will include the configuration and the arguments
     # will be optional.
-    _filter = Filters(
-        topostats_object=scan_loader.img_dict["sample1"],
-        threshold_std_dev=default_config["filter"]["threshold_std_dev"],
-        threshold_method=default_config["filter"]["threshold_method"],
-        threshold_absolute=default_config["filter"]["threshold_absolute"],
-        otsu_threshold_multiplier=default_config["filter"]["otsu_threshold_multiplier"],
-        gaussian_size=default_config["filter"]["gaussian_size"],
-        gaussian_mode=default_config["filter"]["gaussian_mode"],
-        row_alignment_quantile=default_config["filter"]["row_alignment_quantile"],
-        remove_scars=default_config["filter"]["remove_scars"],
-    )
+    print(f"\n{default_config.keys()=}\n")
+    config = default_config["filter"].copy()
+    config.pop("run")
+    _filter = Filters(topostats_object=scan_loader.img_dict["sample1.spm"], **config)
     _filter.filter_image()
     return (_filter.image, _filter.pixel_to_nm_scaling)
 
@@ -891,17 +884,9 @@ def fixture_sample2_spm(default_config: dict[str, Any]) -> tuple[npt.NDArray, fl
     scan_loader.get_data()
     # @ns-rse 2025-11-07 Expect TopoStats to change as TopoStats class will include the configuration and the arguments
     # will be optional.
-    _filter = Filters(
-        topostats_object=scan_loader.img_dict["sample2"],
-        threshold_std_dev=default_config["filter"]["threshold_std_dev"],
-        threshold_method=default_config["filter"]["threshold_method"],
-        threshold_absolute=default_config["filter"]["threshold_absolute"],
-        otsu_threshold_multiplier=default_config["filter"]["otsu_threshold_multiplier"],
-        gaussian_size=default_config["filter"]["gaussian_size"],
-        gaussian_mode=default_config["filter"]["gaussian_mode"],
-        row_alignment_quantile=default_config["filter"]["row_alignment_quantile"],
-        remove_scars=default_config["filter"]["remove_scars"],
-    )
+    config = default_config["filter"]
+    config.pop("run")
+    _filter = Filters(topostats_object=scan_loader.img_dict["sample2.spm"], **config)
     _filter.filter_image()
     return (_filter.image, _filter.pixel_to_nm_scaling)
 

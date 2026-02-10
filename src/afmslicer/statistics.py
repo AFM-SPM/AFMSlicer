@@ -44,6 +44,43 @@ def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
     return [[props.area for props in layer] for layer in sliced_region_properties]
 
 
+def sum_area_by_layer(
+    areas: list[list[float] | int | float], min_size: float | None = None
+) -> list[float]:
+    """
+    Sum the area of pores on each layer.
+
+    Parameters
+    ----------
+    areas : list[list[float]]
+        A list of areas of pores on each layer.
+    min_size : float, optional
+        Minimum size to include in calculation.
+
+    Returns
+    -------
+    list[float]
+        A list with the total area per slice.
+    """
+    # Sum the area per layer, we do this in a for loop rather than dictionary comprehension for instances when there is
+    # a single object in a layer which will not therefore be iterrable and raise an error with sum().
+    total_area_per_layer = []
+    if min_size:
+        _areas = [
+            [pore_area for pore_area in layer if pore_area > min_size]
+            for layer in areas
+        ]
+    else:
+        _areas = areas
+    for layer in _areas:
+        try:
+            total_area_per_layer.append(sum(layer))
+        except TypeError:
+            if isinstance(layer, (int, float)):
+                total_area_per_layer.append(layer)
+    return total_area_per_layer
+
+
 def centroid_pores(
     sliced_region_properties: list[list[Any]],
 ) -> list[list[tuple[float, float]]]:
