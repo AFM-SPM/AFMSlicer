@@ -158,3 +158,4 @@ class SlicingFilter(Filters):
         self.images["gaussian_filtered"] = self.gaussian_filter(
             self.images["zero_average_background"]
         )
+        self.topostats_object.image = self.images["gaussian_filtered"]

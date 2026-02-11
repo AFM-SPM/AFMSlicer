@@ -76,8 +76,14 @@ def test_average_background(slicing_filter_fixture: str, request, snapshot) -> N
             "slicing_filter_random",
             1.0121397464510862,
             "nearest",
-            id="random, default gaussian",
-        )
+            id="random, gaussian 1.0121",
+        ),
+        pytest.param(
+            "slicing_filter_random",
+            4.0,
+            "nearest",
+            id="random, gaussian 4.0",
+        ),
     ],
 )
 def test_gaussian_filter(
