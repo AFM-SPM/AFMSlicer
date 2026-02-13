@@ -125,6 +125,7 @@ module = [
   "pydantic_numpy.*",
   "topostats.*",
   "schema.*",
+  "scipy.*",
   "skimage.*",
   "snoop.*",
   "yaml.*",

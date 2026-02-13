@@ -301,34 +301,36 @@ def test_plot_all_layers(
     ),
     [
         pytest.param(
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, "basic", "png", None, id="basic"
-        ),
-        pytest.param(
             "pyramid_array_sliced_mask_segment",
             1,
             "pyramid",
             ".png",
-            [1, 1, 1, 1, 1],
+            np.asarray([1, 1, 1, 1, 1]),
             id="pyramid heights",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample1_spm_sliced_segment",
             1,
             "sample1",
             ".png",
-            [1, 43, 31, 63, 1],
+            np.asarray([1, 43, 31, 63, 1]),
             id="sample1",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample2_spm_sliced_segment",
             1,
             "sample2",
             ".png",
-            [1, 76, 84, 56, 1],
+            np.asarray([1, 76, 84, 56, 1]),
             id="sample2",
-            # marks=pytest.mark.skip(reason="development"),
+        ),
+        pytest.param(
+            np.asarray([0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]),
+            1,
+            "sample2",
+            ".png",
+            None,
+            id="basic",
         ),
     ],
 )
@@ -341,7 +343,7 @@ def test_plot_pores_by_layer(
     tmp_path: Path,
     request,
 ) -> plt.Figure:
-    """Test for ``plot_layer()``."""
+    """Test for ``plot_pores_by_layer()``."""
     if objects_per_layer is not None:
         labelled_array = request.getfixturevalue(sliced_labels_fixture)
         spacing = (
@@ -355,11 +357,83 @@ def test_plot_pores_by_layer(
         pores_per_layer = statistics.count_pores(
             sliced_region_properties=sliced_region_properties
         )
-        assert pores_per_layer == objects_per_layer
+        np.testing.assert_array_equal(pores_per_layer, objects_per_layer)
     else:
         pores_per_layer = sliced_labels_fixture  # type: ignore[assignment]
     fig, _ = plotting.plot_pores_by_layer(
         pores_per_layer=pores_per_layer,
+        outdir=tmp_path,
+        img_name=img_name,
+        format=format,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(baseline_dir="img/plot_area_by_layer/")
+@pytest.mark.parametrize(
+    (
+        "sliced_labels_fixture",
+        "scaling_fixture",
+        "img_name",
+        "format",
+    ),
+    [
+        pytest.param(
+            [1.0, 2.0, 3.0, 4.0, 5.0, 5.0, 4.0, 3.0, 2.0, 1.0],
+            1,
+            "basic",
+            "png",
+            id="basic",
+        ),
+        pytest.param(
+            "pyramid_array_sliced_mask_segment",
+            1,
+            "pyramid",
+            ".png",
+            id="pyramid heights",
+        ),
+        pytest.param(
+            "sample1_spm_sliced_segment",
+            1,
+            "sample1",
+            ".png",
+            id="sample1",
+        ),
+        pytest.param(
+            "sample2_spm_sliced_segment",
+            1,
+            "sample2",
+            ".png",
+            id="sample2",
+        ),
+    ],
+)
+def test_plot_area_by_layer(
+    sliced_labels_fixture: str | list[float],
+    scaling_fixture: int | str,
+    img_name: str,
+    format: str,  # pylint: disable=redefined-builtin
+    tmp_path: Path,
+    request,
+) -> plt.Figure:
+    """Test for ``plot_area_by_layer()``."""
+    if isinstance(sliced_labels_fixture, str):
+        labelled_array = request.getfixturevalue(sliced_labels_fixture)
+        spacing = (
+            request.getfixturevalue(scaling_fixture)
+            if isinstance(scaling_fixture, str)
+            else scaling_fixture
+        )
+        sliced_region_properties = slicer.region_properties_by_slices(
+            labelled_array, spacing
+        )
+        pore_area_per_layer = statistics.area_pores(
+            sliced_region_properties=sliced_region_properties
+        )
+    else:
+        pore_area_per_layer: list[float] = sliced_labels_fixture
+    fig, _ = plotting.plot_area_by_layer(
+        area_per_layer=pore_area_per_layer,
         outdir=tmp_path,
         img_name=img_name,
         format=format,

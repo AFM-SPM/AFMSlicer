@@ -812,7 +812,7 @@ def fixture_height_multiple_objects() -> npt.NDArray[np.int32]:
     )
 
 
-# Sample 1
+# Sample 1 fixtures...
 @pytest.fixture(name="sample1_spm")
 def fixture_sample1_spm(default_config: dict[str, Any]) -> TopoStats:
     """Load an image and filter/flatten it ready for analysis."""
@@ -820,7 +820,6 @@ def fixture_sample1_spm(default_config: dict[str, Any]) -> TopoStats:
         [RESOURCES_SPM / "sample1.spm"], channel="Height", config=default_config
     )
     scan_loader.get_data()
-    # return (scan_loader.img_dict["sample1.spmt"], _filter.pixel_to_nm_scaling)
     return scan_loader.img_dict["sample1.spm"]
 
 
@@ -866,7 +865,7 @@ def sample1_spm_sliced_segment() -> npt.NDArray[np.float64]:
         return data["arr_0"]
 
 
-# Sample 2
+# Sample 2 fixtures...
 @pytest.fixture(name="sample2_spm")
 def fixture_sample2_spm(default_config: dict[str, Any]) -> TopoStats:
     """Load an image and filter/flatten it ready for analysis."""

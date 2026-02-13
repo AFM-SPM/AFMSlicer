@@ -2225,3 +2225,30 @@
     ]),
   ])
 # ---
+# name: test_sum_area_by_layer[sample1, min_size 10000]
+  list([
+    np.float64(399998474.12109375),
+    np.float64(86811828.61328125),
+    np.float64(59712219.23828125),
+    np.float64(14396667.48046875),
+    0,
+  ])
+# ---
+# name: test_sum_area_by_layer[sample1, no min_size]
+  list([
+    np.float64(399998474.12109375),
+    np.float64(86857604.98046875),
+    np.float64(59719848.6328125),
+    np.float64(14404296.875),
+    np.float64(1525.87890625),
+  ])
+# ---
+# name: test_sum_area_by_layer[sample2, no min_size]
+  list([
+    np.float64(159999.609375),
+    np.float64(136148.4375),
+    np.float64(74932.421875),
+    np.float64(15160.9375),
+    np.float64(0.390625),
+  ])
+# ---

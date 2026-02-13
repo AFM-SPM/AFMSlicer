@@ -91,6 +91,10 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     area_by_layer: list[list[float]] | None = None
     centroid_by_layer: list[list[tuple[float, float]]] | None = None
     feret_maximum_by_layer: list[list[float]] | None = None
+    pores_per_layer_mean: float | None = None
+    pores_per_layer_std: float | None = None
+    layer_max_pores: int | None = None
+    # slice_max_pores: dict[str, int | float] | None = None
 
     def __post_init__(self) -> None:
         """
@@ -154,14 +158,14 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             array=self.sliced_segments_clean,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
+            format=self.config["plotting"]["format"],
         )
         # Plot pores per layer
         self.fig_objects_per_layer = plotting.plot_pores_by_layer(
             pores_per_layer=self.pores_per_layer,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
+            format=self.config["plotting"]["format"],
             log=False,
         )
         # Plot pores per layer (log scale)
@@ -169,7 +173,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             pores_per_layer=self.pores_per_layer,
             img_name=self.filename,
             outdir=self.config["output_dir"],
-            format=self.config["slicing"]["format"],
+            format=self.config["plotting"]["format"],
             log=True,
         )
         # Optionally calculate additional statistics
@@ -183,7 +187,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
                 outdir=self.config["output_dir"],
-                format=self.config["slicing"]["format"],
+                format=self.config["plotting"]["format"],
                 log=False,
             )
             # Plot log area per layer
@@ -191,7 +195,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
                 outdir=self.config["output_dir"],
-                format=self.config["slicing"]["format"],
+                format=self.config["plotting"]["format"],
                 log=True,
             )
         # Centroid

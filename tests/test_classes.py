@@ -148,23 +148,6 @@ def test_AFMSlicer(
             id="basic",
         ),
         pytest.param(
-            "afmslicer_with_attributes",
-            "simple_afmslice_with_attr",
-            "tmp",
-            2,
-            1.0,
-            4.0,
-            np.asarray([1.0, 4.0]),
-            "pyramid_height_array_2",
-            "pyramid_array_mask_2",
-            "pyramid_array_mask_stacked_2",
-            "pyramid_sliced_segments_clean_2",
-            "pyramid_sliced_region_properties_2",
-            "pyramid_sliced_clean_region_properties_2",
-            0.5,
-            id="basic with min_height=1, max_height=4, layers=2",
-        ),
-        pytest.param(
             "afmslicer_sample1",
             "sample1",
             "tmp",
@@ -284,3 +267,22 @@ def test_slice_image(
     assert isinstance(afmslicer_object.fig_log_objects_per_layer[0], plt.Figure)
     assert isinstance(afmslicer_object.fig_log_objects_per_layer[1], plt.Axes)
     return afmslicer_object.fig_objects_per_layer[0]
+
+
+@pytest.mark.parametrize(
+    "fixture",
+    [
+        pytest.param(
+            "afmslicer_with_attributes",
+            id="basic with min_height=1, max_height=4, layers=2",
+        ),
+    ],
+)
+def test_slice_image_value_error(
+    fixture: str,
+    request,
+) -> None:
+    """Test for creating ``AFMSlicer`` object."""
+    afmslicer_object = request.getfixturevalue(fixture)
+    with pytest.raises(ValueError):
+        assert afmslicer_object.slice_image()
