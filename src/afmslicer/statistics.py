@@ -172,6 +172,10 @@ def full_width_half_max(pdf: npt.NDArray) -> list[int]:
         Dictionary of the lower and upper layers for the full-width half-max range.
     """
     peaks, _ = find_peaks(pdf)
-    _peak_widths = peak_widths(pdf, peaks, rel_height=0.5)
-    # Round these as we want indexes not absolute values
-    return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]
+    if len(peaks) > 0:
+        _peak_widths = peak_widths(pdf, peaks, rel_height=0.5)
+        # Round these as we want indexes not absolute values
+        return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]
+    raise ValueError(
+        "No peaks found in distribution, can not calculate full-width half-max."
+    )

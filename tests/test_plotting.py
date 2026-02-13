@@ -300,9 +300,6 @@ def test_plot_all_layers(
         "objects_per_layer",
     ),
     [
-        # pytest.param(
-        #     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, "basic", "png", None, id="basic"
-        # ),
         pytest.param(
             "pyramid_array_sliced_mask_segment",
             1,
@@ -310,7 +307,6 @@ def test_plot_all_layers(
             ".png",
             np.asarray([1, 1, 1, 1, 1]),
             id="pyramid heights",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample1_spm_sliced_segment",
@@ -319,7 +315,6 @@ def test_plot_all_layers(
             ".png",
             np.asarray([1, 43, 31, 63, 1]),
             id="sample1",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample2_spm_sliced_segment",
@@ -328,7 +323,6 @@ def test_plot_all_layers(
             ".png",
             np.asarray([1, 76, 84, 56, 1]),
             id="sample2",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             np.asarray([0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]),
@@ -337,7 +331,6 @@ def test_plot_all_layers(
             ".png",
             None,
             id="basic",
-            # marks=pytest.mark.skip(reason="development"),
         ),
     ],
 )
@@ -350,7 +343,7 @@ def test_plot_pores_by_layer(
     tmp_path: Path,
     request,
 ) -> plt.Figure:
-    """Test for ``plot_layer()``."""
+    """Test for ``plot_pores_by_layer()``."""
     if objects_per_layer is not None:
         labelled_array = request.getfixturevalue(sliced_labels_fixture)
         spacing = (
@@ -391,7 +384,6 @@ def test_plot_pores_by_layer(
             "basic",
             "png",
             id="basic",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "pyramid_array_sliced_mask_segment",
@@ -399,7 +391,6 @@ def test_plot_pores_by_layer(
             "pyramid",
             ".png",
             id="pyramid heights",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample1_spm_sliced_segment",
@@ -407,7 +398,6 @@ def test_plot_pores_by_layer(
             "sample1",
             ".png",
             id="sample1",
-            # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
             "sample2_spm_sliced_segment",
@@ -415,7 +405,6 @@ def test_plot_pores_by_layer(
             "sample2",
             ".png",
             id="sample2",
-            # marks=pytest.mark.skip(reason="development"),
         ),
     ],
 )
@@ -427,7 +416,7 @@ def test_plot_area_by_layer(
     tmp_path: Path,
     request,
 ) -> plt.Figure:
-    """Test for ``plot_layer()``."""
+    """Test for ``plot_area_by_layer()``."""
     if isinstance(sliced_labels_fixture, str):
         labelled_array = request.getfixturevalue(sliced_labels_fixture)
         spacing = (
