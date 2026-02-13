@@ -34,7 +34,7 @@ dynamic = ["version"]
 dependencies = [
   "afmreader",
   "art",
-  "topostats @ git+https://github.com/AFM-SPM/TopoStats@ns-rse/1102-switching-to-TopoStats-class",
+  "topostats @ git+https://github.com/AFM-SPM/TopoStats",
   "loguru",
   "marimo",
   "pydantic",
@@ -172,7 +172,7 @@ isort.required-imports = ["from __future__ import annotations"]
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]
 "noxfile.py" = ["T20"]
-"notebooks/AFMSlicer.py" = [
+"notebooks/**" = [
   "B018",
   "F841",
   "PLC0415",
@@ -181,9 +181,13 @@ isort.required-imports = ["from __future__ import annotations"]
   "T203",
 ]
 
-[tool.pylint]
+[tool.pylint.main]
 py-version = "3.9"
-ignore-paths = [".*/_version.py"]
+ignore-paths = ["_version.py", "notebooks/"]
+ignore-patterns = ["^\\.#"]
+jobs = 0
+fail-under = 10.0
+suggestion-mode = true
 reports.output-format = "colorized"
 similarities.ignore-imports = "yes"
 messages_control.disable = [
@@ -194,6 +198,7 @@ messages_control.disable = [
   "missing-function-docstring",
   "wrong-import-position",
 ]
+
 
 [tool.numpydoc_validation]
 checks = [
@@ -218,10 +223,13 @@ override_SS05 = [  # override SS05 to allow docstrings starting with these words
 ]
 
 [tool.codespell]
-skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004,uv.lock'
+skip = '*.spm*,*.mplstyle,*.svg,*.stp,*.top,*.002,*.004,uv.lock,./notebooks/*.py'
 count = ''
 quiet-level = 3
-ignore-words-list = 'OT'
+ignore-words-list = [
+  'OT',
+  "Gwyddion"
+]
 
 [project.scripts]
 afmslicer = "afmslicer.entry_point:entry_point"

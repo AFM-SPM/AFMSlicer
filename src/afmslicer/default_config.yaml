@@ -9,15 +9,7 @@ loading:
 filter:
   run: true # Options : true, false
   row_alignment_quantile: 0.5 # lower values may improve flattening of larger features
-  threshold_method: std_dev # Options : otsu, std_dev, absolute
-  otsu_threshold_multiplier: 1.0
-  threshold_std_dev:
-    below: 10.0 # Threshold for data below the image background
-    above: 1.0 # Threshold for data above the image background
-  threshold_absolute:
-    below: -1.0 # Threshold for data below the image background
-    above: 1.0 # Threshold for data above the image background
-  gaussian_size: 1.0121397464510862 # Gaussian blur intensity in px
+  gaussian_size: 4.0 # Gaussian blur intensity in px
   gaussian_mode: nearest # Mode for Gaussian blurring. Options : nearest, reflect, constant, mirror, wrap
   # Scar remvoal parameters. Be careful with editing these as making the algorithm too sensitive may
   # result in ruining legitimate data.

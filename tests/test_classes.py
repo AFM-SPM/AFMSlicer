@@ -9,11 +9,106 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
+from afmslicer.classes import AFMSlicer
+
 # pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access
 
 BASE_DIR = Path.cwd()
 RESOURCES = BASE_DIR / "tests" / "resources"
 RESOURCES_SLICER = RESOURCES / "slicer"
+
+
+# @pytest.mark.mpl_image_compare(baseline_dir="img/classes/")
+@pytest.mark.parametrize(
+    (
+        "fixture",
+        "filename",
+        "img_path",
+        "slices",
+        "min_height",
+        "max_height",
+        "layers",
+        "pixel_to_nm_scaling",
+    ),
+    [
+        pytest.param(
+            "afmslicer_basic",
+            "simple_afmslice",
+            "tmp",
+            5,
+            0,
+            5,
+            np.asarray([0.0, 1.25, 2.5, 3.75, 5.0]),
+            1.0,
+            id="basic",
+        ),
+        pytest.param(
+            "afmslicer_with_attributes",
+            "simple_afmslice_with_attr",
+            "tmp",
+            2,
+            1.0,
+            4.0,
+            np.asarray([1.0, 4.0]),
+            0.5,
+            id="basic with min_height=1, max_height=4, layers=2",
+        ),
+        pytest.param(
+            "afmslicer_sample1",
+            "sample1",
+            "tmp",
+            5,
+            -312.40853721614576,
+            551.5217325223152,
+            np.asarray([-312.408537, -96.42597, 119.556598, 335.539165, 551.521733]),
+            39.0625,
+            id="sample1 layers=5",
+        ),
+        pytest.param(
+            "afmslicer_sample2",
+            "sample2",
+            "tmp",
+            5,
+            -296.85145995382425,
+            -152.62116556541318,
+            np.asarray(
+                [-296.85146, -260.793886, -224.736313, -188.678739, -152.621166]
+            ),
+            0.625,
+            id="sample2 layers=5",
+        ),
+    ],
+)
+def test_AFMSlicer(
+    fixture: str,
+    filename: str,
+    img_path: Path,
+    slices: int,
+    min_height: int | float,
+    max_height: int | float,
+    layers: npt.NDArray[np.float64],
+    pixel_to_nm_scaling: float,
+    request,
+) -> plt.Figure:
+    """Test for creating ``AFMSlicer`` object."""
+    afmslicer_object = request.getfixturevalue(fixture)
+    assert isinstance(afmslicer_object, AFMSlicer)
+    assert isinstance(afmslicer_object.config, dict)
+    assert afmslicer_object.filename == filename
+    assert afmslicer_object.img_path == img_path
+    assert afmslicer_object.slices == slices
+    assert afmslicer_object.min_height == min_height
+    assert afmslicer_object.max_height == max_height
+    assert afmslicer_object.pixel_to_nm_scaling == pixel_to_nm_scaling
+    # Check different arrays
+    np.testing.assert_array_almost_equal(afmslicer_object.layers, layers)
+    # np.savez_compressed(
+    #     RESOURCES_SLICER / f"{sliced_segments_clean_fixture}.npz",
+    #     afmslicer_object.sliced_segments_clean,
+    # )
+    # output = RESOURCES_SLICER / f"{sliced_clean_region_properties_fixture}.pkl"
+    # with output.open(mode="wb") as f:
+    #     pkl.dump(afmslicer_object.sliced_clean_region_properties, f)
 
 
 @pytest.mark.mpl_image_compare(baseline_dir="img/classes/")
@@ -107,7 +202,7 @@ RESOURCES_SLICER = RESOURCES / "slicer"
         ),
     ],
 )
-def test_AFMSlicer(
+def test_slice_image(
     fixture: str,
     filename: str,
     img_path: Path,
@@ -125,15 +220,17 @@ def test_AFMSlicer(
     request,
 ) -> plt.Figure:
     """Test for creating ``AFMSlicer`` object."""
+    afmslicer_object = request.getfixturevalue(fixture)
+    afmslicer_object.slice_image()
     sliced_array = request.getfixturevalue(sliced_array_fixture)
     sliced_mask = request.getfixturevalue(sliced_mask_fixture)
     sliced_segments = request.getfixturevalue(sliced_segments_fixture)
-    afmslicer_object = request.getfixturevalue(fixture)
     sliced_segments_clean = request.getfixturevalue(sliced_segments_clean_fixture)
     sliced_region_properties = request.getfixturevalue(sliced_region_properties_fixture)
     sliced_clean_region_properties = request.getfixturevalue(
         sliced_clean_region_properties_fixture
     )
+    assert isinstance(afmslicer_object, AFMSlicer)
     assert isinstance(afmslicer_object.config, dict)
     assert afmslicer_object.filename == filename
     assert afmslicer_object.img_path == img_path

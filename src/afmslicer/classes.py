@@ -112,6 +112,11 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             if self.layers is None
             else self.layers
         )
+
+    def slice_image(self) -> None:
+        """
+        Slice the image.
+        """
         # Slice the array (i.e. duplicate it `slices` times)
         self.sliced_array = slicer.slicer(heights=self.image, slices=self.slices)
         # Mask each layer
@@ -181,7 +186,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             self.fig_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
-                drop_first_and_last=self.config["plotting"]["drop_first_and_last"],
                 outdir=self.config["output_dir"],
                 format=self.config["plotting"]["format"],
                 log=False,
@@ -190,7 +194,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             self.fig_log_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
-                drop_first_and_last=self.config["plotting"]["drop_first_and_last"],
                 outdir=self.config["output_dir"],
                 format=self.config["plotting"]["format"],
                 log=True,
