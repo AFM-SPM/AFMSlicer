@@ -383,43 +383,22 @@ def test_plot_pores_by_layer(
         "scaling_fixture",
         "img_name",
         "format",
-        "drop_first_and_last",
     ),
     [
         pytest.param(
-            [1, 2, 3, 4, 5, 5, 4, 3, 2, 1],
+            [1.0, 2.0, 3.0, 4.0, 5.0, 5.0, 4.0, 3.0, 2.0, 1.0],
             1,
             "basic",
             "png",
-            False,
             id="basic",
             # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
-            [1, 2, 3, 4, 5, 5, 4, 3, 2, 1],
-            1,
-            "basic",
-            "png",
-            True,
-            id="basic, drop first and last",
-            # marks=pytest.mark.skip(reason="development"),
-        ),
-        pytest.param(
             "pyramid_array_sliced_mask_segment",
             1,
             "pyramid",
             ".png",
-            False,
             id="pyramid heights",
-            # marks=pytest.mark.skip(reason="development"),
-        ),
-        pytest.param(
-            "pyramid_array_sliced_mask_segment",
-            1,
-            "pyramid",
-            ".png",
-            True,
-            id="pyramid heights, drop first and last",
             # marks=pytest.mark.skip(reason="development"),
         ),
         pytest.param(
@@ -427,7 +406,6 @@ def test_plot_pores_by_layer(
             1,
             "sample1",
             ".png",
-            False,
             id="sample1",
             # marks=pytest.mark.skip(reason="development"),
         ),
@@ -436,18 +414,16 @@ def test_plot_pores_by_layer(
             1,
             "sample2",
             ".png",
-            False,
             id="sample2",
             # marks=pytest.mark.skip(reason="development"),
         ),
     ],
 )
 def test_plot_area_by_layer(
-    sliced_labels_fixture: str | list[int],
+    sliced_labels_fixture: str | list[float],
     scaling_fixture: int | str,
     img_name: str,
     format: str,  # pylint: disable=redefined-builtin
-    drop_first_and_last: bool,
     tmp_path: Path,
     request,
 ) -> plt.Figure:
@@ -466,12 +442,11 @@ def test_plot_area_by_layer(
             sliced_region_properties=sliced_region_properties
         )
     else:
-        pore_area_per_layer = sliced_labels_fixture
+        pore_area_per_layer: list[float] = sliced_labels_fixture
     fig, _ = plotting.plot_area_by_layer(
         area_per_layer=pore_area_per_layer,
         outdir=tmp_path,
         img_name=img_name,
         format=format,
-        drop_first_and_last=drop_first_and_last,
     )
     return fig

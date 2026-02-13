@@ -181,7 +181,6 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
     area_per_layer: list[list[float]],
     img_name: str | None = None,
     min_size: float | None = None,
-    drop_first_and_last: bool = False,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
     log: bool | None = False,
@@ -197,8 +196,6 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
         Image name.
     min_size : float
         Minimum size of objects to include when summing the area by layer.
-    drop_first_and_last : bool
-        Whether to drop the first and last layer from plotting.
     outdir : str | Path, optional
         Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
     format : str, optional
@@ -215,7 +212,6 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
     total_area_per_layer = statistics.sum_area_by_layer(
         areas=area_per_layer,
         min_size=min_size,
-        drop_first_and_last=drop_first_and_last,
     )
     if log:
         total_area_per_layer = np.log10(total_area_per_layer)
