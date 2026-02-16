@@ -101,17 +101,39 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Set attributes for the ``AFMSlice`` class on instantiation.
         """
         self.slices = 255 if self.slices is None else self.slices
-        self.min_height = (
-            np.min(self.image) if self.min_height is None else self.min_height
-        )
-        self.max_height = (
-            np.max(self.image) if self.max_height is None else self.max_height
-        )
+        if self.image is not None:
+            self.min_height = (
+                np.min(self.image) if self.min_height is None else self.min_height
+            )
+            self.max_height = (
+                np.max(self.image) if self.max_height is None else self.max_height
+            )
+        else:
+            self.min_height = (
+                np.min(self.image_original)
+                if self.min_height is None
+                else self.min_height
+            )
+            self.max_height = (
+                np.max(self.image_original)
+                if self.max_height is None
+                else self.max_height
+            )
         self.layers = (
             np.linspace(self.min_height, self.max_height, self.slices)
             if self.layers is None
             else self.layers
         )
+
+    def update_heights(self) -> None:
+        """
+        Update minimum and maximum height attributes.
+
+        Initially heights are taken from the raw image stored in ``AFMSlicer.image_original``. Flattening with
+        ``Filters`` changes the range of these values so we need to update the heights.
+        """
+        self.min_height = np.min(self.image)
+        self.max_height = np.max(self.image)
 
     def slice_image(self) -> None:
         """
@@ -119,6 +141,8 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         """
         # Slice the array (i.e. duplicate it `slices` times)
         self.sliced_array = slicer.slicer(heights=self.image, slices=self.slices)
+        # Update heights after flattening
+        self.update_heights()
         # Mask each layer
         self.sliced_mask = slicer.mask_slices(
             stacked_array=self.sliced_array,

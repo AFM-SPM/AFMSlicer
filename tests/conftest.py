@@ -828,7 +828,8 @@ def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AF
     """Fixture of AFMSlicer using sample1.spm."""
     # height, pixel_to_nm_scaling = sample1_spm
     return AFMSlicer(
-        image=sample1_spm.image_original,
+        image=None,
+        image_original=sample1_spm.image_original,
         filename="sample1",
         img_path="tmp",
         pixel_to_nm_scaling=sample1_spm.pixel_to_nm_scaling,
@@ -880,7 +881,8 @@ def fixture_sample2_spm(default_config: dict[str, Any]) -> TopoStats:
 def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample2.spm."""
     return AFMSlicer(
-        image=sample2_spm.image_original,
+        image=None,
+        image_original=sample2_spm.image_original,
         filename="sample2",
         img_path="tmp",
         pixel_to_nm_scaling=sample2_spm.pixel_to_nm_scaling,

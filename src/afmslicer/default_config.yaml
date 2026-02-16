@@ -28,5 +28,4 @@ slicing:
   centroid: false # Whether to calculate the centroid of pores on each slice.
   feret_maximum: false # Whether to calculate the maximum feret distance of pores on each slice
 plotting:
-  drop_first_and_last: true #
   format: png

@@ -7,21 +7,24 @@ This module provides entry points for running AFMSlicer as a command line progra
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import numpy.typing as npt
 from loguru import logger
-from topostats.io import save_topostats_file
+from topostats.classes import TopoStats
 
-from afmslicer.filter import Filters
+from afmslicer.classes import AFMSlicer
+from afmslicer.filter import SlicingFilter
 
 
 # Development Note...
 #
 # We define functions here that process either all stages (process) or individual stages. These are imported by the
-# run_modules sub-module where they serve as input to the partial() function so that images can be run in parallele using Pool()
+# run_modules sub-module where they serve as input to the partial() function so that images can be run in parallele
+# using Pool()
 def process(
     topostats_object: TopoStats,
-    config: dict[str, Any] | None,
+    config: dict[str, Any] | None = None,
 ) -> dict[str, npt.NDArray] | None:
     """
     Process a single image, filtering, slicing and calculating statistics.
@@ -40,12 +43,11 @@ def process(
         Tuple of filename and whether it processed correctly.
     """
     config = topostats_object.config if config is None else config
-    filter(topostats_object=topostats_object, config=config)
-    statistics = slicer(topostats_object=topostats_object, config=config)
-    return statistics
+    filter_scan(topostats_object=topostats_object, config=config)
+    slicer(topostats_object=topostats_object, config=config)
 
 
-def filter(
+def filter_scan(
     topostats_object: TopoStats,
     config: dict[str, Any] | None = None,
 ) -> None:
@@ -62,37 +64,44 @@ def filter(
     config : dict, optional
         Dictionary of configuration options for running the Filter stage.
     """
+    config = topostats_object.config if config is None else config
+    if "run" in config:
+        config.pop("run")
     output_dir = (
-        Path("output") if config["output_dir"] is None else config["output_dir"]
+        Path("output") if config["output_dir"] is None else Path(config["output_dir"])
     )
     output_dir.mkdir(exist_ok=True)
-
+    if "filter" in config:
+        filter_config = config["filter"]
+        filter_config.pop("run")
+    else:
+        filter_config = config
     # Flatten Image
     try:
-        filters = Filters(topostats_object, **config["filter"])
-        # TopoStats performs
+        filters = SlicingFilter(topostats_object, **filter_config)
         filters.filter_image()
-
         # Save the topostats object to .topostats file.
-        save_topostats_file(
-            output_dir=output_dir,
-            filename=str(topostats_object.filename),
-            topostats_object=topostats_object,
-        )
-        logger.info(f"Filtering complete for image : {topostats_object.filename}")
+        # save_topostats_file(
+        #     output_dir=output_dir,
+        #     filename=str(topostats_object.filename),
+        #     topostats_object=topostats_object,
+        # )
+        logger.info(f"[{topostats_object.filename}] : Filtering complete 😻 ")
         return
+    except KeyError as e:
+        raise KeyError() from e
     except:  # noqa: E722  # pylint: disable=bare-except
-        logger.info(f"Filtering failed for image : {topostats_object.filename}")
+        logger.info(f"[{topostats_object.filename}] : Filtering failed  😿")
         return
 
 
 # Slicing : slicing_scan() to process a single image, slicing() to process in parallele
 def slicer(
     topostats_object: TopoStats,
-    config: dict[str, Any],
-) -> dict[str, npt.NDArray]:
+    config: dict[str, Any] | None = None,
+) -> None:
     """
-     flattened images and save to ''.topostats''.
+    Flatten images and save to ''.topostats''.
 
     Runs just the first key step of flattening images to remove noise, tilt and optionally scars saving to
     ''.topostats'' for subsequent processing and analyses.
@@ -103,14 +112,10 @@ def slicer(
         A TopoStats object.
     config : dict
         Dictionary of configuration options for running the Slicing stage.
-
-    Returns
-    -------
-    tuple[str, bool]
-        A tuple of the image and a boolean indicating if the image was successfully processed.
     """
+    config = topostats_object.config if config is None else config
     output_dir = (
-        Path("output") if config["output_dir"] is None else config["output_dir"]
+        Path("output") if config["output_dir"] is None else Path(config["output_dir"])
     )
     output_dir.mkdir(exist_ok=True)
 
@@ -121,17 +126,15 @@ def slicer(
         else:
             topostats_object = AFMSlicer(topostats_object, config=config)
             topostats_object.slice_image()
-        image = AFMslicer(topostats_object, **slicing_config)
-        slicing.slicing_image()
 
         # Save the topostats object to .topostats file.
-        save_topostats_file(
-            output_dir=output_dir,
-            filename=str(topostats_object.filename),
-            topostats_object=topostats_object,
-        )
-        logger.info(f"Slicing complete for image : {topostats_object.filename}")
-        return slicing.statistics
+        # save_topostats_file(
+        #     output_dir=output_dir,
+        #     topostats_object=topostats_object,
+        #     topostats_version=__release__,
+        # )
+        logger.info(f"[{topostats_object.filename}] Slicing complete 😻")
+        return
     except:  # noqa: E722  # pylint: disable=bare-except
-        logger.info(f"Slicing failed for image : {topostats_object.filename}")
-        return None
+        logger.info(f"[{topostats_object.filename}] Slicing failed 😿")
+        return
