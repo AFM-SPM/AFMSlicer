@@ -196,12 +196,6 @@ def afmslicer_parser() -> arg.ArgumentParser:
         required=False,
         help="Maximum length of scars in pixels",
     )
-    # Sub-parser for slicing images
-    process_parser = subparsers.add_parser(
-        "filter",
-        description="Load and slice images, saving as .afmslicer files for subsequent processing.",
-        help="Load and filter images, saving as .afmslicer files for subsequent processing.",
-    )
     process_parser.add_argument(
         "--slices",
         dest="slices",
@@ -217,11 +211,18 @@ def afmslicer_parser() -> arg.ArgumentParser:
         help="Method for segmenting images, options are 'label' or 'watershed'.",
     )
     process_parser.add_argument(
+        "--area",
+        dest="area",
+        required=False,
+        type=bool,
+        help="Whether to calculate the area of pores on each slice.",
+    )
+    process_parser.add_argument(
         "--minimum-size",
         dest="minimum_size",
         required=False,
         type=int,
-        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded",
+        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded.",
     )
     process_parser.add_argument(
         "--centroid",
@@ -238,11 +239,11 @@ def afmslicer_parser() -> arg.ArgumentParser:
         help="Whether to calculate the maximum feret distance of pores on each slice.",
     )
     process_parser.add_argument(
-        "--format",
-        dest="format",
+        "--warnings",
+        dest="warnings",
+        type=bool,
         required=False,
-        type=str,
-        help="Format to save image files in, supports the same formats as Matplotlib.",
+        help="Whether to ignore warnings.",
     )
     # Run the relevant function with the arguments
     process_parser.set_defaults(func=run_modules.process)
@@ -321,9 +322,9 @@ def afmslicer_parser() -> arg.ArgumentParser:
 
     # Sub-parser for slicing images
     slicer_parser = subparsers.add_parser(
-        "filter",
+        "slice",
         description="Load and slice images, saving as .afmslicer files for subsequent processing.",
-        help="Load and filter images, saving as .afmslicer files for subsequent processing.",
+        help="Load and slice images, saving as .afmslicer files for subsequent processing.",
     )
     slicer_parser.add_argument(
         "--slices",
@@ -340,11 +341,18 @@ def afmslicer_parser() -> arg.ArgumentParser:
         help="Method for segmenting images, options are 'label' or 'watershed'.",
     )
     slicer_parser.add_argument(
+        "--area",
+        dest="area",
+        required=False,
+        type=bool,
+        help="Whether to calculate the area of pores on each slice.",
+    )
+    slicer_parser.add_argument(
         "--minimum-size",
         dest="minimum_size",
         required=False,
         type=int,
-        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded",
+        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded.",
     )
     slicer_parser.add_argument(
         "--centroid",
@@ -360,15 +368,7 @@ def afmslicer_parser() -> arg.ArgumentParser:
         type=bool,
         help="Whether to calculate the maximum feret distance of pores on each slice.",
     )
-    slicer_parser.add_argument(
-        "--format",
-        dest="format",
-        required=False,
-        type=str,
-        help="Format to save image files in, supports the same formats as Matplotlib.",
-    )
     slicer_parser.set_defaults(func=run_modules.slicer)
-    return parser
 
     create_config_parser = subparsers.add_parser(
         "create-config",
@@ -402,6 +402,9 @@ def afmslicer_parser() -> arg.ArgumentParser:
     )
     create_config_parser.set_defaults(func=write_config_with_comments)
 
+    # Return the parser (and its subparsers!)
+    return parser
+
 
 def entry_point(
     manually_provided_args: list[Any] | None = None, testing: bool = False
@@ -426,8 +429,6 @@ def entry_point(
     """
     # Create AFMSlicer parser
     parser = afmslicer_parser()
-    # Add AFMSlicer subparser
-    parser = afmslicer_parser(parser)
     args = (
         parser.parse_args()
         if manually_provided_args is None
@@ -435,10 +436,9 @@ def entry_point(
     )
 
     # If no module has been specified print help and exit
-    if not args.program:
+    if not args.module:
         parser.print_help()
         sys.exit()
-
     if testing:
         return args
 
