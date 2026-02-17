@@ -77,10 +77,10 @@ def test_slicer(
     # The fixture hasn't been flattened we instead use the raw/original image
     afmslicer.image = afmslicer.image_original
     if config_fixture is None:
-        processing.slicer(topostats_object=afmslicer)
+        processing.slicer_scan(topostats_object=afmslicer)
     else:
         config = request.getfixturevalue(config_fixture)
-        processing.slicer(topostats_object=afmslicer, config=config)
+        processing.slicer_scan(topostats_object=afmslicer, config=config)
     assert afmslicer.slices == expected_slices
     assert afmslicer.pores_per_layer == expected_pores_per_layer
     assert afmslicer.min_height == expected_min_height
@@ -220,10 +220,10 @@ def test_process(  # pylint: disable=too-many-positional-arguments
     """Test for ``processing.process()``."""
     afmslicer = request.getfixturevalue(afmslicer_fixture)
     if config_fixture is None:
-        processing.process(topostats_object=afmslicer)
+        processing.process_scan(topostats_object=afmslicer)
     else:
         config = request.getfixturevalue(config_fixture)
-        processing.process(topostats_object=afmslicer, config=config)
+        processing.process_scan(topostats_object=afmslicer, config=config)
     assert afmslicer.slices == expected_slices
     assert afmslicer.pixel_to_nm_scaling == expected_pixel_to_nm_scaling
     assert isinstance(afmslicer.image, np.ndarray)

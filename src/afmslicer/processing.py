@@ -22,7 +22,7 @@ from afmslicer.filter import SlicingFilter
 # We define functions here that process either all stages (process) or individual stages. These are imported by the
 # run_modules sub-module where they serve as input to the partial() function so that images can be run in parallele
 # using Pool()
-def process(
+def process_scan(
     topostats_object: TopoStats,
     config: dict[str, Any] | None = None,
 ) -> dict[str, npt.NDArray] | None:
@@ -44,7 +44,7 @@ def process(
     """
     config = topostats_object.config if config is None else config
     filter_scan(topostats_object=topostats_object, config=config)
-    slicer(topostats_object=topostats_object, config=config)
+    slicer_scan(topostats_object=topostats_object, config=config)
 
 
 def filter_scan(
@@ -96,7 +96,7 @@ def filter_scan(
 
 
 # Slicing : slicing_scan() to process a single image, slicing() to process in parallele
-def slicer(
+def slicer_scan(
     topostats_object: TopoStats,
     config: dict[str, Any] | None = None,
 ) -> None:
@@ -124,7 +124,7 @@ def slicer(
         if isinstance(topostats_object, AFMSlicer):
             topostats_object.slice_image()
         else:
-            topostats_object = AFMSlicer(topostats_object, config=config)
+            topostats_object = AFMSlicer(topostats_object, **config)
             topostats_object.slice_image()
 
         # Save the topostats object to .topostats file.
