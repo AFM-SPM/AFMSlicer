@@ -9,12 +9,15 @@ from typing import Any
 import numpy as np
 import numpy.typing as npt
 from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
-from skimage.segmentation import clear_border, watershed
+from skimage.segmentation import (  # pylint: disable=no-name-in-module
+    clear_border,
+    watershed,
+)
 
 
 def mask_slices(
     stacked_array: npt.NDArray[np.float64],
-    slices: int | None = 255,
+    slices: int | None = None,
     layers: npt.NDArray | None = None,
     min_height: np.float64 | None = None,
     max_height: np.float64 | None = None,

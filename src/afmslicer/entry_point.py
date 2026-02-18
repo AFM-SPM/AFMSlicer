@@ -135,105 +135,105 @@ def afmslicer_parser() -> arg.ArgumentParser:
     )
     process_parser.add_argument(
         "--row-alignment-quantile",
-        dest="row_alignment_quantile",
+        dest="filter_row_alignment_quantile",
         type=float,
         required=False,
         help="Lower values may improve flattening of larger features.",
     )
     process_parser.add_argument(
         "--gaussian-size",
-        dest="gaussian_size",
+        dest="filter_gaussian_size",
         type=float,
         required=False,
         help="Gaussian blur intensity in pixels.",
     )
     process_parser.add_argument(
         "--gaussian-mode",
-        dest="gaussian_mode",
+        dest="filter_gaussian_mode",
         type=str,
         required=False,
         help="Gaussian blur method. Options are 'nearest' (default), 'reflect', 'constant', 'mirror' or 'wrap'.",
     )
     process_parser.add_argument(
         "--remove-scars",
-        dest="scars_run",
+        dest="filter_scars_run",
         type=bool,
         required=False,
         help="Whether to remove scars.",
     )
     process_parser.add_argument(
         "--scars-removal-iterations",
-        dest="scars_removal_iterations",
+        dest="filter_scars_removal_iterations",
         type=int,
         required=False,
         help="Number of times to run scar removal",
     )
     process_parser.add_argument(
         "--scars-threshold-low",
-        dest="scars_threshold_low",
+        dest="filter_scars_threshold_low",
         type=float,
         required=False,
         help="Lower values make scar removal more sensitive",
     )
     process_parser.add_argument(
         "--scars-threshold-high",
-        dest="scars_threshold_high",
+        dest="filter_scars_threshold_high",
         type=float,
         required=False,
         help="Lower values make scar removal more sensitive",
     )
     process_parser.add_argument(
         "--scars-max-scar-width",
-        dest="scars_max_scar_width",
+        dest="filter_scars_max_scar_width",
         type=int,
         required=False,
         help="Maximum thickness of scars in pixels",
     )
     process_parser.add_argument(
         "--scars-max-scar-length",
-        dest="scars_max_scar_length",
+        dest="filter_scars_max_scar_length",
         type=int,
         required=False,
         help="Maximum length of scars in pixels",
     )
     process_parser.add_argument(
         "--slices",
-        dest="slices",
+        dest="slicer_slices",
         type=int,
         required=False,
         help="Number of slices to take through the image.",
     )
     process_parser.add_argument(
         "--segment-method",
-        dest="segment_method",
+        dest="slicer_segment_method",
         required=False,
         type=str,
         help="Method for segmenting images, options are 'label' or 'watershed'.",
     )
     process_parser.add_argument(
         "--area",
-        dest="area",
+        dest="slicer_area",
         required=False,
         type=bool,
         help="Whether to calculate the area of pores on each slice.",
     )
     process_parser.add_argument(
         "--minimum-size",
-        dest="minimum_size",
+        dest="slicer_minimum_size",
         required=False,
         type=int,
         help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded.",
     )
     process_parser.add_argument(
         "--centroid",
-        dest="",
+        dest="slicer_centroid",
         required=False,
         type=bool,
         help="Whether to calculate the centroid of pores on each slice.",
     )
     process_parser.add_argument(
         "--feret-maximum",
-        dest="feret_maximum",
+        dest="slicer_feret_maximum",
         required=False,
         type=bool,
         help="Whether to calculate the maximum feret distance of pores on each slice.",
@@ -322,7 +322,7 @@ def afmslicer_parser() -> arg.ArgumentParser:
 
     # Sub-parser for slicing images
     slicer_parser = subparsers.add_parser(
-        "slice",
+        "slicer",
         description="Load and slice images, saving as .afmslicer files for subsequent processing.",
         help="Load and slice images, saving as .afmslicer files for subsequent processing.",
     )
@@ -356,7 +356,7 @@ def afmslicer_parser() -> arg.ArgumentParser:
     )
     slicer_parser.add_argument(
         "--centroid",
-        dest="",
+        dest="centroid",
         required=False,
         type=bool,
         help="Whether to calculate the centroid of pores on each slice.",

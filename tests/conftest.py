@@ -1213,6 +1213,18 @@ def fixture_small_artefacts_array() -> npt.NDArray[np.int32]:
     )
 
 
+# ns-rse 2026-02-17 : Not currently used but might need it at some point in the future
+@pytest.fixture(name="scan_dict_fixture")
+def scan_fixture(
+    afmslicer_sample1: AFMSlicer, afmslicer_sample2: AFMSlicer
+) -> dict[str, AFMSlicer]:
+    """Combine sample1 and smaple2 into a dictionary of LoadScans."""
+    return {
+        afmslicer_sample1.filename: afmslicer_sample1,
+        afmslicer_sample2.filename: afmslicer_sample2,
+    }
+
+
 @pytest.fixture(name="small_artefacts_labelled")
 def fixture_small_artefacts_labelled(
     small_artefacts_array: npt.NDArray[np.int32],

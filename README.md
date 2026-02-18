@@ -12,15 +12,15 @@
 <!-- [![PyPI version][pypi-version]][pypi-link] -->
 <!-- [![PyPI platforms][pypi-platforms]][pypi-link] -->
 
-AFMSlicer is a package for processing images from Atomic Force Microscopy and
-from a single image of heights generating a user defined number of masks that
-"slice" through the image at regular intervals in preparation for subsequent
-processing and analyses.
+AFMSlicer is a package for processing images from Atomic Force Microscopy of bacterial cell walls. From a single image
+of heights a user defined number of masks that "slice" through the image at regular intervals are taken. Each slice is
+segmented to identify areas and the distribution of these areas across slices, which typically approximates a Gaussian
+distribution, is used to select the Full-width Half-max range of slices to subset for summarisation.
 
 ## Documentation
 
-For the full documentation please refer to [AFMSlicer Docs][doc-gh-pages] which
-are also mirrored at [ReadTheDocs][rtd-link].
+For the full documentation please refer to [AFMSlicer Docs][doc-gh-pages] which are also mirrored at
+[ReadTheDocs][rtd-link].
 
 ## License
 

@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from pkgutil import get_data
 from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
+from loguru import logger
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 from topostats.classes import TopoStats
@@ -26,12 +28,20 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     """
     Class for AFMSlicer data and attributes.
 
-    The class inherits ``TopoStats`` class.
+    The class inherits ``TopoStats`` class and has all of its attributes such as ``image``, ``image_original``,
+    ``filename`` and ``pixel_to_nm_scaling`` which are used (as well as others which are not used such as
+    ``grain_crops``).
 
     Attributes
     ----------
     image : npt.NDArray[np.float64]
-        Two-dimensional array of heights.
+        Two-dimensional array of heights after filtering/flattening.
+    image_original : npt.NDArray[np.float64]
+        Two-dimensional array of original heights.
+    filename : str
+        Image filename.
+    pixel_to_nm_scaling : float
+        Pixel to nano-metre scaling factor.
     layers : npt.NDArray[np.float64], optional
         The boundaries of heights for sliced layers to be taken through the original image.
     sliced_array : npt.NDArray[np.float64], optional
@@ -81,6 +91,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     sliced_clean_region_properties: list[Any] | None = None
     pores_per_layer: list[int] | None = None
     segment_method: str | None = None
+    minimum_size: int | float | None = None
     min_height: float | None = None
     max_height: float | None = None
     slices: int | None = None
@@ -101,6 +112,9 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Set attributes for the ``AFMSlice`` class on instantiation.
         """
         self.slices = 255 if self.slices is None else self.slices
+        # If no config is supplied we load the default
+        if self.config is None:
+            self.config = get_data(package="afmslicer", resource="default_config.yaml")
         if self.image is not None:
             self.min_height = (
                 np.min(self.image) if self.min_height is None else self.min_height
@@ -124,6 +138,17 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             if self.layers is None
             else self.layers
         )
+        self.segment_method = (
+            self.config["slicing"]["segment_method"]
+            if self.segment_method is None
+            else self.segment_method
+        )
+        self.minimum_size = (
+            self.config["slicing"]["minimum_size"]
+            if self.minimum_size is None
+            else self.minimum_size
+        )
+        logger.info(f"[{self.filename}] : AFMSlicer object created. 🔪")
 
     def update_heights(self) -> None:
         """
@@ -140,7 +165,13 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Slice the image.
         """
         # Slice the array (i.e. duplicate it `slices` times)
+        if self.image is None:
+            logger.warning(
+                f"[{self.filename}] 🚨 No flattenend image detected, using original. 🚨"
+            )
+            self.image = self.image_original
         self.sliced_array = slicer.slicer(heights=self.image, slices=self.slices)
+        logger.debug(f"[{self.filename}] : Created {self.slices} 🔪")
         # Update heights after flattening
         self.update_heights()
         # Mask each layer
@@ -151,10 +182,14 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             min_height=self.min_height,
             max_height=self.max_height,
         )
+        logger.debug(f"[{self.filename}] : Mask created 👹")
         # Detect segments within each slice
         self.sliced_segments = slicer.segment_slices(
-            self.sliced_mask, method=self.segment_method
+            # self.sliced_mask, method=self.segment_method
+            self.sliced_mask,
+            method=self.segment_method,
         )
+        logger.debug(f"[{self.filename}] : Slices segmented")
         # ns-rse 2025-12-10 : Consider first pass of areas using skimage.measure.moments() to quickly get _just_ areas
         # so that small objects can be excluded, only then calculate regionprops on remaining items. Could possibly be
         # extended to only do regionprops on the layers of interest after the Full-Width Half Max has been determeind.
@@ -162,21 +197,31 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         self.sliced_region_properties = slicer.region_properties_by_slices(
             array=self.sliced_segments, spacing=self.pixel_to_nm_scaling
         )
+        logger.debug(f"[{self.filename}] : Region properties calculated")
         # Remove small objects
-        self.sliced_segments_clean = slicer.mask_small_artefacts_all_layers(
-            labelled_array=self.sliced_segments,
-            properties=self.sliced_region_properties,
-            minimum_size=self.config["slicing"]["minimum_size"],
-        )
+        self.config["slicing"]["minimum_size"] = 0
+        if self.config["slicing"]["minimum_size"] > 0:
+            self.sliced_segments_clean = slicer.mask_small_artefacts_all_layers(
+                labelled_array=self.sliced_segments,
+                properties=self.sliced_region_properties,
+                minimum_size=self.minimum_size,
+            )
+            logger.debug(
+                f"[{self.filename}] : Small artefacts masked across all layers"
+            )
+        else:
+            self.sliced_segments_clean = self.sliced_segments
         # ns-rse 2025-12-10 : Need to redo sliced_region_properties using "clean" version with small regions masked
         # Calculate region properties on clean slices after removal of small objects
         self.sliced_clean_region_properties = slicer.region_properties_by_slices(
             array=self.sliced_segments_clean, spacing=self.pixel_to_nm_scaling
         )
+        logger.debug(f"[{self.filename}] : Clean region properties calculated")
         # Count the number of pores per layer
         self.pores_per_layer = statistics.count_pores(
             sliced_region_properties=self.sliced_region_properties
         )
+        logger.debug(f"[{self.filename}] : Pores per layer extracted")
         # Plot all segmented layers
         plotting.plot_all_layers(
             array=self.sliced_segments_clean,
@@ -202,6 +247,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         )
         # Optionally calculate additional statistics
         # Areas
+        # if self.config["area"]:
         if self.config["slicing"]["area"]:
             self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
@@ -223,11 +269,13 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 log=True,
             )
         # Centroid
+        # if self.config["centroid"]:
         if self.config["slicing"]["centroid"]:
             self.centroid_by_layer = statistics.centroid_pores(
                 sliced_region_properties=self.sliced_region_properties
             )
         # Feret Maximum
+        # if self.config["feret_maximum"]:
         if self.config["slicing"]["feret_maximum"]:
             self.feret_maximum_by_layer = statistics.feret_diameter_maximum_pores(
                 sliced_region_properties=self.sliced_region_properties
