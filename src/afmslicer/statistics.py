@@ -176,6 +176,5 @@ def full_width_half_max(pdf: npt.NDArray) -> list[int]:
         _peak_widths = peak_widths(pdf, peaks, rel_height=0.5)
         # Round these as we want indexes not absolute values
         return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]
-    raise ValueError(
-        "No peaks found in distribution, can not calculate full-width half-max."
-    )
+    msg = "No peaks found in distribution, can not calculate full-width half-max."
+    raise ValueError(msg)

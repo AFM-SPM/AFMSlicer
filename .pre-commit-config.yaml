@@ -3,7 +3,7 @@ ci:
   autofix_commit_msg: "[pre-commit.ci] Fixing issues with pre-commit"
   autoupdate_schedule: monthly
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit-autoupdate"
-  skip: [pylint, pytest] # Optionally list ids of hooks to skip on CI
+  skip: [pylint, pytest, ty] # Optionally list ids of hooks to skip on CI
 
 exclude: |
   \.ambr$|
@@ -66,14 +66,14 @@ repos:
         args: ["--fix", "--show-fixes", "--exit-non-zero-on-fix"]
       - id: ruff-format
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.19.1"
-    hooks:
-      - id: mypy
-        files: src|tests
-        args: []
-        additional_dependencies:
-          - pytest
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: "v1.19.1"
+  #   hooks:
+  #     - id: mypy
+  #       files: src|tests
+  #       args: []
+  #       additional_dependencies:
+  #         - pytest
 
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.4.1"
@@ -134,5 +134,13 @@ repos:
       - id: pytest
         name: Pytest (testmon)
         entry: pytest --testmon
+        language: system
+        files: \.py$
+
+  - repo: local
+    hooks:
+      - id: ty
+        name: Type Checking (ty)
+        entry: ty check --output-format concise src/afmslicer/ tests/
         language: system
         files: \.py$
