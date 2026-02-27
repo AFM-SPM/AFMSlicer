@@ -188,7 +188,6 @@ ignore-patterns = ["^\\.#"]
 jobs = 0
 fail-under = 10.0
 suggestion-mode = true
-reports.output-format = "colorized"
 similarities.ignore-imports = "yes"
 messages_control.disable = [
   "design",

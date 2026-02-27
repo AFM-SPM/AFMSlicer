@@ -21,12 +21,11 @@ filter:
     max_scar_width: 4 # Maximum thickness of scars in pixels.
     min_scar_length: 16 # Minimum length of scars in pixels.
 slicing:
-  slices: 255 # Number of slices to create through the image between the min and max height
+  slices: 50 # Number of slices to create through the image between the min and max height
   segment_method: watershed # Method for segmenting images. Options : label, watershed
   area: true # Whether to calculate the area of pores on each slice, pretty much always needed!
   minimum_size: 20000 # Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded
   centroid: false # Whether to calculate the centroid of pores on each slice.
   feret_maximum: false # Whether to calculate the maximum feret distance of pores on each slice
 plotting:
-  drop_first_and_last: true #
   format: png

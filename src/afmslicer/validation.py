@@ -48,36 +48,6 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 error="Invalid value in config for 'filter.run', valid values are 'True' or 'False'",
             ),
             "row_alignment_quantile": lambda n: 0.0 <= n <= 1.0,
-            "threshold_method": Or(
-                "absolute",
-                "otsu",
-                "std_dev",
-                error=(
-                    "Invalid value in config for 'filter.threshold_method', valid values "
-                    "are 'absolute', 'otsu' or 'std_dev'"
-                ),
-            ),
-            "otsu_threshold_multiplier": float,
-            "threshold_std_dev": {
-                "below": lambda n: n > 0,
-                "above": lambda n: n > 0,
-            },
-            "threshold_absolute": {
-                "below": Or(
-                    int,
-                    float,
-                    error=(
-                        "Invalid value in config for filter.threshold.absolute.below should be type int or float"
-                    ),
-                ),
-                "above": Or(
-                    int,
-                    float,
-                    error=(
-                        "Invalid value in config for filter.threshold.absolute.below should be type int or float"
-                    ),
-                ),
-            },
             "gaussian_size": float,
             "gaussian_mode": Or(
                 "nearest",
@@ -92,11 +62,27 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 "min_scar_length": lambda n: n >= 1,
             },
         },
-        "slice": {
-            "n_slices": And(
+        "slicing": {
+            "slices": And(
                 Use(int),
                 lambda n: n > 0,
-                error="Invalid 'n_slices' should be an int > 0.",
+                error="Invalid 'slices' should be an int > 0.",
+            ),
+            "segment_method": Or(
+                "watershed",
+                "label",
+                error="Invalid value in config for 'slicing.segment_method', valid values are 'watershed' or 'label'",
+            ),
+            "area": bool,
+            "minimum_size": lambda n: n >= 1,
+            "centroid": bool,
+            "feret_maximum": bool,
+        },
+        "plotting": {
+            "format": Or(
+                "png",
+                "tiff",
+                error="Invalid value in config for 'plotting.format', valid values are 'png' or 'tiff'.",
             )
         },
     }
