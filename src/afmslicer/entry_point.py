@@ -13,17 +13,16 @@ from typing import Any
 
 from topostats.config import write_config_with_comments
 
-from afmslicer import __version__
-from afmslicer.processing import filtering, process
+from afmslicer import __version__, run_modules
 
 # pylint: disable=too-many-statements
 
 
-def create_parser() -> arg.ArgumentParser:
+def afmslicer_parser() -> arg.ArgumentParser:
     """
     Create a parser for reading options.
 
-    Creates a parser, with multiple sub-parsers for reading options to run 'topostats'.
+    Creates a parser, with multiple sub-parsers for reading options to run ``afmslicer``.
 
     Returns
     -------
@@ -37,8 +36,8 @@ def create_parser() -> arg.ArgumentParser:
         "-v",
         "--version",
         action="version",
-        version=f"Installed version of TopoStats: {__version__}",
-        help="Report the current version of TopoStats that is installed",
+        version=f"Installed version of AFMSlicer: {__version__}",
+        help="Report the current version of AFMSlicer that is installed",
     )
     parser.add_argument(
         "-c",
@@ -103,6 +102,13 @@ def create_parser() -> arg.ArgumentParser:
         help="File extension to scan for.",
     )
     parser.add_argument(
+        "--output-stats",
+        dest="output_stats",
+        type=str,
+        required=False,
+        help="'basic' (image and grain) or 'full' (image, grain, branch and molecule) statistics written to CSV.",
+    )
+    parser.add_argument(
         "--channel",
         dest="channel",
         type=str,
@@ -118,136 +124,135 @@ def create_parser() -> arg.ArgumentParser:
     )
 
     subparsers = parser.add_subparsers(
-        title="program", description="Available programs, listed below:", dest="program"
+        title="program", description="Available programs, listed below:", dest="module"
     )
 
-    # Create a sub-parsers for different stages of processing and tasks
+    # Sub-parser for processing
     process_parser = subparsers.add_parser(
         "process",
-        description="Process AFM images. Additional arguments over-ride defaults or those in the configuration file.",
-        help="Process AFM images. Additional arguments over-ride defaults or those in the configuration file.",
+        description="Process all images, slicing and summarising statistics across slices and plotting results.",
+        help="Process all images, slicing and summarising statistics across slices and plotting results.",
     )
-    # Filter options
     process_parser.add_argument(
-        "--filter-row-alignment-quantile",
+        "--row-alignment-quantile",
         dest="filter_row_alignment_quantile",
         type=float,
         required=False,
         help="Lower values may improve flattening of larger features.",
     )
     process_parser.add_argument(
-        "--filter-threshold-method",
-        dest="filter_threshold_method",
-        type=str,
-        required=False,
-        help="Method for thresholding Filtering. Options are otsu, std_dev, absolute.",
-    )
-    process_parser.add_argument(
-        "--filter-otsu-threshold-multiplier",
-        dest="filter_otsu_threshold_multiplier",
-        type=float,
-        required=False,
-        help="Factor for scaling the Otsu threshold during Filtering.",
-    )
-    process_parser.add_argument(
-        "--filter-threshold-std-dev-below",
-        dest="filter_threshold_std_dev_below",
-        type=float,
-        required=False,
-        help="Threshold for data below the image background for std dev method during Filtering.",
-    )
-    process_parser.add_argument(
-        "--filter-threshold-std-dev-above",
-        dest="filter_threshold_std_dev_above",
-        type=float,
-        required=False,
-        help="Threshold for data above the image background for std dev method during Filtering.",
-    )
-    process_parser.add_argument(
-        "--filter-threshold-absolute-below",
-        dest="filter_threshold_absolute_below",
-        type=float,
-        required=False,
-        help="Threshold for data below the image background dor absolute method during Filtering",
-    )
-    process_parser.add_argument(
-        "--filter-threshold-absolute-above",
-        dest="filter_threshold_absolute_above",
-        type=float,
-        required=False,
-        help="Threshold for data above the image background dor absolute method during Filtering",
-    )
-    process_parser.add_argument(
-        "--filter-gaussian-size",
+        "--gaussian-size",
         dest="filter_gaussian_size",
         type=float,
         required=False,
         help="Gaussian blur intensity in pixels.",
     )
     process_parser.add_argument(
-        "--filter-gaussian-mode",
+        "--gaussian-mode",
         dest="filter_gaussian_mode",
         type=str,
         required=False,
         help="Gaussian blur method. Options are 'nearest' (default), 'reflect', 'constant', 'mirror' or 'wrap'.",
     )
     process_parser.add_argument(
-        "--filter-remove-scars",
+        "--remove-scars",
         dest="filter_scars_run",
         type=bool,
         required=False,
         help="Whether to remove scars.",
     )
     process_parser.add_argument(
-        "--filter-scars-removal-iterations",
+        "--scars-removal-iterations",
         dest="filter_scars_removal_iterations",
         type=int,
         required=False,
         help="Number of times to run scar removal",
     )
     process_parser.add_argument(
-        "--filter-scars-threshold-low",
+        "--scars-threshold-low",
         dest="filter_scars_threshold_low",
         type=float,
         required=False,
         help="Lower values make scar removal more sensitive",
     )
     process_parser.add_argument(
-        "--filter-scars-threshold-high",
+        "--scars-threshold-high",
         dest="filter_scars_threshold_high",
         type=float,
         required=False,
         help="Lower values make scar removal more sensitive",
     )
     process_parser.add_argument(
-        "--filter-scars-max-scar-width",
+        "--scars-max-scar-width",
         dest="filter_scars_max_scar_width",
         type=int,
         required=False,
         help="Maximum thickness of scars in pixels",
     )
     process_parser.add_argument(
-        "--filter-scars-max-scar-length",
+        "--scars-max-scar-length",
         dest="filter_scars_max_scar_length",
         type=int,
         required=False,
         help="Maximum length of scars in pixels",
     )
     process_parser.add_argument(
-        "--n-slices",
-        dest="n_slices",
+        "--slices",
+        dest="slicer_slices",
         type=int,
         required=False,
-        help="Number of slices to make through the image.",
+        help="Number of slices to take through the image.",
+    )
+    process_parser.add_argument(
+        "--segment-method",
+        dest="slicer_segment_method",
+        required=False,
+        type=str,
+        help="Method for segmenting images, options are 'label' or 'watershed'.",
+    )
+    process_parser.add_argument(
+        "--area",
+        dest="slicer_area",
+        required=False,
+        type=bool,
+        help="Whether to calculate the area of pores on each slice.",
+    )
+    process_parser.add_argument(
+        "--minimum-size",
+        dest="slicer_minimum_size",
+        required=False,
+        type=int,
+        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded.",
+    )
+    process_parser.add_argument(
+        "--centroid",
+        dest="slicer_centroid",
+        required=False,
+        type=bool,
+        help="Whether to calculate the centroid of pores on each slice.",
+    )
+    process_parser.add_argument(
+        "--feret-maximum",
+        dest="slicer_feret_maximum",
+        required=False,
+        type=bool,
+        help="Whether to calculate the maximum feret distance of pores on each slice.",
+    )
+    process_parser.add_argument(
+        "--warnings",
+        dest="warnings",
+        type=bool,
+        required=False,
+        help="Whether to ignore warnings.",
     )
     # Run the relevant function with the arguments
-    process_parser.set_defaults(func=process)
+    process_parser.set_defaults(func=run_modules.process)
 
-    # Filter Sub Parser
+    # Sub-parser for filtering/flattening images
     filter_parser = subparsers.add_parser(
         "filter",
-        description="Load and filter images, saving as .topostats files for subsequent processing.",
-        help="Load and filter images, saving as .topostats files for subsequent processing.",
+        description="Load and filter images, saving as .afmslicer files for subsequent processing.",
+        help="Load and filter images, saving as .afmslicer files for subsequent processing.",
     )
     filter_parser.add_argument(
         "--row-alignment-quantile",
@@ -255,48 +260,6 @@ def create_parser() -> arg.ArgumentParser:
         type=float,
         required=False,
         help="Lower values may improve flattening of larger features.",
-    )
-    filter_parser.add_argument(
-        "--threshold-method",
-        dest="threshold_method",
-        type=str,
-        required=False,
-        help="Method for thresholding Filtering. Options are otsu, std_dev, absolute.",
-    )
-    filter_parser.add_argument(
-        "--otsu-threshold-multiplier",
-        dest="otsu_threshold_multiplier",
-        type=float,
-        required=False,
-        help="Factor for scaling the Otsu threshold during Filtering.",
-    )
-    filter_parser.add_argument(
-        "--threshold-std-dev-below",
-        dest="threshold_std_dev_below",
-        type=float,
-        required=False,
-        help="Threshold for data below the image background for std dev method during Filtering.",
-    )
-    filter_parser.add_argument(
-        "--threshold-std-dev-above",
-        dest="threshold_std_dev_above",
-        type=float,
-        required=False,
-        help="Threshold for data above the image background for std dev method during Filtering.",
-    )
-    filter_parser.add_argument(
-        "--threshold-absolute-below",
-        dest="threshold_absolute_below",
-        type=float,
-        required=False,
-        help="Threshold for data below the image bacnground dor absolute method during Filtering",
-    )
-    filter_parser.add_argument(
-        "--threshold-absolute-above",
-        dest="threshold_absolute_above",
-        type=float,
-        required=False,
-        help="Threshold for data above the image bacnground dor absolute method during Filtering",
     )
     filter_parser.add_argument(
         "--gaussian-size",
@@ -355,22 +318,57 @@ def create_parser() -> arg.ArgumentParser:
         help="Maximum length of scars in pixels",
     )
     # Run the relevant function with the arguments
-    filter_parser.set_defaults(func=filtering)
+    filter_parser.set_defaults(func=run_modules.filter)
 
-    # Slice Sub Parser
-    slice_parser = subparsers.add_parser(
-        "slice",
-        description="Load filtered images '.topostats' and slice them.",
-        help="Load filtered images '.topostats' and slice them.",
+    # Sub-parser for slicing images
+    slicer_parser = subparsers.add_parser(
+        "slicer",
+        description="Load and slice images, saving as .afmslicer files for subsequent processing.",
+        help="Load and slice images, saving as .afmslicer files for subsequent processing.",
     )
-    slice_parser.add_argument(
-        "--n-slices",
-        dest="n_slices",
+    slicer_parser.add_argument(
+        "--slices",
+        dest="slices",
         type=int,
         required=False,
-        help="Number of slices to make through the image.",
+        help="Number of slices to take through the image.",
     )
-    slice_parser.set_defaults(func=slice)
+    slicer_parser.add_argument(
+        "--segment-method",
+        dest="segment_method",
+        required=False,
+        type=str,
+        help="Method for segmenting images, options are 'label' or 'watershed'.",
+    )
+    slicer_parser.add_argument(
+        "--area",
+        dest="area",
+        required=False,
+        type=bool,
+        help="Whether to calculate the area of pores on each slice.",
+    )
+    slicer_parser.add_argument(
+        "--minimum-size",
+        dest="minimum_size",
+        required=False,
+        type=int,
+        help="Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded.",
+    )
+    slicer_parser.add_argument(
+        "--centroid",
+        dest="centroid",
+        required=False,
+        type=bool,
+        help="Whether to calculate the centroid of pores on each slice.",
+    )
+    slicer_parser.add_argument(
+        "--feret-maximum",
+        dest="feret_maximum",
+        required=False,
+        type=bool,
+        help="Whether to calculate the maximum feret distance of pores on each slice.",
+    )
+    slicer_parser.set_defaults(func=run_modules.slicer)
 
     create_config_parser = subparsers.add_parser(
         "create-config",
@@ -383,7 +381,6 @@ def create_parser() -> arg.ArgumentParser:
         dest="filename",
         type=Path,
         required=False,
-        default="config.yaml",
         help="Name of YAML file to save configuration to (default 'config.yaml').",
     )
     create_config_parser.add_argument(
@@ -400,17 +397,12 @@ def create_parser() -> arg.ArgumentParser:
         "--config",
         dest="config",
         type=str,
-        default=None,
-        help="Configuration to use, currently only one is supported, the 'default'.",
-    )
-    create_config_parser.add_argument(
-        "-s",
-        "--simple",
-        dest="simple",
-        action="store_true",
-        help="Create a simple configuration file with only the most common options.",
+        default="default",
+        help="Configuration to use, currently 'default', 'simple', 'mplstyle' and 'var_to_label' are supported.",
     )
     create_config_parser.set_defaults(func=write_config_with_comments)
+
+    # Return the parser (and its subparsers!)
     return parser
 
 
@@ -435,7 +427,8 @@ def entry_point(
     None
         Function does not return anything.
     """
-    parser = create_parser()
+    # Create AFMSlicer parser
+    parser = afmslicer_parser()
     args = (
         parser.parse_args()
         if manually_provided_args is None
@@ -443,10 +436,9 @@ def entry_point(
     )
 
     # If no module has been specified print help and exit
-    if not args.program:
+    if not args.module:
         parser.print_help()
         sys.exit()
-
     if testing:
         return args
 

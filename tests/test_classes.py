@@ -121,6 +121,7 @@ def test_AFMSlicer(
         "min_height",
         "max_height",
         "layers",
+        "segment_method",
         "sliced_array_fixture",
         "sliced_mask_fixture",
         "sliced_segments_fixture",
@@ -138,6 +139,7 @@ def test_AFMSlicer(
             0,
             5,
             np.asarray([0.0, 1.25, 2.5, 3.75, 5.0]),
+            "label",
             "pyramid_height_array_5",
             "pyramid_array_sliced_mask_segment",
             "pyramid_segment_label_5",
@@ -155,6 +157,7 @@ def test_AFMSlicer(
             -312.40853721614576,
             551.5217325223152,
             np.asarray([-312.408537, -96.42597, 119.556598, 335.539165, 551.521733]),
+            "label",
             "afmslicer_sample1_sliced",
             "afmslicer_sample1_sliced_mask",
             "afmslicer_sample1_sliced_segment",
@@ -174,6 +177,7 @@ def test_AFMSlicer(
             np.asarray(
                 [-296.85146, -260.793886, -224.736313, -188.678739, -152.621166]
             ),
+            "label",
             "afmslicer_sample2_sliced",
             "afmslicer_sample2_sliced_mask",
             "afmslicer_sample2_sliced_segment",
@@ -193,6 +197,7 @@ def test_slice_image(
     min_height: int | float,
     max_height: int | float,
     layers: npt.NDArray[np.float64],
+    segment_method: str,
     sliced_array_fixture: str,
     sliced_mask_fixture: str,
     sliced_segments_fixture: str,
@@ -220,6 +225,7 @@ def test_slice_image(
     assert afmslicer_object.slices == slices
     assert afmslicer_object.min_height == min_height
     assert afmslicer_object.max_height == max_height
+    assert afmslicer_object.segment_method == segment_method
     # Check different arrays
     np.testing.assert_array_almost_equal(afmslicer_object.layers, layers)
     assert afmslicer_object.sliced_array.shape == sliced_array.shape
@@ -284,5 +290,8 @@ def test_slice_image_value_error(
 ) -> None:
     """Test for creating ``AFMSlicer`` object."""
     afmslicer_object = request.getfixturevalue(fixture)
-    with pytest.raises(ValueError):
+    with pytest.raises(
+        ValueError,
+        match="No peaks found in distribution, can not calculate full-width half-max",
+    ):
         assert afmslicer_object.slice_image()

@@ -828,7 +828,8 @@ def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AF
     """Fixture of AFMSlicer using sample1.spm."""
     # height, pixel_to_nm_scaling = sample1_spm
     return AFMSlicer(
-        image=sample1_spm.image_original,
+        image=None,
+        image_original=sample1_spm.image_original,
         filename="sample1",
         img_path="tmp",
         pixel_to_nm_scaling=sample1_spm.pixel_to_nm_scaling,
@@ -880,7 +881,8 @@ def fixture_sample2_spm(default_config: dict[str, Any]) -> TopoStats:
 def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AFMSlicer:
     """Fixture of AFMSlicer using sample2.spm."""
     return AFMSlicer(
-        image=sample2_spm.image_original,
+        image=None,
+        image_original=sample2_spm.image_original,
         filename="sample2",
         img_path="tmp",
         pixel_to_nm_scaling=sample2_spm.pixel_to_nm_scaling,
@@ -1209,6 +1211,18 @@ def fixture_small_artefacts_array() -> npt.NDArray[np.int32]:
         ],
         dtype=np.int32,
     )
+
+
+# ns-rse 2026-02-17 : Not currently used but might need it at some point in the future
+@pytest.fixture(name="scan_dict_fixture")
+def scan_fixture(
+    afmslicer_sample1: AFMSlicer, afmslicer_sample2: AFMSlicer
+) -> dict[str, AFMSlicer]:
+    """Combine sample1 and smaple2 into a dictionary of LoadScans."""
+    return {
+        afmslicer_sample1.filename: afmslicer_sample1,
+        afmslicer_sample2.filename: afmslicer_sample2,
+    }
 
 
 @pytest.fixture(name="small_artefacts_labelled")

@@ -107,7 +107,7 @@ def plot_all_layers(
         Dictionary of Matplotlib ``Figure`` and ``Axes`` indexed by layer.
     """
     if len(array.shape) != 3:
-        msg = f"The input array should be three-dimensional but has {len(array.shape)}."
+        msg = f"The input array should be three-dimensional but has {len(array.shape)} dimensions."
         raise AttributeError(msg)
     plots = {}
     for layer in range(array.shape[2]):
