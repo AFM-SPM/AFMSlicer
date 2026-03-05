@@ -28,4 +28,6 @@ slicing:
   centroid: false # Whether to calculate the centroid of pores on each slice.
   feret_maximum: false # Whether to calculate the maximum feret distance of pores on each slice
 plotting:
-  format: png
+  format: png # Format for saving images as
+  gif_duration: 100 # duration in microseconds between frames in GIF
+  gif_loop: 0 # Whether to loop the GIF (0 = False, 1 = True)

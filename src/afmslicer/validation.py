@@ -83,7 +83,17 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 "png",
                 "tiff",
                 error="Invalid value in config for 'plotting.format', valid values are 'png' or 'tiff'.",
-            )
+            ),
+            "gif_duration": And(
+                Use(int),
+                lambda n: n > 0,
+                error="Invalid value for plotting.gif_duration', valid values are > 0.",
+            ),
+            "gif_loop": And(
+                Use(int),
+                lambda n: n >= 0,
+                error="Invalid value for plotting.gif_loop', valid values are >= 0.",
+            ),
         },
     }
 )

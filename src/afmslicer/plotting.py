@@ -11,6 +11,7 @@ import numpy.typing as npt
 
 # import numpy as np
 from loguru import logger
+from PIL import Image
 
 from afmslicer import statistics
 
@@ -236,5 +237,42 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
         outdir = outdir if isinstance(outdir, Path) else Path(outdir)
         outdir.mkdir(parents=True, exist_ok=True)
         plt.savefig(fname=outdir / outfile, format=format)
-        logger.info(f"Image saved to : {outdir!s}/{outfile}")
+        logger.info(f"Image saved to : {outdir}/{outfile}")
     return (fig, ax)
+
+
+def generate_gif(
+    sliced_segments: npt.NDArray,
+    outdir: Path,
+    img_name: str,
+    duration: int = 100,
+    loop: int = 0,
+) -> None:
+    """
+    Generate a GIF of all slices through the image.
+
+    Parameters
+    ----------
+    sliced_segments : npt.NDArray
+        A three-dimensional array of slices through the image.
+    outdir : Path
+        Where to save the image to.
+    img_name : str
+        The original image filename, will have ``.gif`` extension added.
+    duration : int
+        Duration between frames in the GIF, default is ``100``.
+    loop : int
+        Whether to loop the image, default is ``0`` which doesn't loop.
+    """
+    gif = []
+    for _layer in range(sliced_segments.shape[2]):
+        gif.append(Image.fromarray(sliced_segments[:, :, _layer]))
+    gif[0].save(
+        outdir / f"{img_name}.gif",
+        save_all=True,
+        append_images=gif[1:],
+        optimize=False,
+        duration=duration,
+        loop=loop,
+    )
+    logger.info(f"GIF saved to : {outdir}/{img_name}.gif")

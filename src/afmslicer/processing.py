@@ -45,6 +45,7 @@ def process_scan(
         Tuple of filename and whether it processed correctly.
     """
     config = deepcopy(topostats_object.config) if config is None else config
+    topostats_object.filename = topostats_object.filename.split(".")[0]
     _, _ = filter_scan(topostats_object=topostats_object, config=config)
     _, _ = slicer_scan(topostats_object=topostats_object, config=config)
     return (topostats_object.filename, topostats_object)
@@ -88,22 +89,22 @@ def filter_scan(
             config.pop("output_dir")
         filter_config = config
     # Flatten Image
-    # try:
-    filters = SlicingFilter(topostats_object, **filter_config)
-    filters.filter_image()
-    # Save the topostats object to .topostats file.
-    # save_topostats_file(
-    #     output_dir=output_dir,
-    #     filename=str(topostats_object.filename),
-    #     topostats_object=topostats_object,
-    # )
-    logger.info(f"[{topostats_object.filename}] : Filtering complete 😻")
-    return (topostats_object.filename, True)
-    # except KeyError as e:
-    #     raise KeyError() from e
-    # except:  # pylint: disable=bare-except
-    #     logger.info(f"[{topostats_object.filename}] : Filtering failed 😿")
-    #     return (topostats_object.filename, False)
+    try:
+        filters = SlicingFilter(topostats_object, **filter_config)
+        filters.filter_image()
+        # Save the topostats object to .topostats file.
+        # save_topostats_file(
+        #     output_dir=output_dir,
+        #     filename=str(topostats_object.filename),
+        #     topostats_object=topostats_object,
+        # )
+        logger.info(f"[{topostats_object.filename}] : Filtering complete 😻")
+        return (topostats_object.filename, True)
+    except KeyError as e:
+        raise KeyError() from e
+    except Exception:  # pylint: disable=bare-except
+        logger.info(f"[{topostats_object.filename}] : Filtering failed 😿")
+        return (topostats_object.filename, False)
 
 
 # Slicing : slicing_scan() to process a single image, slicing() to process in parallele
@@ -161,6 +162,6 @@ def slicer_scan(
         return (topostats_object.filename, topostats_object)
     except ValidationError as ve:
         raise ve
-    except:  # noqa: E722  # pylint: disable=bare-except
+    except Exception:  # pylint: disable=bare-except
         logger.info(f"[{topostats_object.filename}] Slicing failed 😿")
         return (topostats_object.filename, topostats_object)

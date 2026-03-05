@@ -229,6 +229,14 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             outdir=self.config["output_dir"],
             format=self.config["plotting"]["format"],
         )
+        # Create a GIF of all layers
+        plotting.generate_gif(
+            sliced_segments=self.sliced_segments_clean,
+            outdir=self.config["output_dir"],
+            img_name=self.filename,
+            duration=self.config["plotting"]["gif_duration"],
+            loop=self.config["plotting"]["gif_loop"],
+        )
         # Plot pores per layer
         self.fig_objects_per_layer = plotting.plot_pores_by_layer(
             pores_per_layer=self.pores_per_layer,
