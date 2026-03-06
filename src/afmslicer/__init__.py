@@ -26,8 +26,9 @@ else:
     AFMSLICER_BASE_VERSION = str(AFMSLICER_VERSION)
     AFMSLICER_COMMIT = ""
 CONFIG_DOCUMENTATION_REFERENCE = """# For more information on configuration and how to use it:
-# https://afm-spm.github.io/Afmslicer/main/configuration.html\n"""
-
+# https://afm-spm.github.io/AFMslicer/main/configuration.html\n"""
+CONFIG_DOCUMENTATION_REFERENCE += f"# AFMSlicer version : {AFMSLICER_BASE_VERSION}\n"
+CONFIG_DOCUMENTATION_REFERENCE += f"# Commit: {AFMSLICER_COMMIT}\n"
 
 # Disable snoop
 snoop.install(enabled=False)
