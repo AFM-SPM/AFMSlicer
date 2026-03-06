@@ -21,14 +21,22 @@ from topostats.config import (
 from topostats.io import (
     LoadScans,
     find_files,
+    get_date_time,
     write_yaml,
 )
 from topostats.validation import validate_config
 from tqdm import tqdm
 
 import afmslicer
-from afmslicer import AFMSLICER_BASE_VERSION, AFMSLICER_COMMIT, processing
+from afmslicer import (
+    AFMSLICER_BASE_VERSION,
+    AFMSLICER_COMMIT,
+    CONFIG_DOCUMENTATION_REFERENCE,
+    processing,
+)
 from afmslicer.validation import AFMSLICER_CONFIG_SCHEMA
+
+HEADER_MESSAGE = f"# Configuration from AFMSlicer run complete : {get_date_time()}\n{CONFIG_DOCUMENTATION_REFERENCE}"
 
 
 def _log_setup(config: dict, args: argparse.Namespace | None, img_files: dict) -> None:
@@ -182,7 +190,7 @@ def process(args: argparse.Namespace | None = None) -> None:
     # statistics_all_df = pd.concat(statistics_all.values())
     # statistics_all_df.to_csv(config["output_dir"] / "statistics.csv")
     # Write config to file
-    write_yaml(config, output_dir=config["output_dir"])
+    write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     images_processed = len(processed_all)
     completion_message(config, img_files, images_processed)
 
@@ -220,7 +228,7 @@ def filter(args: argparse.Namespace | None = None) -> None:  # pylint: disable=r
                 # Display completion message for the image
                 logger.info(f"[{filename}] Processing completed.")
     # Write config to file
-    write_yaml(config, output_dir=config["output_dir"])
+    write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     completion_message(config, img_files, images_processed)
 
 
@@ -260,7 +268,7 @@ def slicer(args: argparse.Namespace | None = None) -> None:
                 # Display completion message for the image
                 logger.info(f"[{filename}] Processing completed.")
     # Write config to file
-    write_yaml(config, output_dir=config["output_dir"])
+    write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     images_processed = len(processed_all)
     completion_message(config, img_files, images_processed)
 
