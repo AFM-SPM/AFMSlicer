@@ -255,7 +255,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         )
         # Optionally calculate additional statistics
         # Areas
-        # if self.config["area"]:
         if self.config["slicing"]["area"]:
             self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
@@ -277,7 +276,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 log=True,
             )
         # Centroid
-        # if self.config["centroid"]:
         if self.config["slicing"]["centroid"]:
             self.centroid_by_layer = statistics.centroid_pores(
                 sliced_region_properties=self.sliced_region_properties
