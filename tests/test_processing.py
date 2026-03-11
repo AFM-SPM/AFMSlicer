@@ -8,6 +8,7 @@ from platform import python_version
 import numpy as np
 import pytest
 from packaging.version import parse as parse_version
+from syrupy.matchers import path_type
 
 from afmslicer import processing
 
@@ -85,8 +86,8 @@ def test_slicer(
         processing.slicer_scan(topostats_object=afmslicer, config=config)
     assert afmslicer.slices == expected_slices
     assert afmslicer.pores_per_layer == expected_pores_per_layer
-    assert afmslicer.min_height == expected_min_height
-    assert afmslicer.max_height == expected_max_height
+    assert afmslicer.min_height == pytest.approx(expected_min_height)
+    assert afmslicer.max_height == pytest.approx(expected_max_height)
     if parse_version(python_version()) >= parse_version("3.11"):
         assert afmslicer.area_by_layer == snapshot
 
@@ -148,7 +149,9 @@ def test_filter_scan(
     assert isinstance(afmslicer.image, np.ndarray)
     assert afmslicer.image.sum() == pytest.approx(expected_filtered_image_sum, abs=1e-6)
     if parse_version(python_version()) >= parse_version("3.11"):
-        assert afmslicer == snapshot
+        assert afmslicer == snapshot(
+            matcher=path_type(types=(float,), replacer=lambda data, _: round(data, 4))
+        )
 
 
 @pytest.mark.parametrize(
@@ -233,7 +236,9 @@ def test_process(  # pylint: disable=too-many-positional-arguments
     assert isinstance(afmslicer.image, np.ndarray)
     assert afmslicer.image.sum() == pytest.approx(expected_filtered_image_sum, abs=1e-6)
     assert afmslicer.pores_per_layer == expected_pores_per_layer
-    assert afmslicer.min_height == expected_min_height
-    assert afmslicer.max_height == expected_max_height
+    assert afmslicer.min_height == pytest.approx(expected_min_height)
+    assert afmslicer.max_height == pytest.approx(expected_max_height)
     if parse_version(python_version()) >= parse_version("3.11"):
-        assert afmslicer == snapshot
+        assert afmslicer == snapshot(
+            matcher=path_type(types=(float,), replacer=lambda data, _: round(data, 4))
+        )

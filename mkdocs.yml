@@ -1,6 +1,6 @@
 site_name: AFMSlicer
 site_url: https://AFMSlicer.readthedocs.org/
-repo_url: https://github.com/ns-rse/AFMSlicer/
+repo_url: https://github.com/AFM-SPM/AFMSlicer/
 theme:
   name: material
   palette:

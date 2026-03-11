@@ -268,7 +268,7 @@ def generate_gif(
     for _layer in range(sliced_segments.shape[2]):
         gif.append(Image.fromarray(sliced_segments[:, :, _layer]))
     gif[0].save(
-        outdir / f"{img_name}.gif",
+        Path(outdir) / f"{img_name}.gif",
         save_all=True,
         append_images=gif[1:],
         optimize=False,
