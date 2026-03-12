@@ -190,7 +190,7 @@ def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
     return {"x": x_pdf, "y": y_pdf}
 
 
-def full_width_half_max(pdf: npt.NDArray) -> list[int]:
+def full_width_half_max(pdf: npt.NDArray[np.float32]) -> list[int]:
     """
     Calculate the full-width half max.
 
