@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import numpy.typing as npt
+import pandas as pd
 import pytest
 from scipy.stats import norm
 
@@ -474,3 +475,138 @@ def test_create_statistics_dictionary(
         )
         == snapshot
     )
+
+
+@pytest.mark.parametrize(
+    ("df", "area_thresholds", "area_colors", "area_val", "expected"),
+    [
+        pytest.param(
+            pd.DataFrame({"area": [0, 2, 4, 6]}),
+            {
+                "low": 1,
+                "medium": 3,
+                "high": 5,
+            },
+            ["yellow", "green", "magenta", "blue"],
+            "area",
+            pd.DataFrame(
+                {
+                    "area": [0, 2, 4, 6],
+                    "pore_color": ["yellow", "green", "magenta", "blue"],
+                }
+            ),
+            id="simple",
+        ),
+        pytest.param(
+            pd.DataFrame({"area": [10, 250, 368, 2001, 1896, 645, 238, 1, 8, 20]}),
+            {
+                "low": 20,
+                "medium": 500,
+                "high": 1500,
+            },
+            ["yellow", "green", "magenta", "blue"],
+            "area",
+            pd.DataFrame(
+                {
+                    "area": [10, 250, 368, 2001, 1896, 645, 238, 1, 8, 20],
+                    "pore_color": [
+                        "yellow",
+                        "green",
+                        "green",
+                        "blue",
+                        "blue",
+                        "magenta",
+                        "green",
+                        "yellow",
+                        "yellow",
+                        "green",
+                    ],
+                }
+            ),
+            id="realistic",
+        ),
+    ],
+)
+def test_classify_pore_size(
+    df: pd.DataFrame,
+    area_thresholds: list[str],
+    area_colors: dict[str, int],
+    area_val: str,
+    expected: pd.DataFrame,
+) -> None:
+    """Test for testname()."""
+    df_labelled = statistics.classify_pore_size(
+        df=df,
+        area_thresholds=area_thresholds,
+        area_colors=area_colors,
+        area_val=area_val,
+    )
+    pd.testing.assert_frame_equal(df_labelled, expected)
+
+
+@pytest.mark.parametrize(
+    ("area_colors", "area_thresholds", "error"),
+    [
+        pytest.param(
+            ["yellow", "green", "magenta", "blue", "cyan"],
+            {
+                "low": 20,
+                "medium": 500,
+                "high": 1500,
+            },
+            ValueError,
+            id="len(area_colors) == 5",
+        ),
+        pytest.param(
+            ["yellow", "green", "magenta"],
+            {
+                "low": 20,
+                "medium": 500,
+                "high": 1500,
+            },
+            ValueError,
+            id="len(area_colors) == 3",
+        ),
+        pytest.param(
+            ["yellow", "green", "magenta", "blue"],
+            {
+                "low": 20,
+                "medium": 500,
+                "high": 1500,
+                "super high": 300000000,
+            },
+            ValueError,
+            id="len(area_thresholds) == 4",
+        ),
+        pytest.param(
+            ["yellow", "green", "magenta", "blue", "cyan"],
+            {
+                "low": 20,
+                "medium": 500,
+            },
+            ValueError,
+            id="len(area_thresholds) == 2",
+        ),
+        pytest.param(
+            ["yellow", "green", "magenta", "blue"],
+            {
+                "low": 20,
+                "medium": 500,
+                "super high": 300000000,
+            },
+            ValueError,
+            id="area_thresholds incorrect key(s)",
+        ),
+    ],
+)
+def test_classify_pore_size_value_error(
+    area_colors: list[str], area_thresholds: dict[str, int], error
+) -> None:
+    """Test for classify_pore_size_value_error()."""
+    with pytest.raises(error):
+        statistics.classify_pore_size(
+            df=pd.DataFrame({"area": [1, 2, 3]}),
+            area_thresholds=area_thresholds,
+            area_colors=area_colors,
+            area_val="area",
+        )

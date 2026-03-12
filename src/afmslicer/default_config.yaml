@@ -27,6 +27,15 @@ slicing:
   minimum_size: 20000 # Minimum size in nanometres squared of objects to retain, <= minimum_area are masked & excluded
   centroid: false # Whether to calculate the centroid of pores on each slice.
   feret_maximum: false # Whether to calculate the maximum feret distance of pores on each slice
+  area_thresholds:
+    low: 20
+    medium: 500
+    high: 1500
+  area_colors:
+    - yellow
+    - green
+    - magenta
+    - blue
 plotting:
   format: png # Format for saving images as
   gif_duration: 100 # duration in microseconds between frames in GIF

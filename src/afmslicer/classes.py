@@ -106,9 +106,9 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     area_by_layer: list[list[float]] | None = None
     centroid_by_layer: list[list[tuple[float, float]]] | None = None
     feret_maximum_by_layer: list[list[float]] | None = None
-    # pores_per_layer_mean: float | None = None
-    # pores_per_layer_std: float | None = None
-    # layer_max_pores: int | None = None
+    pores_per_layer_mean: float | None = None
+    pores_per_layer_std: float | None = None
+    layer_max_pores: int | None = None
     statistics: pd.DataFrame | None = None
     # slice_max_pores: dict[str, int | float] | None = None
 

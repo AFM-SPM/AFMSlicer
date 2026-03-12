@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import Any
 
-# import polars as pl
 import numpy as np
 import numpy.typing as npt
+import pandas as pd
 from scipy.signal import find_peaks, peak_widths
 from scipy.stats import norm
 
@@ -214,3 +214,51 @@ def full_width_half_max(pdf: npt.NDArray[np.float32]) -> list[int]:
         return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]
     msg = "No peaks found in distribution, can not calculate full-width half-max."
     raise ValueError(msg)
+
+
+def classify_pore_size(
+    df: pd.DataFrame,
+    area_thresholds: dict[str, int],
+    area_colors: list[str],
+    area_val: str = "area",
+) -> pd.DataFrame:
+    """
+    Classify pore sizes in a dataframe into colors.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Dataframe with areas to be classified.
+    area_thresholds : dict[str, int]
+        Dictionary of thresholds, there should be three values for low, medium and high thresholds resulting in four
+        categories.
+    area_colors : list[str]
+        Colors to use for the four categories.
+    area_val : str
+        Column name containing the area data, default is ``area`` and is unlikely to need changing.
+
+    Returns
+    -------
+    pd.DataFrame
+        Dataframe with additional column with text categorisation of pore area.
+    """
+    if len(area_colors) != 4:
+        msg = f"'area_colors' should have four values : {area_colors=}"
+        raise ValueError(msg)
+    if len(area_thresholds) != 3:
+        msg = f"'area_thresholds' should have three values : {area_thresholds=}"
+        raise ValueError(msg)
+    if len(set(area_thresholds.keys()) - set(["low", "medium", "high"])):  # noqa: C405
+        msg = f"Keys to 'area_thresholds are not 'low', 'medium' and 'high' : {area_thresholds.keys()=}"
+        raise ValueError(msg)
+    df["pore_color"] = df[area_val].case_when(
+        [
+            # NB - We do not need the lower boundary for 'medium' and 'high' since once a condition is metadata
+            #      the subsequent conditions are ignored
+            (df[area_val] < area_thresholds["low"], area_colors[0]),
+            (df[area_val] < area_thresholds["medium"], area_colors[1]),
+            (df[area_val] < area_thresholds["high"], area_colors[2]),
+            (df[area_val] >= area_thresholds["high"], area_colors[3]),
+        ]
+    )
+    return df

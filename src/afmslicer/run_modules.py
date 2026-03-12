@@ -11,6 +11,7 @@ from pkgutil import get_data
 from pprint import pformat
 from typing import Any
 
+import pandas as pd
 import yaml
 from art import tprint
 from loguru import logger
@@ -34,6 +35,7 @@ from afmslicer import (
     CONFIG_DOCUMENTATION_REFERENCE,
     processing,
 )
+from afmslicer.statistics import classify_pore_size
 from afmslicer.validation import AFMSLICER_CONFIG_SCHEMA
 
 HEADER_MESSAGE = f"# Configuration from AFMSlicer run complete : {get_date_time()}\n{CONFIG_DOCUMENTATION_REFERENCE}"
@@ -185,10 +187,32 @@ def process(args: argparse.Namespace | None = None) -> None:
                 pbar.update()
                 # Display completion message for the image
                 logger.info(f"[{filename}] Processing completed.")
-    # Concatenate all the dictionary's values into a dataframe. Ignore the keys since
-    # the dataframes have the file names in them already.
-    # statistics_all_df = pd.concat(statistics_all.values())
-    # statistics_all_df.to_csv(config["output_dir"] / "statistics.csv")
+                # Concatenate all the dictionary's values into a dataframe. Ignore the keys since
+                # the dataframes have the file names in them already.
+    statistics_all_df = pd.concat(
+        {image_name: image.statistics for image_name, image in processed_all.items()}
+    )
+    # Classify pores into color
+    statistics_all_df = classify_pore_size(
+        df=statistics_all_df,
+        area_thresholds=config["slicing"]["area_thresholds"],
+        area_colors=config["slicing"]["area_colors"],
+        area_val="area",
+    )
+    statistics_all_df.index.names = ["image", "layer", "pore"]
+    statistics_all_df.to_csv(config["output_dir"] / "all_statistics.csv")
+    # Aggregate counts by image, layer and pore color, reshape and sum
+    statistics_all_df.reset_index(inplace=True)  # noqa: PD002
+    # Add a counter, select grouping variables and counter, pivot and count, filling missing with 0
+    statistics_all_df["counter"] = 1
+    color_count_df = statistics_all_df[
+        ["image", "layer", "pore_color", "counter"]
+    ].pivot_table(
+        index=["image", "layer"], columns="pore_color", aggfunc="count", fill_value=0
+    )
+    color_count_df = color_count_df.droplevel(level=0, axis=1)
+    color_count_df["total"] = color_count_df.sum(axis=1)
+    color_count_df.to_csv(config["output_dir"] / "color_count.csv")
     # Write config to file
     write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     images_processed = len(processed_all)
