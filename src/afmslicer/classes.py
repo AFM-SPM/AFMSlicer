@@ -105,6 +105,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     pores_per_layer_mean: float | None = None
     pores_per_layer_std: float | None = None
     layer_max_pores: int | None = None
+    statistics: dict[int, Any] | None = None
     # slice_max_pores: dict[str, int | float] | None = None
 
     def __post_init__(self) -> None:
@@ -281,8 +282,20 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 sliced_region_properties=self.sliced_region_properties
             )
         # Feret Maximum
-        # if self.config["feret_maximum"]:
         if self.config["slicing"]["feret_maximum"]:
             self.feret_maximum_by_layer = statistics.feret_diameter_maximum_pores(
                 sliced_region_properties=self.sliced_region_properties
             )
+
+    def _extract_statistics(self) -> None:
+        """Extract statistics from the ``sliced_region_properties`` attribute."""
+        try:
+            self.statistics = statistics.create_statistics_dictionary(
+                sliced_region_properties=self.sliced_region_properties,
+                feret_maximum=self.config["slicing"]["feret_maximum"],
+                centroid=self.config["slicing"]["centroid"],
+            )
+        except AttributeError as e:
+            raise e
+        except TypeError as e:
+            raise e

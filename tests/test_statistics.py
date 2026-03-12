@@ -446,3 +446,31 @@ def test_full_width_half_max(pdf: npt.NDArray, expected_fwhm: dict[str, int]) ->
 #         {"image1": volume_image1, "image2": volume_image2}
 #     )
 #     assert aggregated_array.shape == expected_shape
+
+
+@pytest.mark.parametrize(
+    ("afmslicer_fixture", "feret_maximum", "centroid"),
+    [
+        pytest.param("afmslicer_basic", False, False, id="basic pyramid, area only"),
+        pytest.param(
+            "afmslicer_basic", True, True, id="basic pyramid, area, feret & centroid"
+        ),
+        pytest.param("afmslicer_sample1", False, False, id="sample1"),
+        pytest.param("afmslicer_sample2", False, False, id="sample2"),
+    ],
+)
+def test_create_statistics_dictionary(
+    afmslicer_fixture: str, feret_maximum: bool, centroid: bool, request, snapshot
+) -> None:
+    """Test for create_statistics_dictionary()."""
+    afmslicer_object = request.getfixturevalue(afmslicer_fixture)
+    afmslicer_object.slice_image()
+    afmslicer_object._extract_statistics()
+    assert (
+        statistics.create_statistics_dictionary(
+            sliced_region_properties=afmslicer_object.sliced_region_properties,
+            feret_maximum=feret_maximum,
+            centroid=centroid,
+        )
+        == snapshot
+    )

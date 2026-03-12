@@ -127,6 +127,42 @@ def feret_diameter_maximum_pores(
     ]
 
 
+def create_statistics_dictionary(
+    sliced_region_properties: list[list[Any]],
+    feret_maximum: bool = False,
+    centroid: bool = False,
+) -> dict[int, dict[int, Any]]:
+    """
+    Extract statistics of objects from each layer.
+
+    Parameters
+    ----------
+    sliced_region_properties : list[list[Any]]
+        List of lists of region properties, the top level is layer, the nesting within it is each of the objects within
+        the layer.
+    feret_maximum : bool
+        Whether to extract the maximum feret distance.
+    centroid : bool
+        Whether to extract the centroid coordinates of the region.
+
+    Returns
+    -------
+    dict[int, dict[int, Any]]
+        Dictionary of statistics, top-level is the layer/slice through the image, and nested within are statistics for
+        each pore.
+    """
+    statistics = {}
+    for layer, slice_properties in enumerate(sliced_region_properties):
+        statistics[layer] = {}
+        for pore, props in enumerate(slice_properties):
+            statistics[layer][pore] = {"area": props.area}
+            if feret_maximum:
+                statistics[layer][pore]["feret_diameter_max"] = props.feret_diameter_max
+            if centroid:
+                statistics[layer][pore]["centroid"] = props.centroid
+    return statistics
+
+
 def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
     """
     Calculate the scaled probability density function for an array.

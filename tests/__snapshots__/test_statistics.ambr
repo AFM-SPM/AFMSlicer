@@ -1840,6 +1840,1188 @@
     ]),
   ])
 # ---
+# name: test_create_statistics_dictionary[basic pyramid, area only]
+  dict({
+    0: dict({
+      0: dict({
+        'area': np.float64(81.0),
+      }),
+    }),
+    1: dict({
+      0: dict({
+        'area': np.float64(49.0),
+      }),
+    }),
+    2: dict({
+      0: dict({
+        'area': np.float64(25.0),
+      }),
+    }),
+    3: dict({
+      0: dict({
+        'area': np.float64(9.0),
+      }),
+    }),
+    4: dict({
+      0: dict({
+        'area': np.float64(1.0),
+      }),
+    }),
+  })
+# ---
+# name: test_create_statistics_dictionary[basic pyramid, area, feret & centroid]
+  dict({
+    0: dict({
+      0: dict({
+        'area': np.float64(81.0),
+        'centroid': tuple(
+          np.float64(5.0),
+          np.float64(5.0),
+        ),
+        'feret_diameter_max': 12.041594578792296,
+      }),
+    }),
+    1: dict({
+      0: dict({
+        'area': np.float64(49.0),
+        'centroid': tuple(
+          np.float64(5.0),
+          np.float64(5.0),
+        ),
+        'feret_diameter_max': 9.219544457292887,
+      }),
+    }),
+    2: dict({
+      0: dict({
+        'area': np.float64(25.0),
+        'centroid': tuple(
+          np.float64(5.0),
+          np.float64(5.0),
+        ),
+        'feret_diameter_max': 6.4031242374328485,
+      }),
+    }),
+    3: dict({
+      0: dict({
+        'area': np.float64(9.0),
+        'centroid': tuple(
+          np.float64(5.0),
+          np.float64(5.0),
+        ),
+        'feret_diameter_max': 3.605551275463989,
+      }),
+    }),
+    4: dict({
+      0: dict({
+        'area': np.float64(1.0),
+        'centroid': tuple(
+          np.float64(5.0),
+          np.float64(5.0),
+        ),
+        'feret_diameter_max': 1.0,
+      }),
+    }),
+  })
+# ---
+# name: test_create_statistics_dictionary[sample1]
+  dict({
+    0: dict({
+      0: dict({
+        'area': np.float64(399998474.12109375),
+      }),
+    }),
+    1: dict({
+      0: dict({
+        'area': np.float64(297546.38671875),
+      }),
+      1: dict({
+        'area': np.float64(187683.10546875),
+      }),
+      2: dict({
+        'area': np.float64(2426147.4609375),
+      }),
+      3: dict({
+        'area': np.float64(13227844.23828125),
+      }),
+      4: dict({
+        'area': np.float64(39672.8515625),
+      }),
+      5: dict({
+        'area': np.float64(64086.9140625),
+      }),
+      6: dict({
+        'area': np.float64(4577.63671875),
+      }),
+      7: dict({
+        'area': np.float64(16784.66796875),
+      }),
+      8: dict({
+        'area': np.float64(80871.58203125),
+      }),
+      9: dict({
+        'area': np.float64(1341247.55859375),
+      }),
+      10: dict({
+        'area': np.float64(7637023.92578125),
+      }),
+      11: dict({
+        'area': np.float64(4618835.44921875),
+      }),
+      12: dict({
+        'area': np.float64(22888.18359375),
+      }),
+      13: dict({
+        'area': np.float64(6547546.38671875),
+      }),
+      14: dict({
+        'area': np.float64(1525.87890625),
+      }),
+      15: dict({
+        'area': np.float64(6809997.55859375),
+      }),
+      16: dict({
+        'area': np.float64(149536.1328125),
+      }),
+      17: dict({
+        'area': np.float64(547790.52734375),
+      }),
+      18: dict({
+        'area': np.float64(4312133.7890625),
+      }),
+      19: dict({
+        'area': np.float64(1525.87890625),
+      }),
+      20: dict({
+        'area': np.float64(26747131.34765625),
+      }),
+      21: dict({
+        'area': np.float64(28991.69921875),
+      }),
+      22: dict({
+        'area': np.float64(4577.63671875),
+      }),
+      23: dict({
+        'area': np.float64(1525.87890625),
+      }),
+      24: dict({
+        'area': np.float64(1525.87890625),
+      }),
+      25: dict({
+        'area': np.float64(1289367.67578125),
+      }),
+      26: dict({
+        'area': np.float64(3051.7578125),
+      }),
+      27: dict({
+        'area': np.float64(6103.515625),
+      }),
+      28: dict({
+        'area': np.float64(3051.7578125),
+      }),
+      29: dict({
+        'area': np.float64(13732.91015625),
+      }),
+      30: dict({
+        'area': np.float64(3051.7578125),
+      }),
+      31: dict({
+        'area': np.float64(213623.046875),
+      }),
+      32: dict({
+        'area': np.float64(2124023.4375),
+      }),
+      33: dict({
+        'area': np.float64(9155.2734375),
+      }),
+      34: dict({
+        'area': np.float64(15258.7890625),
+      }),
+      35: dict({
+        'area': np.float64(910949.70703125),
+      }),
+      36: dict({
+        'area': np.float64(1852416.9921875),
+      }),
+      37: dict({
+        'area': np.float64(3166198.73046875),
+      }),
+      38: dict({
+        'area': np.float64(25939.94140625),
+      }),
+      39: dict({
+        'area': np.float64(1902770.99609375),
+      }),
+      40: dict({
+        'area': np.float64(6103.515625),
+      }),
+      41: dict({
+        'area': np.float64(140380.859375),
+      }),
+      42: dict({
+        'area': np.float64(53405.76171875),
+      }),
+    }),
+    2: dict({
+      0: dict({
+        'area': np.float64(172424.31640625),
+      }),
+      1: dict({
+        'area': np.float64(1577758.7890625),
+      }),
+      2: dict({
+        'area': np.float64(9231567.3828125),
+      }),
+      3: dict({
+        'area': np.float64(437927.24609375),
+      }),
+      4: dict({
+        'area': np.float64(3332519.53125),
+      }),
+      5: dict({
+        'area': np.float64(5632019.04296875),
+      }),
+      6: dict({
+        'area': np.float64(329589.84375),
+      }),
+      7: dict({
+        'area': np.float64(4870605.46875),
+      }),
+      8: dict({
+        'area': np.float64(485229.4921875),
+      }),
+      9: dict({
+        'area': np.float64(16784.66796875),
+      }),
+      10: dict({
+        'area': np.float64(5039978.02734375),
+      }),
+      11: dict({
+        'area': np.float64(291442.87109375),
+      }),
+      12: dict({
+        'area': np.float64(820922.8515625),
+      }),
+      13: dict({
+        'area': np.float64(553894.04296875),
+      }),
+      14: dict({
+        'area': np.float64(19078063.96484375),
+      }),
+      15: dict({
+        'area': np.float64(825500.48828125),
+      }),
+      16: dict({
+        'area': np.float64(386047.36328125),
+      }),
+      17: dict({
+        'area': np.float64(396728.515625),
+      }),
+      18: dict({
+        'area': np.float64(7629.39453125),
+      }),
+      19: dict({
+        'area': np.float64(12207.03125),
+      }),
+      20: dict({
+        'area': np.float64(73242.1875),
+      }),
+      21: dict({
+        'area': np.float64(1350402.83203125),
+      }),
+      22: dict({
+        'area': np.float64(212097.16796875),
+      }),
+      23: dict({
+        'area': np.float64(276184.08203125),
+      }),
+      24: dict({
+        'area': np.float64(900268.5546875),
+      }),
+      25: dict({
+        'area': np.float64(1681518.5546875),
+      }),
+      26: dict({
+        'area': np.float64(822448.73046875),
+      }),
+      27: dict({
+        'area': np.float64(317382.8125),
+      }),
+      28: dict({
+        'area': np.float64(196838.37890625),
+      }),
+      29: dict({
+        'area': np.float64(317382.8125),
+      }),
+      30: dict({
+        'area': np.float64(73242.1875),
+      }),
+    }),
+    3: dict({
+      0: dict({
+        'area': np.float64(59509.27734375),
+      }),
+      1: dict({
+        'area': np.float64(111389.16015625),
+      }),
+      2: dict({
+        'area': np.float64(251770.01953125),
+      }),
+      3: dict({
+        'area': np.float64(1525.87890625),
+      }),
+      4: dict({
+        'area': np.float64(273132.32421875),
+      }),
+      5: dict({
+        'area': np.float64(245666.50390625),
+      }),
+      6: dict({
+        'area': np.float64(347900.390625),
+      }),
+      7: dict({
+        'area': np.float64(308227.5390625),
+      }),
+      8: dict({
+        'area': np.float64(160217.28515625),
+      }),
+      9: dict({
+        'area': np.float64(99182.12890625),
+      }),
+      10: dict({
+        'area': np.float64(259399.4140625),
+      }),
+      11: dict({
+        'area': np.float64(419616.69921875),
+      }),
+      12: dict({
+        'area': np.float64(138854.98046875),
+      }),
+      13: dict({
+        'area': np.float64(222778.3203125),
+      }),
+      14: dict({
+        'area': np.float64(350952.1484375),
+      }),
+      15: dict({
+        'area': np.float64(105285.64453125),
+      }),
+      16: dict({
+        'area': np.float64(187683.10546875),
+      }),
+      17: dict({
+        'area': np.float64(108337.40234375),
+      }),
+      18: dict({
+        'area': np.float64(207519.53125),
+      }),
+      19: dict({
+        'area': np.float64(274658.203125),
+      }),
+      20: dict({
+        'area': np.float64(245666.50390625),
+      }),
+      21: dict({
+        'area': np.float64(152587.890625),
+      }),
+      22: dict({
+        'area': np.float64(430297.8515625),
+      }),
+      23: dict({
+        'area': np.float64(100708.0078125),
+      }),
+      24: dict({
+        'area': np.float64(144958.49609375),
+      }),
+      25: dict({
+        'area': np.float64(170898.4375),
+      }),
+      26: dict({
+        'area': np.float64(299072.265625),
+      }),
+      27: dict({
+        'area': np.float64(196838.37890625),
+      }),
+      28: dict({
+        'area': np.float64(274658.203125),
+      }),
+      29: dict({
+        'area': np.float64(500488.28125),
+      }),
+      30: dict({
+        'area': np.float64(73242.1875),
+      }),
+      31: dict({
+        'area': np.float64(213623.046875),
+      }),
+      32: dict({
+        'area': np.float64(193786.62109375),
+      }),
+      33: dict({
+        'area': np.float64(16784.66796875),
+      }),
+      34: dict({
+        'area': np.float64(158691.40625),
+      }),
+      35: dict({
+        'area': np.float64(279235.83984375),
+      }),
+      36: dict({
+        'area': np.float64(155639.6484375),
+      }),
+      37: dict({
+        'area': np.float64(158691.40625),
+      }),
+      38: dict({
+        'area': np.float64(349426.26953125),
+      }),
+      39: dict({
+        'area': np.float64(177001.953125),
+      }),
+      40: dict({
+        'area': np.float64(6103.515625),
+      }),
+      41: dict({
+        'area': np.float64(74768.06640625),
+      }),
+      42: dict({
+        'area': np.float64(404357.91015625),
+      }),
+      43: dict({
+        'area': np.float64(183105.46875),
+      }),
+      44: dict({
+        'area': np.float64(1382446.2890625),
+      }),
+      45: dict({
+        'area': np.float64(788879.39453125),
+      }),
+      46: dict({
+        'area': np.float64(15258.7890625),
+      }),
+      47: dict({
+        'area': np.float64(22888.18359375),
+      }),
+      48: dict({
+        'area': np.float64(398254.39453125),
+      }),
+      49: dict({
+        'area': np.float64(508117.67578125),
+      }),
+      50: dict({
+        'area': np.float64(67138.671875),
+      }),
+      51: dict({
+        'area': np.float64(125122.0703125),
+      }),
+      52: dict({
+        'area': np.float64(367736.81640625),
+      }),
+      53: dict({
+        'area': np.float64(230407.71484375),
+      }),
+      54: dict({
+        'area': np.float64(99182.12890625),
+      }),
+      55: dict({
+        'area': np.float64(355529.78515625),
+      }),
+      56: dict({
+        'area': np.float64(164794.921875),
+      }),
+      57: dict({
+        'area': np.float64(115966.796875),
+      }),
+      58: dict({
+        'area': np.float64(61035.15625),
+      }),
+      59: dict({
+        'area': np.float64(160217.28515625),
+      }),
+      60: dict({
+        'area': np.float64(158691.40625),
+      }),
+      61: dict({
+        'area': np.float64(236511.23046875),
+      }),
+      62: dict({
+        'area': np.float64(51879.8828125),
+      }),
+    }),
+    4: dict({
+      0: dict({
+        'area': np.float64(1525.87890625),
+      }),
+    }),
+  })
+# ---
+# name: test_create_statistics_dictionary[sample2]
+  dict({
+    0: dict({
+      0: dict({
+        'area': np.float64(159999.609375),
+      }),
+    }),
+    1: dict({
+      0: dict({
+        'area': np.float64(135931.25),
+      }),
+      1: dict({
+        'area': np.float64(67.578125),
+      }),
+      2: dict({
+        'area': np.float64(0.78125),
+      }),
+      3: dict({
+        'area': np.float64(0.78125),
+      }),
+      4: dict({
+        'area': np.float64(0.390625),
+      }),
+      5: dict({
+        'area': np.float64(1.953125),
+      }),
+      6: dict({
+        'area': np.float64(1.171875),
+      }),
+      7: dict({
+        'area': np.float64(3.515625),
+      }),
+      8: dict({
+        'area': np.float64(2.734375),
+      }),
+      9: dict({
+        'area': np.float64(23.046875),
+      }),
+      10: dict({
+        'area': np.float64(0.78125),
+      }),
+      11: dict({
+        'area': np.float64(0.390625),
+      }),
+      12: dict({
+        'area': np.float64(0.78125),
+      }),
+      13: dict({
+        'area': np.float64(3.515625),
+      }),
+      14: dict({
+        'area': np.float64(0.78125),
+      }),
+      15: dict({
+        'area': np.float64(0.78125),
+      }),
+      16: dict({
+        'area': np.float64(0.390625),
+      }),
+      17: dict({
+        'area': np.float64(2.734375),
+      }),
+      18: dict({
+        'area': np.float64(0.390625),
+      }),
+      19: dict({
+        'area': np.float64(0.390625),
+      }),
+      20: dict({
+        'area': np.float64(2.734375),
+      }),
+      21: dict({
+        'area': np.float64(1.5625),
+      }),
+      22: dict({
+        'area': np.float64(1.5625),
+      }),
+      23: dict({
+        'area': np.float64(7.03125),
+      }),
+      24: dict({
+        'area': np.float64(0.78125),
+      }),
+      25: dict({
+        'area': np.float64(1.171875),
+      }),
+      26: dict({
+        'area': np.float64(0.78125),
+      }),
+      27: dict({
+        'area': np.float64(0.390625),
+      }),
+      28: dict({
+        'area': np.float64(0.390625),
+      }),
+      29: dict({
+        'area': np.float64(0.390625),
+      }),
+      30: dict({
+        'area': np.float64(1.171875),
+      }),
+      31: dict({
+        'area': np.float64(0.390625),
+      }),
+      32: dict({
+        'area': np.float64(0.390625),
+      }),
+      33: dict({
+        'area': np.float64(8.203125),
+      }),
+      34: dict({
+        'area': np.float64(1.953125),
+      }),
+      35: dict({
+        'area': np.float64(0.390625),
+      }),
+      36: dict({
+        'area': np.float64(0.390625),
+      }),
+      37: dict({
+        'area': np.float64(0.78125),
+      }),
+      38: dict({
+        'area': np.float64(0.390625),
+      }),
+      39: dict({
+        'area': np.float64(2.734375),
+      }),
+      40: dict({
+        'area': np.float64(6.25),
+      }),
+      41: dict({
+        'area': np.float64(1.5625),
+      }),
+      42: dict({
+        'area': np.float64(0.390625),
+      }),
+      43: dict({
+        'area': np.float64(0.390625),
+      }),
+      44: dict({
+        'area': np.float64(0.78125),
+      }),
+      45: dict({
+        'area': np.float64(1.5625),
+      }),
+      46: dict({
+        'area': np.float64(3.515625),
+      }),
+      47: dict({
+        'area': np.float64(1.5625),
+      }),
+      48: dict({
+        'area': np.float64(0.78125),
+      }),
+      49: dict({
+        'area': np.float64(0.78125),
+      }),
+      50: dict({
+        'area': np.float64(25.78125),
+      }),
+      51: dict({
+        'area': np.float64(0.390625),
+      }),
+      52: dict({
+        'area': np.float64(0.390625),
+      }),
+      53: dict({
+        'area': np.float64(0.390625),
+      }),
+      54: dict({
+        'area': np.float64(2.734375),
+      }),
+      55: dict({
+        'area': np.float64(0.390625),
+      }),
+      56: dict({
+        'area': np.float64(0.78125),
+      }),
+      57: dict({
+        'area': np.float64(0.390625),
+      }),
+      58: dict({
+        'area': np.float64(0.78125),
+      }),
+      59: dict({
+        'area': np.float64(3.90625),
+      }),
+      60: dict({
+        'area': np.float64(0.78125),
+      }),
+      61: dict({
+        'area': np.float64(0.390625),
+      }),
+      62: dict({
+        'area': np.float64(0.390625),
+      }),
+      63: dict({
+        'area': np.float64(2.34375),
+      }),
+      64: dict({
+        'area': np.float64(0.390625),
+      }),
+      65: dict({
+        'area': np.float64(2.734375),
+      }),
+      66: dict({
+        'area': np.float64(0.390625),
+      }),
+      67: dict({
+        'area': np.float64(0.390625),
+      }),
+      68: dict({
+        'area': np.float64(1.5625),
+      }),
+      69: dict({
+        'area': np.float64(1.5625),
+      }),
+      70: dict({
+        'area': np.float64(1.5625),
+      }),
+      71: dict({
+        'area': np.float64(0.78125),
+      }),
+      72: dict({
+        'area': np.float64(0.390625),
+      }),
+      73: dict({
+        'area': np.float64(0.390625),
+      }),
+      74: dict({
+        'area': np.float64(1.5625),
+      }),
+      75: dict({
+        'area': np.float64(1.5625),
+      }),
+    }),
+    2: dict({
+      0: dict({
+        'area': np.float64(0.78125),
+      }),
+      1: dict({
+        'area': np.float64(0.390625),
+      }),
+      2: dict({
+        'area': np.float64(5.46875),
+      }),
+      3: dict({
+        'area': np.float64(0.78125),
+      }),
+      4: dict({
+        'area': np.float64(74628.515625),
+      }),
+      5: dict({
+        'area': np.float64(3.90625),
+      }),
+      6: dict({
+        'area': np.float64(0.78125),
+      }),
+      7: dict({
+        'area': np.float64(0.390625),
+      }),
+      8: dict({
+        'area': np.float64(0.390625),
+      }),
+      9: dict({
+        'area': np.float64(0.78125),
+      }),
+      10: dict({
+        'area': np.float64(0.390625),
+      }),
+      11: dict({
+        'area': np.float64(0.390625),
+      }),
+      12: dict({
+        'area': np.float64(50.0),
+      }),
+      13: dict({
+        'area': np.float64(0.390625),
+      }),
+      14: dict({
+        'area': np.float64(0.78125),
+      }),
+      15: dict({
+        'area': np.float64(0.78125),
+      }),
+      16: dict({
+        'area': np.float64(1.953125),
+      }),
+      17: dict({
+        'area': np.float64(10.9375),
+      }),
+      18: dict({
+        'area': np.float64(1.5625),
+      }),
+      19: dict({
+        'area': np.float64(0.390625),
+      }),
+      20: dict({
+        'area': np.float64(1.171875),
+      }),
+      21: dict({
+        'area': np.float64(0.390625),
+      }),
+      22: dict({
+        'area': np.float64(0.390625),
+      }),
+      23: dict({
+        'area': np.float64(0.78125),
+      }),
+      24: dict({
+        'area': np.float64(0.390625),
+      }),
+      25: dict({
+        'area': np.float64(1.953125),
+      }),
+      26: dict({
+        'area': np.float64(94.921875),
+      }),
+      27: dict({
+        'area': np.float64(1.5625),
+      }),
+      28: dict({
+        'area': np.float64(1.5625),
+      }),
+      29: dict({
+        'area': np.float64(0.390625),
+      }),
+      30: dict({
+        'area': np.float64(0.78125),
+      }),
+      31: dict({
+        'area': np.float64(11.328125),
+      }),
+      32: dict({
+        'area': np.float64(43.75),
+      }),
+      33: dict({
+        'area': np.float64(1.5625),
+      }),
+      34: dict({
+        'area': np.float64(2.34375),
+      }),
+      35: dict({
+        'area': np.float64(0.390625),
+      }),
+      36: dict({
+        'area': np.float64(1.5625),
+      }),
+      37: dict({
+        'area': np.float64(0.78125),
+      }),
+      38: dict({
+        'area': np.float64(3.515625),
+      }),
+      39: dict({
+        'area': np.float64(0.78125),
+      }),
+      40: dict({
+        'area': np.float64(3.125),
+      }),
+      41: dict({
+        'area': np.float64(0.78125),
+      }),
+      42: dict({
+        'area': np.float64(0.390625),
+      }),
+      43: dict({
+        'area': np.float64(1.5625),
+      }),
+      44: dict({
+        'area': np.float64(2.734375),
+      }),
+      45: dict({
+        'area': np.float64(1.171875),
+      }),
+      46: dict({
+        'area': np.float64(0.390625),
+      }),
+      47: dict({
+        'area': np.float64(1.171875),
+      }),
+      48: dict({
+        'area': np.float64(0.390625),
+      }),
+      49: dict({
+        'area': np.float64(3.125),
+      }),
+      50: dict({
+        'area': np.float64(0.390625),
+      }),
+      51: dict({
+        'area': np.float64(4.296875),
+      }),
+      52: dict({
+        'area': np.float64(0.390625),
+      }),
+      53: dict({
+        'area': np.float64(7.421875),
+      }),
+      54: dict({
+        'area': np.float64(0.78125),
+      }),
+      55: dict({
+        'area': np.float64(0.78125),
+      }),
+      56: dict({
+        'area': np.float64(0.390625),
+      }),
+      57: dict({
+        'area': np.float64(0.390625),
+      }),
+      58: dict({
+        'area': np.float64(1.953125),
+      }),
+      59: dict({
+        'area': np.float64(1.5625),
+      }),
+      60: dict({
+        'area': np.float64(0.390625),
+      }),
+      61: dict({
+        'area': np.float64(1.953125),
+      }),
+      62: dict({
+        'area': np.float64(1.171875),
+      }),
+      63: dict({
+        'area': np.float64(0.390625),
+      }),
+      64: dict({
+        'area': np.float64(0.390625),
+      }),
+      65: dict({
+        'area': np.float64(0.78125),
+      }),
+      66: dict({
+        'area': np.float64(0.78125),
+      }),
+      67: dict({
+        'area': np.float64(0.390625),
+      }),
+      68: dict({
+        'area': np.float64(0.390625),
+      }),
+      69: dict({
+        'area': np.float64(1.953125),
+      }),
+      70: dict({
+        'area': np.float64(0.390625),
+      }),
+      71: dict({
+        'area': np.float64(0.390625),
+      }),
+      72: dict({
+        'area': np.float64(1.171875),
+      }),
+      73: dict({
+        'area': np.float64(0.78125),
+      }),
+      74: dict({
+        'area': np.float64(0.390625),
+      }),
+      75: dict({
+        'area': np.float64(1.171875),
+      }),
+      76: dict({
+        'area': np.float64(0.390625),
+      }),
+      77: dict({
+        'area': np.float64(0.390625),
+      }),
+      78: dict({
+        'area': np.float64(0.390625),
+      }),
+      79: dict({
+        'area': np.float64(0.390625),
+      }),
+      80: dict({
+        'area': np.float64(0.78125),
+      }),
+      81: dict({
+        'area': np.float64(1.5625),
+      }),
+      82: dict({
+        'area': np.float64(1.171875),
+      }),
+      83: dict({
+        'area': np.float64(1.171875),
+      }),
+    }),
+    3: dict({
+      0: dict({
+        'area': np.float64(0.390625),
+      }),
+      1: dict({
+        'area': np.float64(0.390625),
+      }),
+      2: dict({
+        'area': np.float64(5.078125),
+      }),
+      3: dict({
+        'area': np.float64(0.390625),
+      }),
+      4: dict({
+        'area': np.float64(0.390625),
+      }),
+      5: dict({
+        'area': np.float64(14684.375),
+      }),
+      6: dict({
+        'area': np.float64(0.390625),
+      }),
+      7: dict({
+        'area': np.float64(1.5625),
+      }),
+      8: dict({
+        'area': np.float64(0.390625),
+      }),
+      9: dict({
+        'area': np.float64(0.390625),
+      }),
+      10: dict({
+        'area': np.float64(0.78125),
+      }),
+      11: dict({
+        'area': np.float64(0.390625),
+      }),
+      12: dict({
+        'area': np.float64(7.03125),
+      }),
+      13: dict({
+        'area': np.float64(0.390625),
+      }),
+      14: dict({
+        'area': np.float64(2.34375),
+      }),
+      15: dict({
+        'area': np.float64(0.390625),
+      }),
+      16: dict({
+        'area': np.float64(0.390625),
+      }),
+      17: dict({
+        'area': np.float64(0.390625),
+      }),
+      18: dict({
+        'area': np.float64(0.78125),
+      }),
+      19: dict({
+        'area': np.float64(0.78125),
+      }),
+      20: dict({
+        'area': np.float64(0.390625),
+      }),
+      21: dict({
+        'area': np.float64(1.953125),
+      }),
+      22: dict({
+        'area': np.float64(7.421875),
+      }),
+      23: dict({
+        'area': np.float64(1.5625),
+      }),
+      24: dict({
+        'area': np.float64(0.390625),
+      }),
+      25: dict({
+        'area': np.float64(0.78125),
+      }),
+      26: dict({
+        'area': np.float64(0.390625),
+      }),
+      27: dict({
+        'area': np.float64(1.5625),
+      }),
+      28: dict({
+        'area': np.float64(0.78125),
+      }),
+      29: dict({
+        'area': np.float64(0.390625),
+      }),
+      30: dict({
+        'area': np.float64(181.25),
+      }),
+      31: dict({
+        'area': np.float64(0.390625),
+      }),
+      32: dict({
+        'area': np.float64(0.78125),
+      }),
+      33: dict({
+        'area': np.float64(3.515625),
+      }),
+      34: dict({
+        'area': np.float64(0.390625),
+      }),
+      35: dict({
+        'area': np.float64(0.390625),
+      }),
+      36: dict({
+        'area': np.float64(0.78125),
+      }),
+      37: dict({
+        'area': np.float64(1.953125),
+      }),
+      38: dict({
+        'area': np.float64(3.125),
+      }),
+      39: dict({
+        'area': np.float64(1.953125),
+      }),
+      40: dict({
+        'area': np.float64(0.390625),
+      }),
+      41: dict({
+        'area': np.float64(1.171875),
+      }),
+      42: dict({
+        'area': np.float64(0.78125),
+      }),
+      43: dict({
+        'area': np.float64(1.953125),
+      }),
+      44: dict({
+        'area': np.float64(0.390625),
+      }),
+      45: dict({
+        'area': np.float64(137.890625),
+      }),
+      46: dict({
+        'area': np.float64(0.78125),
+      }),
+      47: dict({
+        'area': np.float64(94.140625),
+      }),
+      48: dict({
+        'area': np.float64(1.171875),
+      }),
+      49: dict({
+        'area': np.float64(0.390625),
+      }),
+      50: dict({
+        'area': np.float64(0.390625),
+      }),
+      51: dict({
+        'area': np.float64(0.78125),
+      }),
+      52: dict({
+        'area': np.float64(0.78125),
+      }),
+      53: dict({
+        'area': np.float64(0.78125),
+      }),
+      54: dict({
+        'area': np.float64(0.78125),
+      }),
+      55: dict({
+        'area': np.float64(0.78125),
+      }),
+    }),
+    4: dict({
+      0: dict({
+        'area': np.float64(0.390625),
+      }),
+    }),
+  })
+# ---
 # name: test_feret_diameter_maximum_pores[sample1]
   list([
     list([

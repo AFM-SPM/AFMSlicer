@@ -276,22 +276,46 @@ def test_slice_image(
 
 
 @pytest.mark.parametrize(
-    "fixture",
+    ("fixture", "error", "error_message"),
     [
         pytest.param(
             "afmslicer_with_attributes",
+            ValueError,
+            "No peaks found in distribution, can not calculate full-width half-max",
             id="basic with min_height=1, max_height=4, layers=2",
         ),
     ],
 )
 def test_slice_image_value_error(
     fixture: str,
+    error,
+    error_message: str,
     request,
 ) -> None:
     """Test for creating ``AFMSlicer`` object."""
     afmslicer_object = request.getfixturevalue(fixture)
     with pytest.raises(
-        ValueError,
-        match="No peaks found in distribution, can not calculate full-width half-max",
+        error,
+        match=error_message,
     ):
         assert afmslicer_object.slice_image()
+
+
+@pytest.mark.parametrize(
+    ("afmslicer_fixture", "error"),
+    [
+        pytest.param("afmslicer_basic", TypeError, id="type error"),
+        pytest.param(
+            "sample1_spm",
+            AttributeError,
+            id="attribute error",
+        ),
+    ],
+)
+def test_create_statistics_dictionary_errors(
+    afmslicer_fixture: str, error, request
+) -> None:
+    """Test create_statistics_dictionary() raises errors."""
+    afmslicer_object = request.getfixturevalue(afmslicer_fixture)
+    with pytest.raises(error):
+        assert afmslicer_object._extract_statistics()
