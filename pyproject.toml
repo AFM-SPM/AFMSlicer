@@ -37,6 +37,7 @@ dependencies = [
   "topostats @ git+https://github.com/AFM-SPM/TopoStats",
   "loguru",
   "marimo",
+  "pandas",
   "pydantic",
   "schema",
   "tqdm",
@@ -233,3 +234,8 @@ ignore-words-list = [
 
 [project.scripts]
 afmslicer = "afmslicer.entry_point:entry_point"
+
+[tool.ty.analysis]
+allowed-unresolved-imports = [
+  "topostats.**"
+]

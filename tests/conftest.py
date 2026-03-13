@@ -9,6 +9,7 @@ from typing import Any
 
 import numpy as np
 import numpy.typing as npt
+import pandas as pd
 import pytest
 import yaml
 from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
@@ -1285,3 +1286,44 @@ def slicing_filter_random(
     filter_config = default_config["filter"].copy()
     filter_config.pop("run")
     return SlicingFilter(topostats_object=afmslicer_random, **filter_config)
+
+
+@pytest.fixture
+def simple_statistics_dictionary() -> dict[int, dict[int, dict[str, float]]]:
+    """A simple example of a nested dictionary of statistics produced by AFMSlicer."""
+    return (
+        {
+            0: {
+                0: {
+                    "area": 10.1,
+                    "feret_max_diameter": 7.04,
+                    "centroid": (5.0, 5.0),
+                }
+            },
+            1: {
+                0: {
+                    "area": 20.2,
+                    "feret_max_diameter": 14.08,
+                    "centroid": (6.0, 6.0),
+                },
+                1: {"area": 6.2, "feret_max_diameter": 7.8, "centroid": (3.0, 3.0)},
+            },
+        },
+    )
+
+
+@pytest.fixture
+def simple_statistics_df() -> pd.DataFrame:
+    """Simple dataframe matching ``simple_statistics_dictionary`` fixture."""
+    return (
+        pd.DataFrame(
+            data={
+                "area": [10.1, 20.2, 6.2],
+                "feret_max_diameter": [7.04, 14.08, 7.8],
+                "centroid": [(5.0, 5.0), (6.0, 6.0), (3.0, 3.0)],
+            },
+            index=pd.MultiIndex.from_tuples(
+                [(0, 0), (1, 0), (1, 1)], names=["layer", "pore"]
+            ),
+        ),
+    )
