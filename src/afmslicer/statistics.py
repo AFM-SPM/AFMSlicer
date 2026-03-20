@@ -261,4 +261,7 @@ def classify_pore_size(
             (df[area_val] >= area_thresholds["high"], area_colors[3]),
         ]
     )
+    # Force type as `str`, seems case_when() doesn't enforce new string type in Pandas 3.0.1
+    # https://pandas.pydata.org/docs/user_guide/migration-3-strings.html
+    df["pore_color"] = df["pore_color"].astype("str")
     return df

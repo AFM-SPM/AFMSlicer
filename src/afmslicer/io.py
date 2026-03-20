@@ -31,7 +31,7 @@ def dict_to_df(data: dict[int | str, Any]) -> pd.DataFrame:
             for pore, props in pores.items()
         ]
     )
-    df.set_index(["layer", "pore"], inplace=True)
+    df.set_index(["layer", "pore"], inplace=True)  # noqa: PD002
     return df
 
 

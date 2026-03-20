@@ -493,7 +493,7 @@ def test_create_statistics_dictionary(
                 {
                     "area": [0, 2, 4, 6],
                     "pore_color": ["yellow", "green", "magenta", "blue"],
-                }
+                },
             ),
             id="simple",
         ),
