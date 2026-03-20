@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from platform import python_version
+from typing import Any
 
 import numpy as np
 import pytest
@@ -11,10 +12,44 @@ from packaging.version import parse as parse_version
 from syrupy.matchers import path_type
 
 from afmslicer import processing
+from afmslicer.classes import AFMSlicer
 
 BASE_DIR = Path.cwd()
 RESOURCES = BASE_DIR / "tests" / "resources"
 SPM_DIR = RESOURCES / "spm"
+
+PRECISION = 3
+
+
+def round_values(to_be_rounded: Any, precision: int) -> Any:
+    """
+    Round values conditional on type (``float`` or ``np.ndarray``).
+
+    Parameters
+    ----------
+    to_be_rounded : Any
+        Parameter to be rounded.
+    precision : int
+        Significant digits to round to.
+
+    Returns
+    -------
+        Rounded value if either ``float`` or ``np.ndarray`` is provided.
+    """
+    if isinstance(to_be_rounded, float):
+        return round(to_be_rounded, precision)
+    if isinstance(to_be_rounded, np.ndarray):
+        return np.round(to_be_rounded, precision)
+    if isinstance(to_be_rounded, AFMSlicer):
+        to_be_rounded.image = np.round(to_be_rounded.image, precision)
+        to_be_rounded.image_original = np.round(to_be_rounded.image_original, precision)
+        to_be_rounded.layers = np.round(to_be_rounded.layers, precision)
+        to_be_rounded.min_height = np.round(to_be_rounded.min_height, precision)
+        to_be_rounded.max_height = np.round(to_be_rounded.max_height, precision)
+        if to_be_rounded.sliced_array is not None:
+            to_be_rounded.sliced_array = np.round(to_be_rounded.sliced_array, precision)
+        return to_be_rounded
+    return to_be_rounded
 
 
 @pytest.mark.parametrize(
@@ -88,8 +123,15 @@ def test_slicer(
     assert afmslicer.pores_per_layer == expected_pores_per_layer
     assert afmslicer.min_height == pytest.approx(expected_min_height)
     assert afmslicer.max_height == pytest.approx(expected_max_height)
+    # Only check snapshot if Python version >= 3.11 as representation of skimage.measure._regionprops.RegionProperties
+    # differs under Python 3.10
     if parse_version(python_version()) >= parse_version("3.11"):
-        assert afmslicer.area_by_layer == snapshot
+        assert afmslicer.area_by_layer == snapshot(
+            matcher=path_type(
+                types=(float, np.ndarray, AFMSlicer),
+                replacer=lambda data, _: round_values(data, PRECISION),
+            )
+        )
 
 
 @pytest.mark.parametrize(
@@ -148,9 +190,14 @@ def test_filter_scan(
     assert afmslicer.pixel_to_nm_scaling == expected_pixel_to_nm_scaling
     assert isinstance(afmslicer.image, np.ndarray)
     assert afmslicer.image.sum() == pytest.approx(expected_filtered_image_sum, abs=1e-6)
+    # Only check snapshot if Python version >= 3.11 as representation of skimage.measure._regionprops.RegionProperties
+    # differs under Python 3.10
     if parse_version(python_version()) >= parse_version("3.11"):
         assert afmslicer == snapshot(
-            matcher=path_type(types=(float,), replacer=lambda data, _: round(data, 4))
+            matcher=path_type(
+                types=(float, np.ndarray, AFMSlicer),
+                replacer=lambda data, _: round_values(data, PRECISION),
+            )
         )
 
 
@@ -238,7 +285,12 @@ def test_process(  # pylint: disable=too-many-positional-arguments
     assert afmslicer.pores_per_layer == expected_pores_per_layer
     assert afmslicer.min_height == pytest.approx(expected_min_height)
     assert afmslicer.max_height == pytest.approx(expected_max_height)
+    # Only check snapshot if Python version >= 3.11 as representation of skimage.measure._regionprops.RegionProperties
+    # differs under Python 3.10
     if parse_version(python_version()) >= parse_version("3.11"):
         assert afmslicer == snapshot(
-            matcher=path_type(types=(float,), replacer=lambda data, _: round(data, 4))
+            matcher=path_type(
+                types=(float, np.ndarray, AFMSlicer),
+                replacer=lambda data, _: round_values(data, PRECISION),
+            )
         )

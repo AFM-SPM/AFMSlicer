@@ -77,6 +77,27 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
             "minimum_size": lambda n: n >= 1,
             "centroid": bool,
             "feret_maximum": bool,
+            "area_thresholds": {
+                "low": And(
+                    Use(int),
+                    lambda n: n > 0,
+                    error="Invalid value for slicing.area_threshold.low', valid values are > 0.",
+                ),
+                "medium": And(
+                    Use(int),
+                    lambda n: n > 0,
+                    error="Invalid value for slicing.area_threshold.medium', valid values are > 0.",
+                ),
+                "high": And(
+                    Use(int),
+                    lambda n: n > 0,
+                    error="Invalid value for slicing.area_threshold.high', valid values are > 0.",
+                ),
+            },
+            "area_colors": And(
+                Use(str),
+                error="Invalid value in 'slicing.area_colors', valid values should be strings.",
+            ),
         },
         "plotting": {
             "format": Or(

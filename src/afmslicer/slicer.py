@@ -303,6 +303,12 @@ def region_properties_by_slices(
     return slice_properties
 
 
+# def classify_pores(thresholds: dict) -> npt.NDArray:
+#     """
+#     Classify pores based on size.
+#     """
+
+
 def mask_small_artefacts(
     labelled_array: npt.NDArray[np.int32],
     properties: dict[int, Any],

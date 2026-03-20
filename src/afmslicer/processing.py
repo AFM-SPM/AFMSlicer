@@ -47,8 +47,10 @@ def process_scan(
     config = deepcopy(topostats_object.config) if config is None else config
     topostats_object.filename = topostats_object.filename.split(".")[0]
     _, _ = filter_scan(topostats_object=topostats_object, config=config)
-    _, _ = slicer_scan(topostats_object=topostats_object, config=config)
-    return (topostats_object.filename, topostats_object)
+    filename, afmslicer_object = slicer_scan(
+        topostats_object=topostats_object, config=config
+    )
+    return (filename, afmslicer_object)
 
 
 def filter_scan(
@@ -141,7 +143,7 @@ def slicer_scan(
         if isinstance(topostats_object, AFMSlicer):
             topostats_object.slice_image()
         else:
-            topostats_object = AFMSlicer(
+            afmslicer_object = AFMSlicer(
                 image=topostats_object.image,
                 image_original=topostats_object.image_original,
                 filename=topostats_object.filename,
@@ -150,7 +152,9 @@ def slicer_scan(
                 **config,
                 config=config,
             )
-            topostats_object.slice_image()
+            afmslicer_object.slice_image()
+        logger.info(f"[{afmslicer_object.filename}] Slicing complete 😻")
+        return (afmslicer_object.filename, afmslicer_object)
 
         # Save the topostats object to .topostats file.
         # save_topostats_file(
@@ -158,8 +162,6 @@ def slicer_scan(
         #     topostats_object=topostats_object,
         #     topostats_version=__release__,
         # )
-        logger.info(f"[{topostats_object.filename}] Slicing complete 😻")
-        return (topostats_object.filename, topostats_object)
     except ValidationError as ve:
         raise ve
     except Exception:  # pylint: disable=bare-except
