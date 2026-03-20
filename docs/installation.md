@@ -61,28 +61,20 @@ development versions of its dependency [TopoStats][topostats]. The steps involve
 are described below and require that you install and use [uv][uv] to set things up.
 
 1. Clone the [AFMSlicer repository][afmslicer_gh].
-2. Clone the [TopoStats repository][topostats_gh].
-3. Switch to the `ns-rse/1102-switching-to-TopoStats-class` branch on TopoStats.
-4. Activate the virtual environment and synchronise it.
-5. Install the development version of TopoStats under the virtual environment (this will pull in the
-   [AFMReader][afmreader] dependency automatically).
-6. Install AFMSlicer.
+2. Create a virtual environment within the cloned directory.
+3. Synchronise the virtual environment.
+4. Install AFMSlicer from the locally cloned directory.
 
 ```shell
 cd ~/work/
 git clone git@github.com:ns-rse/AFMSlicer.git
-git clone git@github.com:AFM-SPM/TopoStats.git
-cd TopoStats
-git checkout ns-rse/1102-switching-to-TopoStats-class
-git pull
 cd ../AFMSlicer
+uv venv --python 3.11
 source .venv/bin/activate
 uv sync
-uv pip install -e ../TopoStats/.
 uv pip install -e ".[dev,tests]"
 ```
 
-[afmreader]: https://AFM-SPM.github.io/AFMReader/
 [afmslicer_gh]: https://github.com/ns-rse/AFMSlicer
 [miniforge]: https://github.com/conda-forge/miniforge
 [direnv]: https://direnv.net
@@ -91,6 +83,5 @@ uv pip install -e ".[dev,tests]"
 [uv]: https://docs.astral.sh/uv/
 [uv_install]: https://docs.astral.sh/uv/getting-started/installation/
 [topostats]: https://AFM-SPM.github.io/TopoStats/
-[topostats_gh]: https://github.com/AFM-SPM/TopoStats
 [topoly_issue]: https://github.com/ilbsm/topoly_tutorial/issues/4
 [venvwrapper]: https://virtualenvwrapper.readthedocs.io/en/latest/

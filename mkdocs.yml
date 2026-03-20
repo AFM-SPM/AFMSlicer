@@ -32,6 +32,7 @@ nav:
   - Usage: usage.md
   - Configuration: configuration.md
   - Workflow: workflow.md
+  - Napari: napari.md
   - Contributing:
       - Overview: contributing/index.md
       - Adding Modules: contributing/adding_modules.md
@@ -67,6 +68,8 @@ plugins:
   - search
 
 markdown_extensions:
+  - admonition
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
