@@ -153,6 +153,8 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             if self.minimum_size is None
             else self.minimum_size
         )
+        self.filename = self.image_name if self.filename is None else self.filename
+        self.image_name = self.filename if self.image_name is None else self.image_name
         logger.info(f"[{self.filename}] : AFMSlicer object created. 🔪")
 
     def update_heights(self) -> None:
