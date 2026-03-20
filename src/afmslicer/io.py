@@ -51,3 +51,26 @@ def write_csv(
         Filename for output, defaults to ``results.csv``.
     """
     df.to_csv(Path(outdir) / filename, index=True)
+
+
+def summarise_pores(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Summarise pore types by image, layer and color.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Pandas dataframe to aggregate, typically will be ``AFMSlicer.statistics``. Must have columns ``image``,
+        ``layer``, ``pore_color`` and ``counter``.
+
+    Returns
+    -------
+    pd.DataFrame
+        Aggregated data frame of counts of ``pore_color`` by ``image``/``layer`` with counts of each ``pore_color``.
+    """
+    color_count_df = df[["image", "layer", "pore_color", "counter"]].pivot_table(
+        index=["image", "layer"], columns="pore_color", aggfunc="count", fill_value=0
+    )
+    color_count_df = color_count_df.droplevel(level=0, axis=1)
+    color_count_df["total"] = color_count_df.sum(axis=1)
+    return color_count_df

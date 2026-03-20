@@ -34,6 +34,7 @@ from afmslicer import (
     AFMSLICER_COMMIT,
     CONFIG_DOCUMENTATION_REFERENCE,
     processing,
+    statistics,
 )
 from afmslicer.statistics import classify_pore_size
 from afmslicer.validation import AFMSLICER_CONFIG_SCHEMA
@@ -199,20 +200,10 @@ def process(args: argparse.Namespace | None = None) -> None:
         area_colors=config["slicing"]["area_colors"],
         area_val="area",
     )
-    statistics_all_df.index.names = ["image", "layer", "pore"]
-    statistics_all_df.to_csv(config["output_dir"] / "all_statistics.csv")
+    statistics_all_df.to_csv(config["output_dir"] / "all_statistics.csv", index=False)
     # Aggregate counts by image, layer and pore color, reshape and sum
-    statistics_all_df.reset_index(inplace=True)  # noqa: PD002
-    # Add a counter, select grouping variables and counter, pivot and count, filling missing with 0
-    statistics_all_df["counter"] = 1
-    color_count_df = statistics_all_df[
-        ["image", "layer", "pore_color", "counter"]
-    ].pivot_table(
-        index=["image", "layer"], columns="pore_color", aggfunc="count", fill_value=0
-    )
-    color_count_df = color_count_df.droplevel(level=0, axis=1)
-    color_count_df["total"] = color_count_df.sum(axis=1)
-    color_count_df.to_csv(config["output_dir"] / "color_count.csv")
+    color_count_df = statistics.summarise_pores(df=statistics_all_df)
+    color_count_df.to_csv(config["output_dir"] / "color_count.csv", index=False)
     # Write config to file
     write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     images_processed = len(processed_all)
