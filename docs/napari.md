@@ -163,13 +163,11 @@ contributions:
 [magicgui]: https://pyapp-kit.github.io/magicgui/
 [magicgui-examples]: https://pyapp-kit.github.io/magicgui/generated_examples/napari/napari_parameter_sweep/
 [napari]: https://napari.org/stable/
-[napari-crop]: https://napari-hub.org/plugins/napari-crop.html
-[napari-skimage]: https://napari-hub.org/plugins/napari-skimage.html
-[napari-hub]: https://napari-hub.org/
-[napari-plugins]: https://napari.org/stable/plugins/index.html
 [napari-afmreader]: https://github.com/afm-spm/napari-afmreader/
 [napari-afmslicer]: https://github.com/afm-spm/napari-afmslicer/
-[napari-crop]: https://github.com/afm-spm/napari-crop/
-[napari-skimage]: https://github.com/afm-spm/napari-skimage/
+[napari-crop]: https://napari-hub.org/plugins/napari-crop.html
+[napari-hub]: https://napari-hub.org/
+[napari-plugins]: https://napari.org/stable/plugins/index.html
+[napari-skimage]: https://napari-hub.org/plugins/napari-skimage.html
 [napari-topostats]: https://github.com/afm-spm/napari-topostats/
 [skimage]: https://scikit-image.org/

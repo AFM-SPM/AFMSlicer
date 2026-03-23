@@ -36,7 +36,6 @@ from afmslicer import (
     processing,
     statistics,
 )
-from afmslicer.statistics import classify_pore_size
 from afmslicer.validation import AFMSLICER_CONFIG_SCHEMA
 
 HEADER_MESSAGE = f"# Configuration from AFMSlicer run complete : {get_date_time()}\n{CONFIG_DOCUMENTATION_REFERENCE}"
@@ -194,7 +193,7 @@ def process(args: argparse.Namespace | None = None) -> None:
         {image_name: image.statistics for image_name, image in processed_all.items()}
     )
     # Classify pores into color
-    statistics_all_df = classify_pore_size(
+    statistics_all_df = statistics.classify_pore_size(
         df=statistics_all_df,
         area_thresholds=config["slicing"]["area_thresholds"],
         area_colors=config["slicing"]["area_colors"],

@@ -555,7 +555,7 @@ def test_classify_pore_size(
     expected: pd.DataFrame,
 ) -> None:
     """Test for testname()."""
-    df.set_index(["image", "layer", "pore"], inplace=True)
+    df.set_index(["image", "layer", "pore"], inplace=True)  # noqa: PD002
     df_labelled = statistics.classify_pore_size(
         df=df,
         area_thresholds=area_thresholds,

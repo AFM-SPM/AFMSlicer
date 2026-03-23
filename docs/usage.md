@@ -1,8 +1,8 @@
 # Usage
 
 There are two different ways of using AFMSlicer to process images, the Command Line Interface (CLI) which allows for
-batch processing of multiple images in parallel or a Graphical User Interface (GUI) built in Napari. This page describes how
-to use the command line version of AFMSlicer, for details of using the Napari GUI see the [Napari](napari.md) page.
+batch processing of multiple images in parallel or a Graphical User Interface (GUI) built in Napari. This page describes
+how to use the command line version of AFMSlicer, for details of using the Napari GUI see the [Napari](napari.md) page.
 
 ## Data
 
@@ -30,12 +30,12 @@ desired extension (`.spm` by default).
             └──   ./data/raw/staph/20260326
 ```
 
+<!-- markdownlint-disable MD046 -->
 !!! note
 
     If you edit your `.spm` file(s) in other software (e.g. Gwyddion) and then save them they may not be loaded by
     AFMSlicer.
-
-###
+<!-- markdownlint-enable MD046 -->
 
 ## Running AFMSlicer CLI
 
@@ -378,9 +378,11 @@ afmslicer create-config --filename e_coli_config_20260306.yaml
 
 This is an ASCII text file in [YAML][yaml] format which can be opened in a text editor for editing.
 
+<!-- markdownlint-disable MD046 -->
 !!! note
 
     Microsoft Word and other word processors are not suitable for editing ASCII text files.
+<!-- markdownlint-enable MD046 -->
 
 An example of the file that is created is shown below. Each line has an explanation of what the parameter controls and
 possible values where appropriate.
