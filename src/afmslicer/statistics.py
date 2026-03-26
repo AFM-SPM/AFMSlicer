@@ -264,4 +264,29 @@ def classify_pore_size(
     # Force type as `str`, seems case_when() doesn't enforce new string type in Pandas 3.0.1
     # https://pandas.pydata.org/docs/user_guide/migration-3-strings.html
     df["pore_color"] = df["pore_color"].astype("str")
-    return df
+    df.index.names = ["image", "layer", "pore"]
+    return df.reset_index()
+
+
+def summarise_pores(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Summarise pore types by image, layer and color.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Pandas dataframe to aggregate, typically will be ``AFMSlicer.statistics``. Must have columns ``image``,
+        ``layer``, ``pore_color`` and ``counter``.
+
+    Returns
+    -------
+    pd.DataFrame
+        Aggregated data frame of counts of ``pore_color`` by ``image``/``layer`` with counts of each ``pore_color``.
+    """
+    # Aggregate data counting the number pore types by image and layer
+    color_count_df = df[["image", "layer", "pore_color", "pore"]].pivot_table(
+        index=["image", "layer"], columns="pore_color", aggfunc="count", fill_value=0
+    )
+    color_count_df = color_count_df.droplevel(level=0, axis=1)
+    color_count_df["total"] = color_count_df.sum(axis=1)
+    return color_count_df.reset_index()

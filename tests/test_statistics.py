@@ -481,7 +481,14 @@ def test_create_statistics_dictionary(
     ("df", "area_thresholds", "area_colors", "area_val", "expected"),
     [
         pytest.param(
-            pd.DataFrame({"area": [0, 2, 4, 6]}),
+            pd.DataFrame(
+                {
+                    "image": ["a", "a", "a", "a"],
+                    "layer": [1, 1, 2, 2],
+                    "pore": [0, 1, 0, 1],
+                    "area": [0, 2, 4, 6],
+                }
+            ),
             {
                 "low": 1,
                 "medium": 3,
@@ -491,6 +498,9 @@ def test_create_statistics_dictionary(
             "area",
             pd.DataFrame(
                 {
+                    "image": ["a", "a", "a", "a"],
+                    "layer": [1, 1, 2, 2],
+                    "pore": [0, 1, 0, 1],
                     "area": [0, 2, 4, 6],
                     "pore_color": ["yellow", "green", "magenta", "blue"],
                 },
@@ -498,7 +508,14 @@ def test_create_statistics_dictionary(
             id="simple",
         ),
         pytest.param(
-            pd.DataFrame({"area": [10, 250, 368, 2001, 1896, 645, 238, 1, 8, 20]}),
+            pd.DataFrame(
+                {
+                    "image": ["a", "a", "a", "a", "a", "a", "a", "a", "a", "a"],
+                    "layer": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    "pore": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                    "area": [10, 250, 368, 2001, 1896, 645, 238, 1, 8, 20],
+                },
+            ),
             {
                 "low": 20,
                 "medium": 500,
@@ -508,6 +525,9 @@ def test_create_statistics_dictionary(
             "area",
             pd.DataFrame(
                 {
+                    "image": ["a", "a", "a", "a", "a", "a", "a", "a", "a", "a"],
+                    "layer": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    "pore": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                     "area": [10, 250, 368, 2001, 1896, 645, 238, 1, 8, 20],
                     "pore_color": [
                         "yellow",
@@ -535,6 +555,7 @@ def test_classify_pore_size(
     expected: pd.DataFrame,
 ) -> None:
     """Test for testname()."""
+    df.set_index(["image", "layer", "pore"], inplace=True)  # noqa: PD002
     df_labelled = statistics.classify_pore_size(
         df=df,
         area_thresholds=area_thresholds,
