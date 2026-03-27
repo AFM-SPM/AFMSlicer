@@ -40,3 +40,4 @@ plotting:
   format: png # Format for saving images as
   gif_duration: 100 # duration in microseconds between frames in GIF
   gif_loop: 0 # Whether to loop the GIF (0 = False, 1 = True)
+  grid: true

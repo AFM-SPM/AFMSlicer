@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -124,6 +125,7 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
     log: bool | None = False,
+    grid: bool | None = False,
 ) -> tuple[plt.Figure, plt.Axes]:
     """
     Plot the layer v number of pores within it.
@@ -140,6 +142,8 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
         Output file format as a string, defaults to ``png`` if not specified.
     log : bool, optional
         Whether to plot with the logarithm (base10) of the number of pores.
+    grid : bool
+        Whether to include a grid on the plot.
 
     Returns
     -------
@@ -167,6 +171,8 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     ax.set_title("Pores per layer")
     ax.set_xlabel("Layer")
     ax.set_ylabel(ylabel)
+    if grid:
+        plt.grid()
     if outdir is not None:
         assert img_name is not None, (
             "If saving output you must supply an `img_name` parameter."
@@ -178,13 +184,15 @@ def plot_pores_by_layer(  # pylint: disable=too-many-positional-arguments,too-ma
     return (fig, ax)
 
 
-def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
+def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments,too-many-locals
     area_per_layer: list[list[float]],
     img_name: str | None = None,
     min_size: float | None = None,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
+    fwhm: tuple[int, int] | None = None,
     log: bool | None = False,
+    grid: bool | None = False,
 ) -> tuple[plt.Figure, plt.Axes]:
     """
     Plot the layer v total area of pores within it.
@@ -201,8 +209,12 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
         Output directory, if no ``None`` the image is saved there as ``<img_name>_pores_per_layer_[log].<format>``.
     format : str, optional
         Output file format as a string, defaults to ``png`` if not specified.
+    fwhm : tuple[int, int]
+        Full width half max limits for subsetting the data.
     log : bool
         Whether to plot with the logarithm (base10) of the number of pores.
+    grid : bool
+        Whether to include a grid on the plot.
 
     Returns
     -------
@@ -210,6 +222,8 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
         Returns a tuple of Matplotlib ``fig`` and ``ax``.
     """
     format = "png" if format is None else format.replace(".", "")
+    if fwhm:
+        area_per_layer = area_per_layer[fwhm[0] : fwhm[1]]
     total_area_per_layer = statistics.sum_area_by_layer(
         areas=area_per_layer,
         min_size=min_size,
@@ -227,9 +241,19 @@ def plot_area_by_layer(  # pylint: disable=too-many-positional-arguments
         xmin, xmax = plt.xlim()
         pdf = statistics.calculate_pdf(array=total_area_per_layer, xmin=xmin, xmax=xmax)
         ax.plot(pdf["x"], pdf["y"], "k-", linewidth=1, label="Gaussian PDF (Scaled)")
-    ax.set_title("Area per layer")
+    if fwhm:
+        plt.title(
+            "Area per layer based on FWHM of pores per layer.",
+        )
+        # Ignore UserWarning raised by not using set_xticklabels() first
+        warnings.filterwarnings("ignore")
+        ax.set_xticklabels(range(fwhm[0], fwhm[1]))
+    else:
+        plt.title("Area per layer")
     ax.set_xlabel("Layer")
     ax.set_ylabel(ylabel)
+    if grid:
+        plt.grid()
     if outdir is not None:
         assert img_name is not None, (
             "If saving output you must supply an `img_name` parameter."

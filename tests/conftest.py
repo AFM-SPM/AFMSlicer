@@ -39,7 +39,7 @@ def fixture_default_config() -> dict[
     config = yaml.safe_load(default_config_file.decode("utf-8"))  # type: ignore[union-attr]
     # Modify parameters for all tests here
     config["filter"]["remove_scars"]["run"] = True
-    return config  # type: ignore[no-any-return]
+    return config
 
 
 @pytest.fixture(name="pyramid_array")
@@ -849,7 +849,7 @@ def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AF
 @pytest.fixture
 def sample1_scaling(sample1_spm) -> float:
     """Scaling (aka pixel_to_nm_scaling) for Sample 1."""
-    return sample1_spm.pixel_to_nm_scaling  # type: ignore[no-any-return]
+    return sample1_spm.pixel_to_nm_scaling
 
 
 @pytest.fixture
@@ -904,7 +904,7 @@ def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AF
 @pytest.fixture
 def sample2_scaling(sample2_spm) -> float:
     """Scaling (aka pixel_to_nm_scaling) for Sample 2."""
-    return sample2_spm.pixel_to_nm_scaling  # type: ignore[no-any-return]
+    return sample2_spm.pixel_to_nm_scaling
 
 
 @pytest.fixture

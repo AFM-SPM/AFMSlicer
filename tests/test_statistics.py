@@ -395,27 +395,27 @@ def test_feret_diameter_maximum_pores(
     [
         pytest.param(
             np.array([0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]),
-            [2, 8],
+            (2, 8),
             id="Array of 11",
         ),
         pytest.param(
             1000 * norm.pdf(np.linspace(0, 100, 100), loc=47, scale=11),
-            [34, 59],
+            (34, 59),
             id="Array of 100, mean 47 (11)",
         ),
         pytest.param(
             1000 * norm.pdf(np.linspace(0, 100, 100), loc=50, scale=20),
-            [27, 72],
+            (27, 72),
             id="Array of 100 mean 50 (20)",
         ),
         pytest.param(
             1000 * norm.pdf(np.linspace(0, 100, 255), loc=50, scale=20),
-            [69, 185],
+            (69, 185),
             id="Array of 255 mean 50 (20)",
         ),
     ],
 )
-def test_full_width_half_max(pdf: npt.NDArray, expected_fwhm: dict[str, int]) -> None:
+def test_full_width_half_max(pdf: npt.NDArray, expected_fwhm: tuple[int, int]) -> None:
     """Test for testname()."""
     fwhm = statistics.full_width_half_max(pdf=pdf)
     assert fwhm == expected_fwhm

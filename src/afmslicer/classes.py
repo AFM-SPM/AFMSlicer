@@ -64,6 +64,9 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Maximum height. Determined from the data if not provided.
     slices : int, optional
         The number of slices taken through the image between the ``min_height`` and ``max_height``.
+    full_width_half_max : tuple[int, int]
+        The lower and upper bound of the Full Width Half Max from the distribution of the number of pores per
+        layer. Used to select the layers whose areas are of interest and are plotted.
     fig_objects_per_layer : tuple[plt.Figure, plt.Axes], optional
         Matplotlib figure and axes objects from plotting the layer vs the number of objects.
     fig_log_objects_per_layer : tuple[plt.Figure, plt.Axes], optional
@@ -99,6 +102,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     min_height: float | None = None
     max_height: float | None = None
     slices: int | None = None
+    full_width_half_max: tuple[int, int] | None = None
     fig_objects_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     fig_log_objects_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     fig_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
@@ -255,36 +259,46 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             outdir=self.config["output_dir"],
             format=self.config["plotting"]["format"],
             log=False,
+            grid=self.config["plotting"]["grid"],
         )
         # Plot pores per layer (log scale)
-        self.fig_log_objects_per_layer = plotting.plot_pores_by_layer(
-            pores_per_layer=self.pores_per_layer,
-            img_name=self.filename,
-            outdir=self.config["output_dir"],
-            format=self.config["plotting"]["format"],
-            log=True,
-        )
+        # self.fig_log_objects_per_layer = plotting.plot_pores_by_layer(
+        #     pores_per_layer=self.pores_per_layer,
+        #     img_name=self.filename,
+        #     outdir=self.config["output_dir"],
+        #     format=self.config["plotting"]["format"],
+        #     log=True,
+        # )
         # Optionally calculate additional statistics
         # Areas
         if self.config["slicing"]["area"]:
             self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
             )
+            # Calculate PDF of objects per layer
+            pdf = statistics.calculate_pdf(array=self.pores_per_layer)
+            self.full_width_half_max = statistics.full_width_half_max(pdf=pdf["y"])
             # Plot area per layer
+            # subset self.area_by_layer selecting the full_width_half_max derived from number of pores per layer
             self.fig_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
                 outdir=self.config["output_dir"],
                 format=self.config["plotting"]["format"],
+                fwhm=self.full_width_half_max,
                 log=False,
+                grid=self.config["plotting"]["grid"],
             )
             # Plot log area per layer
+            # subset self.area_by_layer selecting the full_width_half_max derived from number of pores per layer
             self.fig_log_area_per_layer = plotting.plot_area_by_layer(
                 area_per_layer=self.area_by_layer,
                 img_name=self.filename,
                 outdir=self.config["output_dir"],
                 format=self.config["plotting"]["format"],
+                fwhm=self.full_width_half_max,
                 log=True,
+                grid=self.config["plotting"]["grid"],
             )
         # Centroid
         if self.config["slicing"]["centroid"]:

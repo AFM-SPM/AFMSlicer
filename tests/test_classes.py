@@ -269,9 +269,6 @@ def test_slice_image(
     assert isinstance(afmslicer_object.fig_objects_per_layer, tuple)
     assert isinstance(afmslicer_object.fig_objects_per_layer[0], plt.Figure)
     assert isinstance(afmslicer_object.fig_objects_per_layer[1], plt.Axes)
-    assert isinstance(afmslicer_object.fig_log_objects_per_layer, tuple)
-    assert isinstance(afmslicer_object.fig_log_objects_per_layer[0], plt.Figure)
-    assert isinstance(afmslicer_object.fig_log_objects_per_layer[1], plt.Axes)
     return afmslicer_object.fig_objects_per_layer[0]
 
 
