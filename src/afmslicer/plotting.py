@@ -6,7 +6,6 @@ import warnings
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import matplotlib.typing as mpt
 import numpy as np
 import numpy.typing as npt
 
