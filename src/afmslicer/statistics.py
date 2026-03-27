@@ -268,7 +268,7 @@ def classify_pore_size(
     return df.reset_index()
 
 
-def summarise_pores(df: pd.DataFrame) -> pd.DataFrame:
+def summarise_pores(df: pd.DataFrame, pore_colors: list[str]) -> pd.DataFrame:
     """
     Summarise pore types by image, layer and color.
 
@@ -277,6 +277,8 @@ def summarise_pores(df: pd.DataFrame) -> pd.DataFrame:
     df : pd.DataFrame
         Pandas dataframe to aggregate, typically will be ``AFMSlicer.statistics``. Must have columns ``image``,
         ``layer``, ``pore_color`` and ``counter``.
+    pore_colors : list[str]
+        List of pore color columns that should be present in the resulting dataframe.
 
     Returns
     -------
@@ -288,5 +290,34 @@ def summarise_pores(df: pd.DataFrame) -> pd.DataFrame:
         index=["image", "layer"], columns="pore_color", aggfunc="count", fill_value=0
     )
     color_count_df = color_count_df.droplevel(level=0, axis=1)
+    color_count_df.columns.name = None
+    for pore_color in pore_colors:
+        color_count_df = _add_missing_column(df=color_count_df, pore_color=pore_color)
     color_count_df["total"] = color_count_df.sum(axis=1)
     return color_count_df.reset_index()
+
+
+def _add_missing_column(df: pd.DataFrame, pore_color: str) -> pd.DataFrame:
+    """
+    Add a missing column to the dataframe.
+
+    There should be a column for each ``pore_color`` defined in the configuration, if none are observed across all
+    images/layers then the reshaped data frame is missing the column. We therefore add a column where all counts are
+    ``0`` if it is not present.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Dataframe to check column is present.
+    pore_color : str
+        Name of column to check and add if missing.
+
+    Returns
+    -------
+    pd.DataFrame
+        Dataframe with column added, all values set to ``0``.
+    """
+    if pore_color not in df.columns:
+        df[pore_color] = 0
+        return df
+    return df

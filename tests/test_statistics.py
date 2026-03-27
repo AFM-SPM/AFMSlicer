@@ -631,3 +631,174 @@ def test_classify_pore_size_value_error(
             area_colors=area_colors,
             area_val="area",
         )
+
+
+@pytest.mark.parametrize(
+    ("df", "pore_color", "expected"),
+    [
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 0],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                }
+            ),
+            "yellow",
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 0],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                }
+            ),
+            id="all present, check yellow",
+        ),
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 0],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                }
+            ),
+            "magenta",
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 0],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                }
+            ),
+            id="all present, check magenta",
+        ),
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                }
+            ),
+            "blue",
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "green": [1, 1],
+                    "magenta": [0, 1],
+                    "yellow": [1, 1],
+                    "total": [3, 3],
+                    "blue": [0, 0],
+                }
+            ),
+            id="blue missing, check blue",
+        ),
+    ],
+)
+def test_add_missing_column(
+    df: pd.DataFrame, pore_color: str, expected: pd.DataFrame
+) -> None:
+    """Test for ``add_missing_columns()``."""
+    pd.testing.assert_frame_equal(
+        statistics._add_missing_column(df=df, pore_color=pore_color), expected
+    )
+
+
+@pytest.mark.parametrize(
+    ("df", "pore_colors", "expected"),
+    [
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "image": ["a", "a", "a", "a", "a", "a", "a", "a"],
+                    "layer": [0, 0, 0, 0, 1, 1, 1, 1],
+                    "pore": [0, 1, 2, 3, 0, 1, 2, 3],
+                    "area": [1, 400, 1000, 1600, 600, 600, 1100, 1700],
+                    "pore_color": [
+                        "yellow",
+                        "green",
+                        "magenta",
+                        "blue",
+                        "green",
+                        "green",
+                        "green",
+                        "blue",
+                    ],
+                }
+            ),
+            ["yellow", "green", "magenta", "blue"],
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 1],
+                    "green": [1, 3],
+                    "magenta": [1, 0],
+                    "yellow": [1, 0],
+                    "total": [4, 4],
+                }
+            ),
+            id="All pores present",
+        ),
+        pytest.param(
+            pd.DataFrame(
+                {
+                    "image": ["a", "a", "a", "a", "a", "a", "a", "a"],
+                    "layer": [0, 0, 0, 0, 1, 1, 1, 1],
+                    "pore": [0, 1, 2, 3, 0, 1, 2, 3],
+                    "area": [1, 12, 1000, 1600, 1650, 1660, 1670, 1700],
+                    "pore_color": [
+                        "yellow",
+                        "yellow",
+                        "magenta",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                    ],
+                }
+            ),
+            ["yellow", "green", "magenta", "blue"],
+            pd.DataFrame(
+                {
+                    "image": ["a", "a"],
+                    "layer": [0, 1],
+                    "blue": [1, 4],
+                    "magenta": [1, 0],
+                    "yellow": [2, 0],
+                    "green": [0, 0],
+                    "total": [4, 4],
+                }
+            ),
+            id="green pores missing present",
+        ),
+    ],
+)
+def test_summarise_pores(
+    df: pd.DataFrame, pore_colors: list[str], expected: pd.DataFrame
+) -> None:
+    """Test ``summarise_pores()`` function."""
+    pd.testing.assert_frame_equal(
+        statistics.summarise_pores(df=df, pore_colors=pore_colors), expected
+    )
