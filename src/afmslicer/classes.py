@@ -14,7 +14,7 @@ from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass
 from topostats.classes import TopoStats
 
-from afmslicer import io, plotting, slicer, statistics
+from afmslicer import __version__, io, plotting, slicer, statistics
 
 # pylint: disable=too-many-instance-attributes
 
@@ -110,6 +110,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     pores_per_layer_std: float | None = None
     layer_max_pores: int | None = None
     statistics: pd.DataFrame | None = None
+    afmslicer_version: str | None = None
     # slice_max_pores: dict[str, int | float] | None = None
 
     def __post_init__(self) -> None:
@@ -155,6 +156,9 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         )
         self.filename = self.image_name if self.filename is None else self.filename
         self.image_name = self.filename if self.image_name is None else self.image_name
+        self.afmslicer_version = (
+            __version__ if self.afmslicer_version is None else self.afmslicer_version
+        )
         logger.info(f"[{self.filename}] : AFMSlicer object created. 🔪")
 
     def update_heights(self) -> None:

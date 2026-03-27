@@ -201,7 +201,9 @@ def process(args: argparse.Namespace | None = None) -> None:
     )
     statistics_all_df.to_csv(config["output_dir"] / "all_statistics.csv", index=False)
     # Aggregate counts by image, layer and pore color, reshape and sum
-    color_count_df = statistics.summarise_pores(df=statistics_all_df)
+    color_count_df = statistics.summarise_pores(
+        df=statistics_all_df, pore_colors=config["slicing"]["area_colors"]
+    )
     color_count_df.to_csv(config["output_dir"] / "color_count.csv", index=False)
     # Write config to file
     write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)

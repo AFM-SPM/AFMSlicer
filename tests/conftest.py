@@ -637,6 +637,8 @@ def afmslicer_basic(
         slices=5,
         segment_method="label",
         config=default_config,
+        # Set afmslicer_version to 'test' so tests are reproducible across versions
+        afmslicer_version="test",
     )
 
 
@@ -659,6 +661,8 @@ def afmslicer_with_attributes(
         max_height=4.0,
         segment_method="label",
         config=default_config,
+        # Set afmslicer_version to 'test' so tests are reproducible across versions
+        afmslicer_version="test",
     )
 
 
@@ -837,6 +841,8 @@ def fixture_afmslicer_sample1(sample1_spm, default_config: dict[str, Any]) -> AF
         slices=5,
         segment_method="label",
         config=default_config,
+        # Set afmslicer_version to 'test' so tests are reproducible across versions
+        afmslicer_version="test",
     )
 
 
@@ -890,6 +896,8 @@ def fixture_afmslicer_sample2(sample2_spm, default_config: dict[str, Any]) -> AF
         slices=5,
         segment_method="label",
         config=default_config,
+        # Set afmslicer_version to 'test' so tests are reproducible across versions
+        afmslicer_version="test",
     )
 
 
