@@ -47,7 +47,7 @@ def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
 
 
 def sum_area_by_layer(
-    areas: list[list[float] | int | float],
+    areas: list[list[int | float] | int | float],
     min_size: float | None = None,
 ) -> list[float]:
     """
@@ -163,7 +163,9 @@ def create_statistics_dictionary(
     return statistics
 
 
-def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
+def calculate_pdf(
+    array: list[float], xmin: int | float | None = None, xmax: int | float | None = None
+) -> dict[str, npt.NDArray]:
     """
     Calculate the scaled probability density function for an array.
 
@@ -181,6 +183,8 @@ def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
     dict[str, npt.NDArray]
         Dictionary of x and y values for the PDF.
     """
+    xmin = 0 if xmin is None else xmin
+    xmax = len(array) if xmax is None else xmax
     x_values = np.arange(0, len(array))
     mean = np.average(x_values, weights=array)
     std = np.sqrt(np.average((x_values - mean) ** 2, weights=array))
@@ -190,7 +194,7 @@ def calculate_pdf(array: list[float], xmin, xmax) -> dict[str, npt.NDArray]:
     return {"x": x_pdf, "y": y_pdf}
 
 
-def full_width_half_max(pdf: npt.NDArray[np.float32]) -> list[int]:
+def full_width_half_max(pdf: npt.NDArray[np.float32]) -> tuple[int, int]:
     """
     Calculate the full-width half max.
 
@@ -204,14 +208,14 @@ def full_width_half_max(pdf: npt.NDArray[np.float32]) -> list[int]:
 
     Returns
     -------
-    dict[str, int]
+    tuple[int, int]
         Dictionary of the lower and upper layers for the full-width half-max range.
     """
     peaks, _ = find_peaks(pdf)
     if len(peaks) > 0:
         _peak_widths = peak_widths(pdf, peaks, rel_height=0.5)
         # Round these as we want indexes not absolute values
-        return [np.round(_peak_widths[2])[0], np.round(_peak_widths[3])[0]]
+        return (int(np.round(_peak_widths[2])[0]), int(np.round(_peak_widths[3])[0]))
     msg = "No peaks found in distribution, can not calculate full-width half-max."
     raise ValueError(msg)
 

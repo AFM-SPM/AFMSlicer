@@ -115,6 +115,7 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 lambda n: n >= 0,
                 error="Invalid value for plotting.gif_loop', valid values are >= 0.",
             ),
+            "grid": bool,
         },
     }
 )
