@@ -105,6 +105,12 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 "tiff",
                 error="Invalid value in config for 'plotting.format', valid values are 'png' or 'tiff'.",
             ),
+            "cmap": Or(
+                "viridis",
+                "binary",
+                "jet_r",
+                error="Invalid value in config for 'plotting.cmap', valid values are 'viridis' or 'binary'.",
+            ),
             "gif_duration": And(
                 Use(int),
                 lambda n: n > 0,

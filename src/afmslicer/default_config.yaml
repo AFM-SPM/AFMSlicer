@@ -38,6 +38,7 @@ slicing:
     - blue
 plotting:
   format: png # Format for saving images as
+  cmap: viridis # Matplotlib cmap to use 'viridis' / 'binary' / 'jet_r' are valid options
   gif_duration: 100 # duration in microseconds between frames in GIF
   gif_loop: 0 # Whether to loop the GIF (0 = False, 1 = True)
-  grid: true
+  grid: true # Include a grid on the plots of objects/area per layer

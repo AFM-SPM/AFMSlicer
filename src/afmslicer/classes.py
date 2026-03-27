@@ -243,6 +243,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             img_name=self.filename,
             outdir=self.config["output_dir"],
             format=self.config["plotting"]["format"],
+            cmap=self.config["plotting"]["cmap"],
         )
         # Create a GIF of all layers
         plotting.generate_gif(

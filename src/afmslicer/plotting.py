@@ -6,7 +6,6 @@ import warnings
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import matplotlib.typing as mpt
 import numpy as np
 import numpy.typing as npt
 
@@ -52,11 +51,7 @@ def plot_layer(  # pylint: disable=too-many-positional-arguments
     if len(array.shape) != 2:
         msg = f"The input array should be two-dimensional but has {len(array.shape)}."
         raise AttributeError(msg)
-    if cmap is None:
-        cmap = "binary" if array.max() == 1 else "viridis"
-        # ns-rse 2025-11-25 : Sort out datatypes of arrays so that np.int32 are plotted with the reverse jet colormap
-        # elif array.dtype == np.int32:
-        #     cmap = "jet_r"
+    cmap = "viridis" if cmap is None else cmap
     fig, ax = plt.subplots(1, 1)
     ax.imshow(array, cmap=cmap)
     plt.close()
@@ -82,7 +77,7 @@ def plot_all_layers(
     img_name: str | None = None,
     outdir: str | Path | None = None,
     format: str | None = None,  # pylint: disable=redefined-builtin
-    cmap: str | mpt.ColorType | None = None,
+    cmap: str | None = None,
 ) -> dict[int, tuple[plt.Figure, plt.Axes]]:
     """
     Plot a three-dimensional numpy array.
