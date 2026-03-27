@@ -30,7 +30,7 @@ def afmslicer_parser() -> arg.ArgumentParser:
         Argument parser.
     """
     parser = arg.ArgumentParser(
-        description="Run various programs relating to AFM data. Add the name of the program you wish to run."
+        description="Run various processing steps for slicing AFM images of bacterial cell walls. "
     )
     parser.add_argument(
         "-v",
@@ -46,20 +46,6 @@ def afmslicer_parser() -> arg.ArgumentParser:
         type=Path,
         required=False,
         help="Path to a YAML configuration file.",
-    )
-    parser.add_argument(
-        "-s",
-        "--summary-config",
-        dest="summary_config",
-        required=False,
-        help="Path to a YAML configuration file for summary plots and statistics.",
-    )
-    parser.add_argument(
-        "--matplotlibrc",
-        dest="matplotlibrc",
-        type=Path,
-        required=False,
-        help="Path to a matplotlibrc file.",
     )
     parser.add_argument(
         "-b",
@@ -102,29 +88,15 @@ def afmslicer_parser() -> arg.ArgumentParser:
         help="File extension to scan for.",
     )
     parser.add_argument(
-        "--output-stats",
-        dest="output_stats",
-        type=str,
-        required=False,
-        help="'basic' (image and grain) or 'full' (image, grain, branch and molecule) statistics written to CSV.",
-    )
-    parser.add_argument(
         "--channel",
         dest="channel",
         type=str,
         required=False,
         help="Channel to extract.",
     )
-    parser.add_argument(
-        "--extract",
-        dest="extract",
-        type=str,
-        required=False,
-        help="Array to extract when loading '.topostats' files.",
-    )
 
     subparsers = parser.add_subparsers(
-        title="program", description="Available programs, listed below:", dest="module"
+        title="program", description="Available processing options are:", dest="module"
     )
 
     # Sub-parser for processing
@@ -323,8 +295,8 @@ def afmslicer_parser() -> arg.ArgumentParser:
     # Sub-parser for slicing images
     slicer_parser = subparsers.add_parser(
         "slicer",
-        description="Load and slice images, saving as .afmslicer files for subsequent processing.",
-        help="Load and slice images, saving as .afmslicer files for subsequent processing.",
+        description="Load and slice images, saving as '.topostats' files for subsequent processing.",
+        help="Load and slice images, saving as '.topostats' files for subsequent processing.",
     )
     slicer_parser.add_argument(
         "--slices",
@@ -393,12 +365,19 @@ def afmslicer_parser() -> arg.ArgumentParser:
         help="Path to where the YAML file should be saved (default './' the current directory).",
     )
     create_config_parser.add_argument(
+        "-m",
+        "--module",
+        dest="module",
+        default="afmslicer",
+        help="The AFM module to use, currently `afmslicer` (default).",
+    )
+    create_config_parser.add_argument(
         "-c",
         "--config",
         dest="config",
         type=str,
         default="default",
-        help="Configuration to use, currently 'default', 'simple', 'mplstyle' and 'var_to_label' are supported.",
+        help="Configuration to use, currently only 'default' is supported.",
     )
     create_config_parser.set_defaults(func=write_config_with_comments)
 
