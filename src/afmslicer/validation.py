@@ -94,9 +94,9 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                     error="Invalid value for slicing.area_threshold.high', valid values are > 0.",
                 ),
             },
-            "area_colors": And(
+            "pore_colors": And(
                 Use(str),
-                error="Invalid value in 'slicing.area_colors', valid values should be strings.",
+                error="Invalid value in 'slicing.pore_colors', valid values should be strings.",
             ),
         },
         "plotting": {

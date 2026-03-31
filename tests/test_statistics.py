@@ -478,7 +478,7 @@ def test_create_statistics_dictionary(
 
 
 @pytest.mark.parametrize(
-    ("df", "area_thresholds", "area_colors", "area_val", "expected"),
+    ("df", "area_thresholds", "pore_colors", "area_val", "expected"),
     [
         pytest.param(
             pd.DataFrame(
@@ -550,7 +550,7 @@ def test_create_statistics_dictionary(
 def test_classify_pore_size(
     df: pd.DataFrame,
     area_thresholds: list[str],
-    area_colors: dict[str, int],
+    pore_colors: dict[str, int],
     area_val: str,
     expected: pd.DataFrame,
 ) -> None:
@@ -559,14 +559,14 @@ def test_classify_pore_size(
     df_labelled = statistics.classify_pore_size(
         df=df,
         area_thresholds=area_thresholds,
-        area_colors=area_colors,
+        pore_colors=pore_colors,
         area_val=area_val,
     )
     pd.testing.assert_frame_equal(df_labelled, expected)
 
 
 @pytest.mark.parametrize(
-    ("area_colors", "area_thresholds", "error"),
+    ("pore_colors", "area_thresholds", "error"),
     [
         pytest.param(
             ["yellow", "green", "magenta", "blue", "cyan"],
@@ -576,7 +576,7 @@ def test_classify_pore_size(
                 "high": 1500,
             },
             ValueError,
-            id="len(area_colors) == 5",
+            id="len(pore_colors) == 5",
         ),
         pytest.param(
             ["yellow", "green", "magenta"],
@@ -586,7 +586,7 @@ def test_classify_pore_size(
                 "high": 1500,
             },
             ValueError,
-            id="len(area_colors) == 3",
+            id="len(pore_colors) == 3",
         ),
         pytest.param(
             ["yellow", "green", "magenta", "blue"],
@@ -621,14 +621,14 @@ def test_classify_pore_size(
     ],
 )
 def test_classify_pore_size_value_error(
-    area_colors: list[str], area_thresholds: dict[str, int], error
+    pore_colors: list[str], area_thresholds: dict[str, int], error
 ) -> None:
     """Test for classify_pore_size_value_error()."""
     with pytest.raises(error):
         statistics.classify_pore_size(
             df=pd.DataFrame({"area": [1, 2, 3]}),
             area_thresholds=area_thresholds,
-            area_colors=area_colors,
+            pore_colors=pore_colors,
             area_val="area",
         )
 

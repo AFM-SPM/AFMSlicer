@@ -21,7 +21,24 @@ The `napari-crop` and `napari-skimage` plugins in particular may be of use to fu
 
 ## Usage
 
-Once the plugin has been installed you will find a menu item _Plugins > AFMSlicer >_ from which you can enable each
+### Launching
+
+You can launch Napari from the command line within your Virtual Environment.
+
+``` shell
+napari
+```
+
+You can automatically load the Napari AFMSlicer widgets using...
+
+``` shell
+napari -w napari-afmslicer __all__
+```
+
+This will bring up the widgets on the right-hand side. At the bottom are three tabs allowing you to move between the
+_Filtering_, _Slicing_ and _3D Viewer_.
+
+Alternatively the widgets can be launched from the menu under _Plugins > AFMSlicer >_ from which you can enable each
 component of the plugin. Currently there are three components, each of which can be enabled independently.
 
 - 3D Viewer
@@ -35,7 +52,7 @@ involve...
 1. Filtering an image and removing scars
 2. Running slicing.
 
-Hovering over any of the text for options will show a short explanation of what it does.
+Hovering over any of the text associated with the options will show a short explanation of what it does.
 
 ### Filtering
 
