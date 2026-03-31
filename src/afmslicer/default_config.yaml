@@ -31,7 +31,7 @@ slicing:
     low: 20
     medium: 500
     high: 1500
-  area_colors:
+  pore_colors:
     - yellow
     - green
     - magenta

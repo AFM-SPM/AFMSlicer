@@ -223,7 +223,7 @@ def full_width_half_max(pdf: npt.NDArray[np.float32]) -> tuple[int, int]:
 def classify_pore_size(
     df: pd.DataFrame,
     area_thresholds: dict[str, int],
-    area_colors: list[str],
+    pore_colors: list[str],
     area_val: str = "area",
 ) -> pd.DataFrame:
     """
@@ -236,7 +236,7 @@ def classify_pore_size(
     area_thresholds : dict[str, int]
         Dictionary of thresholds, there should be three values for low, medium and high thresholds resulting in four
         categories.
-    area_colors : list[str]
+    pore_colors : list[str]
         Colors to use for the four categories.
     area_val : str
         Column name containing the area data, default is ``area`` and is unlikely to need changing.
@@ -246,8 +246,8 @@ def classify_pore_size(
     pd.DataFrame
         Dataframe with additional column with text categorisation of pore area.
     """
-    if len(area_colors) != 4:
-        msg = f"'area_colors' should have four values : {area_colors=}"
+    if len(pore_colors) != 4:
+        msg = f"'pore_colors' should have four values : {pore_colors=}"
         raise ValueError(msg)
     if len(area_thresholds) != 3:
         msg = f"'area_thresholds' should have three values : {area_thresholds=}"
@@ -259,10 +259,10 @@ def classify_pore_size(
         [
             # NB - We do not need the lower boundary for 'medium' and 'high' since once a condition is metadata
             #      the subsequent conditions are ignored
-            (df[area_val] < area_thresholds["low"], area_colors[0]),
-            (df[area_val] < area_thresholds["medium"], area_colors[1]),
-            (df[area_val] < area_thresholds["high"], area_colors[2]),
-            (df[area_val] >= area_thresholds["high"], area_colors[3]),
+            (df[area_val] < area_thresholds["low"], pore_colors[0]),
+            (df[area_val] < area_thresholds["medium"], pore_colors[1]),
+            (df[area_val] < area_thresholds["high"], pore_colors[2]),
+            (df[area_val] >= area_thresholds["high"], pore_colors[3]),
         ]
     )
     # Force type as `str`, seems case_when() doesn't enforce new string type in Pandas 3.0.1
