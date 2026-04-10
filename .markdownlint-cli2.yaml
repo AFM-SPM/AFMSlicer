@@ -8,6 +8,8 @@ config:
     allowed_elements:
       - div
       - br
+  code-block-style: fenced
+  code-fence-style: tilde
 
 globs:
   - "**/*.md"

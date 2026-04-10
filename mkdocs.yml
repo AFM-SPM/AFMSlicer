@@ -29,13 +29,16 @@ nav:
   - Home: index.md
   - Introduction: introduction.md
   - Installation: installation.md
-  - Usage: usage.md
-  - Configuration: configuration.md
+  - Usage:
+      - Overview: usage/index.md
+      - CLI: usage/cli.md
+      - Configuration: usage/configuration.md
+      - Napari: usage/napari.md
   - Workflow: workflow.md
-  - Napari: napari.md
   - Contributing:
       - Overview: contributing/index.md
       - Adding Modules: contributing/adding_modules.md
+      - Napari: contributing/napari.md
   - API:
       # - afmslicer: api/afmslicer.md
       - API: api/index.md
@@ -69,6 +72,7 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - pymdownx.blocks.tab
   - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
@@ -81,3 +85,5 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true

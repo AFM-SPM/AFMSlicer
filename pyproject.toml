@@ -50,16 +50,10 @@ Discussions = "https://github.com/ns-rse/AFMSlicer/discussions"
 Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 
 
-[project.optional-dependencies]
-tests = [
-  "pytest",
-  "pytest-cov",
-  "pytest-mpl",
-  "pytest-xdist",
-  "syrupy",
-]
+[dependency-groups]
 dev = [
-  "afmslicer[tests]",
+  {include-group = "tests"},
+  {include-group = "docs"},
   "black",
   "codespell",
   "ipdb",
@@ -75,9 +69,18 @@ dev = [
 ]
 docs = [
   "mkdocs",
+  "mkdocs-autorefs",
   "mkdocs-material",
   "mkdocs-mermaid2-plugin",
   "mkdocstrings[python]",
+  "pymdown-extensions",
+]
+tests = [
+  "pytest",
+  "pytest-cov",
+  "pytest-mpl",
+  "pytest-xdist",
+  "syrupy",
 ]
 
 
