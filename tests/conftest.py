@@ -7,6 +7,7 @@ from pathlib import Path
 from pkgutil import get_data
 from typing import Any
 
+import matplotlib as mpl
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
@@ -26,6 +27,15 @@ RESOURCES_SPM = RESOURCES / "spm"
 
 
 # pylint: disable=too-many-lines
+
+
+@pytest.fixture(scope="session", autouse=True)
+def configure_matplotlib():
+    """
+    Force ``matplotlib`` to use the non-interactive ``Agg`` backend to prevent Tcl/Tk threading errors during
+    tests.
+    """
+    mpl.use("Agg")
 
 
 @pytest.fixture(name="default_config")
