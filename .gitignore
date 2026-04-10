@@ -194,3 +194,4 @@ Thumbs.db
 # Other directories to exclude
 orig/
 tmp/
+output/

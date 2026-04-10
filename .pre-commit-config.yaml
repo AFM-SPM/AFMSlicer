@@ -66,26 +66,12 @@ repos:
         args: ["--fix", "--show-fixes", "--exit-non-zero-on-fix"]
       - id: ruff-format
 
-  # - repo: https://github.com/pre-commit/mirrors-mypy
-  #   rev: "v1.19.1"
-  #   hooks:
-  #     - id: mypy
-  #       files: src|tests
-  #       args: []
-  #       additional_dependencies:
-  #         - pytest
-
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.4.2"
     hooks:
       - id: codespell
         additional_dependencies:
           - tomli; python_version<'3.11'
-
-  # - repo: https://github.com/shellcheck-py/shellcheck-py
-  #   rev: "v0.11.0.1"
-  #   hooks:
-  #     - id: shellcheck
 
   - repo: local
     hooks:
