@@ -15,7 +15,7 @@ If you wish to make changes to the code base and are not a collaborator on the r
 # Collaborator
 git clone git@github.com:ns-rse/AFMSlicer.git
 # Forked copy
-git clone git@github.com:<YOUR_GITHUB_USERNAME>/TopoStatsAFMSlicer.git
+git clone git@github.com:<YOUR_GITHUB_USERNAME>/AFMSlicer.git
 ```
 
 ## Install Additional Dependencies
@@ -26,10 +26,11 @@ If you are to contribute you should install the additional dependencies for unde
 If you haven't already create a virtual environment and install the packages.
 
 ```shell
+cd AFMSlicer
 uv venv --python=3.11
 source .venv/bin/activate
 uv sync
-uv pip install -e ".[dev,docs,tests]"
+uv pip install -e . --group dev
 ```
 
 ## Creating a Branch
@@ -56,11 +57,11 @@ You can now start working on your feature or bug fix making regular commits.
 ## Software Development
 
 To make the codebase easier to maintain we ask that you follow the guidelines below on coding style, linting, typing,
-documentation and testing. These entail a number of additional dependencies that can be installed with the following
-command.
+documentation and testing. These entail a number of additional dependencies that can be installed using the `--group
+dev` flag to `uv pip install` as shown below.
 
 ```shell
-pip install -e .[dev,tests,docs]
+uv pip install -e . --group dev
 ```
 
 This will pull in all the dependencies we use for development (`dev`), tests (`tests`) and writing documentation
@@ -70,9 +71,9 @@ This will pull in all the dependencies we use for development (`dev`), tests (`t
 
 Using a consistent coding style has many benefits (see [Linting : What is all the fluff
 about?](https://rse.shef.ac.uk/blog/2022-04-19-linting/)).  For this project we aim to adhere to [PEP8 - the style Guide
-for Python Code] and do so using the formatting linters [black][black] and [ruff][ruff]. Ruff implements the checks made
-by [Flake8][flake8]), [isort][isort], [mypy][mypy] and [numpydoc-validation][numpydoc-validation]. We also like to
-ensure the code passes [pylint][pylint] which helps identify code duplication and reduces some of the [code
+for Python Code][pep8] and do so using the formatting linters [black][black] and [ruff][ruff]. Ruff implements the
+checks made by [Flake8][flake8]), [isort][isort], [mypy][mypy] and [numpydoc-validation][numpydoc-validation]. We also
+like to ensure the code passes [pylint][pylint] which helps identify code duplication and reduces some of the [code
 smells][code_smell] that we are all prone to making. A `.pylintrc` is included in the repository. These checks are run
 on all Pull Requests via [pre-commit.ci][pre_commit_ci] and have to pass before contributions can be merged to `main`.
 
@@ -115,7 +116,7 @@ return values. [Pylint][pylint] will note and report the absence of docstrings b
 `missing-function-docstring` condition and the docstrings are checked the the [pre-commit](#pre-commit) hook
 [numpydoc-validation][numpydoc-validation].  Further, when new methods that introduce changes to the configuration are
 incorporated into the package they should be documented under [Parameter
-Configuration](../configuration.md). [pre-commit](#pre-commit) has the [markdownlint-cli2][markdownlint-cli2] hook
+Configuration](../usage/configuration.md). [pre-commit](#pre-commit) has the [markdownlint-cli2][markdownlint-cli2] hook
 enabled to lint all Markdown files and will where possible automatically fix things, but some issues need resolving
 manually.
 
@@ -145,7 +146,7 @@ you wish to debug and use the `@snoop` decorator around the function/method you 
 
 ## Configuration
 
-As described in [Parameter Configuration](../configuration.md) options are primarily passed to AFMSlicer via a
+As described in [Parameter Configuration](../usage/configuration.md) options are primarily passed to AFMSlicer via a
 [YAML][yaml] configuration file. When introducing new features that require configuration options you will have to
 ensure that the default configuration file (`afmslicer/default.yaml`) is updated to include your options and that
 corresponding arguments are added to the entry point (please refer to [Adding Modules](adding_modules.md) page which
@@ -184,6 +185,7 @@ so are provided.
 [numpydoc-validation]: https://numpydoc.readthedocs.io/en/latest/validation.html
 [pep483]: https://peps.python.org/pep-0483/
 [pep484]: https://peps.python.org/pep-0484/
+[pep8]: https://peps.python.org/pep-0008/
 [pre-commit]: https://pre-commit.com
 [pre_commit_ci]: https://pre-commit.ci
 [pylint]: https://www.pylint.org/

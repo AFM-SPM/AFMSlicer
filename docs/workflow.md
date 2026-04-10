@@ -44,6 +44,6 @@ end
 
 [^mermaid]:
     If modifying this diagram it is recommended to copy and paste the existing
-    code and adjust in the [mermaid.live][mermaid_live] online tool.
+    code and adjust it in the [mermaid.live][mermaid_live] online tool.
 
 [mermaid_live]: https://mermaid.live
