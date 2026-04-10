@@ -181,16 +181,8 @@ You can now proceed to the [usage](usage/index.md) section to learn how to use A
 
 [afmslicergh]: https://github.com/ns-rse/AFMSlicer
 [miniforge]: https://github.com/conda-forge/miniforge
-[direnv]: https://direnv.net
-[afmslicergh]: https://github.com/AFM-SPM/napari-afmslicer
-[pypi]: https://pypi.org/
-[python]: https://python.org
-[venvprimer]: https://realpython.com/python-virtual-environments-a-primer
-[uvdocs]: https://docs.astral.sh/uv
 [uvinstall]: https://docs.astral.sh/uv/getting-started/installation
 [topostats]: https://AFM-SPM.github.io/TopoStats
 [topostatsgh]: https://github.com/AFM-SPM/TopoStats
 [topolyissue]: https://github.com/ilbsm/topoly_tutorial/issues/4
-[topostats_gh]: https://github.com/AFM-SPM/TopoStats
-[uvdocs]: https://docs.astral.sh/uv
 [venvwrapper]: https://virtualenvwrapper.readthedocs.io/en/latest
