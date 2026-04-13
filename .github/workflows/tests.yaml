@@ -39,31 +39,29 @@ jobs:
       - name: Install and setup uv with python
         uses: astral-sh/setup-uv@v8.0.0
         with:
-          python-version: 3.11
+          python-version: ${{ matrix.python-version }}
       - run: |
-          uv venv --python 3.11
-      - name: Windows - activate venv
-        if: runner.os == "Windows"
-        run: .venv\Scripts\activate
-      - name: Linux - activate venv
-        if: runner.os == "Linux"
-        run: source .venv/bin/activate
-      - name: OSX - activate venv
-        if: runner.os == "macOS"
-        run: source .venv/bin/activate
-      - name: Install package with dev dependencies
+          uv venv
+      - name: Activate venv, install package deps and run pytest
+        shell: bash
         run: |
+          if [ "${RUNNER_OS}" == "Windows" ]; then
+            source .venv/Scripts/activate
+          else
+            source .venv/bin/activate
+          fi
           uv pip install -e . --group dev
-      - name: Test with pytest
-        run: |
           pytest --cov=src --numprocesses=logical
       - name: Determine coverage
+        if: runner.os == 'Linux'
+        shell: bash
         run: |
+          source .venv/bin/activate
           coverage xml
       - name: Upload coverage to Codecov
+        if: runner.os == 'Linux'
         uses: codecov/codecov-action@v6
-
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 1
+        timeout-minutes: 5
