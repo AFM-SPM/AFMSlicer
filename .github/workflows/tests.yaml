@@ -42,14 +42,16 @@ jobs:
           python-version: 3.11
       - run: |
           uv venv --python 3.11
-      - name: Activate virtual environment conditional on OS
+      - name: Activate virtual environment
+        shell: bash
         run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
-            .venv\Scripts\activate
+            source .venv/Scripts/activate
           else
             source .venv/bin/activate
           fi
-      - name: Install package with dev dependencies
+      - name: Activate venv and install package with dev dependencies
+        shell: bash
         run: |
           uv pip install -e . --group dev
       - name: Test with pytest
