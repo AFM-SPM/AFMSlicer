@@ -42,7 +42,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: |
           uv venv
-      - name: Activate virtual environment
+      - name: Activate venv, install package deps and run pytest
         shell: bash
         run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
@@ -50,12 +50,7 @@ jobs:
           else
             source .venv/bin/activate
           fi
-      - name: Activate venv and install package with dev dependencies
-        shell: bash
-        run: |
           uv pip install -e . --group dev
-      - name: Test with pytest
-        run: |
           pytest --cov=src --numprocesses=logical
       - name: Determine coverage
         run: |
@@ -66,4 +61,4 @@ jobs:
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 1
+        timeout-minutes: 5
