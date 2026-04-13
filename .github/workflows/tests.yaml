@@ -53,11 +53,14 @@ jobs:
           uv pip install -e . --group dev
           pytest --cov=src --numprocesses=logical
       - name: Determine coverage
+        if: runner.os == 'Linux'
+        shell: bash
         run: |
+          source .venv/bin/activate
           coverage xml
       - name: Upload coverage to Codecov
+        if: runner.os == 'Linux'
         uses: codecov/codecov-action@v6
-
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
