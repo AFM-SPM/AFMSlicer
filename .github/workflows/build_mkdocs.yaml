@@ -26,12 +26,14 @@ jobs:
         with:
           python-version: 3.11
       - run: |
-          uv pip install --python=3.11 pip
+          uv venv --python 3.11
       - name: Install package with dev dependencies
         run: |
           uv pip install -e . --group dev
       - name: Build and deploy pages
-        run: mkdocs gh-deploy --config-file mkdocs.yml --force
+        run: |
+          source .venv/bin/activate
+          mkdocs gh-deploy --config-file mkdocs.yml --force
 
   deploy_mkdocs:
     needs: build_mkdocs
