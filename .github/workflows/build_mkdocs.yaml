@@ -21,12 +21,17 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v6
+      - name: Install and setup uv with python
+        uses: astral-sh/setup-uv@v8.0.0
         with:
           python-version: 3.11
       - run: |
-          pip install .[docs]
-      - run: mkdocs gh-deploy --config-file mkdocs.yml --force
+          uv pip install --python=3.11 pip
+      - name: Install package with dev dependencies
+        run: |
+          uv pip install -e . --group dev
+      - name: Build and deploy pages
+        run: mkdocs gh-deploy --config-file mkdocs.yml --force
 
   deploy_mkdocs:
     needs: build_mkdocs
