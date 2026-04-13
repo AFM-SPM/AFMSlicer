@@ -1168,18 +1168,18 @@
 
 <h1 id="installation">Installation</h1>
 <p>Usage of AFMSlicer and the Napari plugin require installation and usage of a
-[Python Virtual Environment][venvprimer].
-This page details how to setup a [Python][python] virtual environment using
-[uv][uvdocs] and
+<a href="https://realpython.com/python-virtual-environments-a-primer">Python Virtual Environment</a>.
+This page details how to setup a <a href="https://python.org">Python</a> virtual environment using
+<a href="https://docs.astral.sh/uv">uv</a> and
 how to install AFMSlicer and the Napari plugin within this virtual environment.</p>
 <h2 id="virtual-environment">Virtual Environment</h2>
-<p>We recommend using [uv][uvdocs] to install and manage your virtual environments but you do not have to. Other options such
-<a href="https://virtualenvwrapper.readthedocs.io/en/latest">virtualenvwrapper</a> and
+<p>We recommend using <a href="https://docs.astral.sh/uv">uv</a> to install and manage your virtual environments but you do not have
+to. Other options such <a href="https://virtualenvwrapper.readthedocs.io/en/latest">virtualenvwrapper</a> and
 <a href="https://github.com/conda-forge/miniforge">MiniForge</a> also allow you to create and manage virtual environments but
 are not covered here.</p>
 <h3 id="install-uv">Install <code>uv</code></h3>
-<p>[uv][uvdocs] has excellent
-<a href="https://docs.astral.sh/uv/getting-started/installation">instructions</a> on how to install the software on different operating systems.</p>
+<p><a href="https://docs.astral.sh/uv">uv</a> has excellent <a href="https://docs.astral.sh/uv/getting-started/installation">instructions</a> on
+how to install the software on different operating systems.</p>
 <h3 id="create-a-project-folder">Create a project folder</h3>
 <p>You need somewhere to undertake the work of processing images with AFMSlicer. There are two strategies that could be
 employed here...</p>
@@ -1234,9 +1234,9 @@ where you created the <code>afm_slicing</code> programme.</p>
 <!-- markdownlint-disable MD046 -->
 <div class="admonition tip">
 <p class="admonition-title"><code>direnv</code></p>
-<p>GNU/Linux and OSX users may want to consider using [dirnev][direnv] to automate activation of virtual environments on
-navigation to the <code>AFMSlicer</code> directory. Add the following to <code>.envrc</code> to activate the environment from within the
-<code>AFMSlicer</code> directory.</p>
+<p>GNU/Linux and OSX users may want to consider using <a href="https://direnv.net">dirnev</a> to automate activation of virtual
+environments on navigation to the <code>AFMSlicer</code> directory. Add the following to <code>.envrc</code> to activate the environment
+from within the  <code>AFMSlicer</code> directory.</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;#!/bin/bash\nsource .venv/bin/activate&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>.envrc
 </span></code></pre></div>
 </div>
@@ -1262,8 +1262,8 @@ path where you created the <code>afm_slicing</code> programme.</p>
 <!-- markdownlint-disable MD046 -->
 <div class="admonition failure">
 <p class="admonition-title">Failure</p>
-<p>Currently AFMSlicer has not been packaged and released to <a class="autorefs autorefs-internal" title="PyPI" href="#pypi">PyPi</a>. For now the following will <em>not</em> work and
-you should follow the <strong>Development</strong> isntructions.</p>
+<p>Currently AFMSlicer has not been packaged and released to <a href="https://pypi.org">PyPi</a>. For now the following will <em>not</em>
+work and you should follow the <strong>Development</strong> isntructions.</p>
 </div>
 <!-- markdownlint-enable MD046 -->
 
@@ -1276,13 +1276,12 @@ you should follow the <strong>Development</strong> isntructions.</p>
 <h3 id="development">Development</h3>
 <p>AFMSlicer is in the early stages of development and as such must be installed from the GitHub repository along with the
 development versions of its dependency <a href="https://AFM-SPM.github.io/TopoStats">TopoStats</a>. The steps involved in installing the development version
-are described below and require that you install and use [uv][uvdocs] to set things up.</p>
+are described below and require that you install and use <a href="https://docs.astral.sh/uv">uv</a> to set things up.</p>
 <h4 id="cloning-repositories">Cloning Repositories</h4>
 <p>The following repositories need cloning.</p>
 <ul>
-<li><a href="https://github.com/ns-rse/AFMSlicer">AFMSlicer repository</a>.</li>
-<li><a href="https://github.com/ns-rse/AFMSlicer">napari-afmslicer repository</a></li>
-<li><a href="https://github.com/AFM-SPM/TopoStats">TopoStats</a></li>
+<li><a href="https://github.com/AFM-SPM/AFMSlicer">AFMSlicer repository</a>.</li>
+<li><a href="https://github.com/AFM-SPM/napari-afmslicer">napari-afmslicer repository</a></li>
 </ul>
 <p>You can use the following commands to clone these.</p>
 <!-- markdownlint-disable MD046 -->
