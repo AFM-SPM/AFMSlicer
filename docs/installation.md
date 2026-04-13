@@ -1,22 +1,22 @@
 # Installation
 
 Usage of AFMSlicer and the Napari plugin require installation and usage of a
-[Python Virtual Environment][venvprimer].
-This page details how to setup a [Python][python] virtual environment using
-[uv][uvdocs] and
+[Python Virtual Environment](https://realpython.com/python-virtual-environments-a-primer).
+This page details how to setup a [Python](https://python.org) virtual environment using
+[uv](https://docs.astral.sh/uv) and
 how to install AFMSlicer and the Napari plugin within this virtual environment.
 
 ## Virtual Environment
 
-We recommend using [uv][uvdocs] to install and manage your virtual environments but you do not have to. Other options such
-[virtualenvwrapper][venvwrapper] and
+We recommend using [uv](https://docs.astral.sh/uv) to install and manage your virtual environments but you do not have
+to. Other options such [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest) and
 [MiniForge][miniforge] also allow you to create and manage virtual environments but
 are not covered here.
 
 ### Install `uv`
 
-[uv][uvdocs] has excellent
-[instructions][uvinstall] on how to install the software on different operating systems.
+[uv](https://docs.astral.sh/uv) has excellent [instructions](https://docs.astral.sh/uv/getting-started/installation) on
+how to install the software on different operating systems.
 
 ### Create a project folder
 
@@ -79,9 +79,9 @@ You can now activate the environment and check that your are using the `python` 
 <!-- markdownlint-disable MD046 -->
 !!! tip "`direnv`"
 
-    GNU/Linux and OSX users may want to consider using [dirnev][direnv] to automate activation of virtual environments on
-    navigation to the `AFMSlicer` directory. Add the following to `.envrc` to activate the environment from within the
-    `AFMSlicer` directory.
+    GNU/Linux and OSX users may want to consider using [dirnev](https://direnv.net) to automate activation of virtual
+    environments on navigation to the `AFMSlicer` directory. Add the following to `.envrc` to activate the environment
+    from within the  `AFMSlicer` directory.
 
     ```shell
     echo "#!/bin/bash\nsource .venv/bin/activate" > .envrc
@@ -110,8 +110,8 @@ You can now activate the environment and check that your are using the `python` 
 <!-- markdownlint-disable MD046 -->
 !!! failure
 
-    Currently AFMSlicer has not been packaged and released to [PyPi][pypi]. For now the following will _not_ work and
-    you should follow the **Development** isntructions.
+    Currently AFMSlicer has not been packaged and released to [PyPi](https://pypi.org). For now the following will _not_
+    work and you should follow the **Development** isntructions.
 <!-- markdownlint-enable MD046 -->
 
 You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.
@@ -132,9 +132,8 @@ are described below and require that you install and use [uv][uvdocs] to set thi
 
 The following repositories need cloning.
 
-- [AFMSlicer repository][afmslicergh].
-- [napari-afmslicer repository][afmslicergh]
-- [TopoStats][topostatsgh]
+- [AFMSlicer repository](https://github.com/AFM-SPM/AFMSlicer).
+- [napari-afmslicer repository](https://github.com/AFM-SPM/napari-afmslicer)
 
 You can use the following commands to clone these.
 
@@ -179,10 +178,7 @@ uv pip install napari-afmslicer/.
 
 You can now proceed to the [usage](usage/index.md) section to learn how to use AFMSlicer.
 
-[afmslicergh]: https://github.com/ns-rse/AFMSlicer
 [miniforge]: https://github.com/conda-forge/miniforge
-[uvinstall]: https://docs.astral.sh/uv/getting-started/installation
+[uvdocs]: https://docs.astral.sh/uv
 [topostats]: https://AFM-SPM.github.io/TopoStats
-[topostatsgh]: https://github.com/AFM-SPM/TopoStats
 [topolyissue]: https://github.com/ilbsm/topoly_tutorial/issues/4
-[venvwrapper]: https://virtualenvwrapper.readthedocs.io/en/latest
