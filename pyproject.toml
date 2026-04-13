@@ -51,6 +51,21 @@ Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
 
 
 [dependency-groups]
+docs = [
+  "mkdocs",
+  "mkdocs-autorefs",
+  "mkdocs-material",
+  "mkdocs-mermaid2-plugin",
+  "mkdocstrings[python]",
+  "pymdown-extensions",
+]
+tests = [
+  "pytest",
+  "pytest-cov",
+  "pytest-mpl",
+  "pytest-xdist",
+  "syrupy",
+]
 dev = [
   {include-group = "tests"},
   {include-group = "docs"},
@@ -66,21 +81,6 @@ dev = [
   "ruff",
   "tomli",
   "ty",
-]
-docs = [
-  "mkdocs",
-  "mkdocs-autorefs",
-  "mkdocs-material",
-  "mkdocs-mermaid2-plugin",
-  "mkdocstrings[python]",
-  "pymdown-extensions",
-]
-tests = [
-  "pytest",
-  "pytest-cov",
-  "pytest-mpl",
-  "pytest-xdist",
-  "syrupy",
 ]
 
 
