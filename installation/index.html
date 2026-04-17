@@ -1268,6 +1268,10 @@ work and you should follow the <strong>Development</strong> isntructions.</p>
 <!-- markdownlint-enable MD046 -->
 
 <p>You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.</p>
+<div class="admonition failure">
+<p class="admonition-title">Failure</p>
+<p>This will currently fail (see above).</p>
+</div>
 <!-- markdownlint-disable MD046 -->
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-afmslicer
 </span></code></pre></div>
@@ -1285,8 +1289,8 @@ are described below and require that you install and use <a href="https://docs.a
 </ul>
 <p>You can use the following commands to clone these.</p>
 <!-- markdownlint-disable MD046 -->
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/work/git/hub
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>~/work/git/hub
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/work/AFMSlicer
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>~/work/AFMSlicer
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AFM-SPM/AFMSlicer.git
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AFM-SPM/napari-afmslicer.git
 </span></code></pre></div>
@@ -1300,22 +1304,19 @@ are described below and require that you install and use <a href="https://docs.a
 <!-- markdownlint-enable MD046 -->
 
 <h3 id="create-a-virtual-environment-and-install-packages">Create a virtual environment and install packages</h3>
-<p>In the cloned <code>AFMSlicer</code> directory use <code>uv</code> to create a virtual environment and as advised activate it.</p>
+<p>If you haven't already create a virtual environment using <code>uv</code> and activate it (see above)</p>
 <p><strong>NB</strong> TopoStats is constrained to using Python &gt;=3.10 and &lt; 3.12 hence why Python 3.11 is explicitly installed.</p>
+<p>Install AFMSlicer and napari-afmslicer from the cloned repositories using the following commands.</p>
 <!-- markdownlint-disable MD046 -->
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>~/work/git/hub
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.11
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>AFMSlicer/.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>napari-afmslicer/.
 </span></code></pre></div>
 <!-- markdownlint-enable MD046 -->
 
-<p>Install AFMSlicer and napari-afmslicer using the following commands.</p>
-<!-- markdownlint-disable MD046 -->
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>AFMSlicer/.
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-afmslicer/.
-</span></code></pre></div>
-<!-- markdownlint-enable MD046 -->
-
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Cloning and installing will take a few minutes because of the downloads that need to be made, please be patient.</p>
+</div>
 <p>You can now proceed to the <a href="../usage/">usage</a> section to learn how to use AFMSlicer.</p>
 
 
