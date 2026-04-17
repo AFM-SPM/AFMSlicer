@@ -116,6 +116,9 @@ You can now activate the environment and check that your are using the `python` 
 
 You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.
 
+!!! failure
+    This will currently fail (see above).
+
 <!-- markdownlint-disable MD046 -->
 ``` shell
 uv pip install napari-afmslicer
@@ -139,8 +142,8 @@ You can use the following commands to clone these.
 
 <!-- markdownlint-disable MD046 -->
 ```shell
-mkdir -p ~/work/git/hub
-cd ~/work/git/hub
+mkdir -p ~/work/AFMSlicer
+cd ~/work/AFMSlicer
 git clone https://github.com/AFM-SPM/AFMSlicer.git
 git clone https://github.com/AFM-SPM/napari-afmslicer.git
 
@@ -155,26 +158,22 @@ git clone https://github.com/AFM-SPM/napari-afmslicer.git
 
 ### Create a virtual environment and install packages
 
-In the cloned `AFMSlicer` directory use `uv` to create a virtual environment and as advised activate it.
+If you haven't already create a virtual environment using `uv` and activate it (see above)
 
 **NB** TopoStats is constrained to using Python >=3.10 and < 3.12 hence why Python 3.11 is explicitly installed.
 
-<!-- markdownlint-disable MD046 -->
-```shell
-cd ~/work/git/hub
-uv venv --python 3.11
-source .venv/bin/activate
-```
-<!-- markdownlint-enable MD046 -->
-
-Install AFMSlicer and napari-afmslicer using the following commands.
+Install AFMSlicer and napari-afmslicer from the cloned repositories using the following commands.
 
 <!-- markdownlint-disable MD046 -->
 ```shell
-uv pip install AFMSlicer/.
-uv pip install napari-afmslicer/.
+uv pip install -e AFMSlicer/.
+uv pip install -e napari-afmslicer/.
 ```
 <!-- markdownlint-enable MD046 -->
+
+!!! Tip
+
+    Cloning and installing will take a few minutes because of the downloads that need to be made, please be patient.
 
 You can now proceed to the [usage](usage/index.md) section to learn how to use AFMSlicer.
 
