@@ -60,7 +60,7 @@ jobs:
           coverage xml
       - name: Upload coverage to Codecov
         if: runner.os == 'Linux'
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
