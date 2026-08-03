@@ -164,7 +164,7 @@ def create_statistics_dictionary(
 
 
 def calculate_pdf(
-    array: list[float], xmin: int | float | None = None, xmax: int | float | None = None
+    array: list[float], xmin: float | None = None, xmax: float | None = None
 ) -> dict[str, npt.NDArray]:
     """
     Calculate the scaled probability density function for an array.
