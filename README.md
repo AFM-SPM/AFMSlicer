@@ -33,7 +33,7 @@ This software is licensed under the [GNU GPLv3 License](COPYING.md).
 [code-style-black-link]:    https://github.com/psf/black
 [codecov-badge]:            https://codecov.io/gh/ns-rse/AFMSlicer/branch/dev/graph/badge.svg
 [codecov-link]:             https://codecov.io/gh/ns-rse/AFMSlicer
-[doc-gh-pages]:             https://ns-rse.github.io/AFMSlicer
+[doc-gh-pages]:             https://afm-spm.github.io/AFMSlicer/
 [fair-software-badge]:      https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
 [fair-software-link]:       https://fair-software.eu
 [flake8-badge]:             https://img.shields.io/badge/code%20style-flake8-456789.svg
