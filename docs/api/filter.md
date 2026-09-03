@@ -1,6 +1,6 @@
-# Slicer
+# Filter
 
-::: afmslicer.slicer
+::: afmslicer.filter
     handler: python
     options:
         docstring_style: numpy

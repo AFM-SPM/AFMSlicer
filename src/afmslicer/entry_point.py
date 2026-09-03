@@ -396,7 +396,7 @@ def entry_point(
 
     Parameters
     ----------
-    manually_provided_args : None
+    manually_provided_args : list[Any] | None
         Manually provided arguments.
     testing : bool
         Whether testing is being carried out.

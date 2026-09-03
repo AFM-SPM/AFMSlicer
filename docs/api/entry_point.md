@@ -1,6 +1,6 @@
-# Slicer
+# Entry Point
 
-::: afmslicer.slicer
+::: afmslicer.entry_point
     handler: python
     options:
         docstring_style: numpy

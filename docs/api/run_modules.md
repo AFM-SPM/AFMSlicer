@@ -1,6 +1,6 @@
-# Slicer
+# Run Modules
 
-::: afmslicer.slicer
+::: afmslicer.run_modules
     handler: python
     options:
         docstring_style: numpy
