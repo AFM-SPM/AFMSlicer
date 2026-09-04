@@ -24,6 +24,46 @@ class SlicingFilter(Filters):
         Method of Gaussian blurring to use.
     remove_scars : dict[str, bool | int | float]
         Whether to remove scars or not. This is performed using TopoStats' scar removal method.
+
+    Examples
+    --------
+
+    The final image after all stages is stored in the ``SlicingFilter.image`` dictionary with the key
+    ``gaussian_filtered``.
+
+    >>> import numpy as np
+    >>> from topostats.classes import TopoStats
+    >>> from afmslicer.filter import SlicingFilter
+
+    >>> rng = np.random.default_rng(seed=32424308)
+    >>> small_array = rng.random((5, 5), dtype=np.float64)
+
+    >>> afmslicer_object = TopoStats(
+    >>>     image_original=small_array,
+    >>>     filename="small_array",
+    >>>     pixel_to_nm_scaling=1.0,
+    >>>     img_path="./")
+
+    >>> filter_config = {
+    >>>    "row_alignment_quantile": 0.5,
+    >>>    "gaussian_size": 1.012139,
+    >>>    "gaussian_mode": nearest,
+    >>>    "remove_scars": {
+    >>>        "run": False,
+    >>>        "removal_iterations": 2 # Number of times to run scar removal.
+    >>>        "threshold_low": 0.250 # lower values make scar removal more sensitive
+    >>>        "threshold_high": 0.666 # lower values make scar removal more sensitive
+    >>>        "max_scar_width": 4 # Maximum thickness of scars in pixels.
+    >>>        "min_scar_length": 16
+    >>>    }
+    >>> }
+
+    >>> slicing_filter = SlicingFilter(
+    >>>     topostats_object=afmslicer_object,
+    >>>     **filter_config)
+    >>> slicing_filter.filter_image()
+
+    >>> slicing_filter.images["gaussian_filtered"]
     """
 
     def __init__(
@@ -55,46 +95,6 @@ class SlicingFilter(Filters):
             Method of Gaussian blurring to use.
         remove_scars : dict[str, bool | int | float]
             Whether to remove scars or not. This is performed using TopoStats' scar removal method.
-
-        Examples
-        --------
-
-        The final image after all stages is stored in the ``SlicingFilter.image`` dictionary with the key
-        ``gaussian_filtered``.
-
-        >>> import numpy as np
-        >>> from topostats.classes import TopoStats()
-        >>> from afmslicer.filter import SlicingFilter
-
-        >>> rng = np.random.default_rng(seed=32424308)
-        >>> small_array = rng.random((5, 5), dtype=np.float64)
-
-        >>> afmslicer_object = TopoStats(
-        >>>     image_original=small_array,
-        >>>     filename="small_array",
-        >>>     pixel_to_nm_scaling=1.0,
-        >>>     img_path="./")
-
-        >>> filter_config = {
-        >>>    "row_alignment_quantile": 0.5,
-        >>>    "gaussian_size": 1.012139,
-        >>>    "gaussian_mode": nearest,
-        >>>    "remove_scars": {
-        >>>        "run": False,
-        >>>        "removal_iterations": 2 # Number of times to run scar removal.
-        >>>        "threshold_low": 0.250 # lower values make scar removal more sensitive
-        >>>        "threshold_high": 0.666 # lower values make scar removal more sensitive
-        >>>        "max_scar_width": 4 # Maximum thickness of scars in pixels.
-        >>>        "min_scar_length": 16
-        >>>    }
-        >>> }
-
-        >>> slicing_filter = SlicingFilter(
-        >>>     topostats_object=afmslicer_object,
-        >>>     **filter_config)
-        >>> slicing_filter.filter_image()
-
-        >>> slicing_filter.images["gaussian_filtered"]
         """
         # ns-rse - Because we are inheriting from TopoStats the internal name/representation of the class object is
         # topostats_object but we instantiate this attribute with AFMSlicer, which itself is a child of the TopoStats

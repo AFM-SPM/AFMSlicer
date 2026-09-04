@@ -1,6 +1,6 @@
-# Slicer
+# Logging
 
-::: afmslicer.slicer
+::: afmslicer.logging
     handler: python
     options:
         docstring_style: numpy

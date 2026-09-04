@@ -1,6 +1,6 @@
-# Slicer
+# Plotting
 
-::: afmslicer.slicer
+::: afmslicer.plotting
     handler: python
     options:
         docstring_style: numpy

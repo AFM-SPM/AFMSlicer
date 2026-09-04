@@ -36,18 +36,23 @@ You can automatically load the Napari AFMSlicer widgets using...
 napari -w napari-afmslicer __all__
 ```
 
-This will bring up the widgets on the right-hand side. At the bottom are three tabs allowing you to move between the
-_Filtering_, _Slicing_ and _3D Viewer_.
+This will bring up the widgets on the right-hand side. At the bottom are three tabs allowing you to switch between the
+_Filtering_, _Slicing_ and _3D Viewer_ components.
+
+![Screenshot of napari with the filter, slicing and 3D viewer plugins loaded as tabs.](napari/napari_main.png)
 
 Alternatively the widgets can be launched from the menu under _Plugins > AFMSlicer >_ from which you can enable each
-component of the plugin. Currently there are three components, each of which can be enabled independently.
+components of the plugin. Currently there are three components, each of which can be enabled independently.
 
 - 3D Viewer
 - Filter
 - Slicing
 
-Load each of the widgets by navigating to _Plugins > AFMSlicer_ and selecting each of _AFMSlicer Filter_, _AFMSlicer 3D
-Viewer_ and _AFMSlicer Slicing_ which will add the widgets to the right-hand side of Napari. A typical workflow will
+The difference is that the options for each of the components are stacked on the right rather than being tabbed.
+
+![Screenshot of napari with the filter, slicing and 3D viewer plugins loaded individually.](napari/napari_main.png)
+
+A typical workflow will
 involve...
 
 1. Filtering an image and removing scars
@@ -62,16 +67,24 @@ completely. Once you have adjusted the parameters to your preference click on th
 filtered and a new layer will appear listed on the left and automatically selected showing the effects of filtering. It
 will have the original images name suffixed with `_filtered`
 
+![Screenshot of napari after filtering an image.](napari/napari_filtered.png)
+
 ### Slicing
 
-Under the _Slicing_ widget select the filtered image from the pull-down list to the right of _Image_", select the number
-of _Slices_ to create, the _Segmentation method_ and other options, in particular the _Output directory_ should be
-explicitly set. When ready click the _Slice Image and Summarise_, the image will be sliced and summarised with the
-output saved to the parameter in the _Output directory_ field.
+Under the _Slicing_ widget select the filtered image from the pull-down list to the right of _Image_ (typically it will
+be the layer with the `_filtered` suffix). Next select the number of _Slices_ to create, the _Segmentation method_
+(`label` is the most common) and other options, in particular the _Output directory_ should be explicitly set. When
+ready click the _Slice Image and Summarise_, the image will be sliced and summarised with the output saved to the
+parameter in the _Output directory_ field.
+
+![Screenshot of napari after slicing an image.](napari/napari_slicing_complete.png)
 
 ### 3D Viewer
 
-The 3D viewer can be used to view the images in three dimensions.
+The 3D viewer can be used to view the images in three dimensions. Select the `_filtered` layer for the _Image_ to be
+viewed and a number of slices to create this image with (it can be different to those the slicing was performed with).
+
+![Screenshot of napari showing a 3D view of an image.](napari/napari_3d.png)
 
 [napari]: https://napari.org/stable/
 [napari_afmreader]: https://github.com/AFM-SPM/napari-AFMReader/

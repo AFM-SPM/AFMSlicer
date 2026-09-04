@@ -40,9 +40,16 @@ nav:
       - Adding Modules: contributing/adding_modules.md
       - Napari: contributing/napari.md
   - API:
-      # - afmslicer: api/afmslicer.md
       - API: api/index.md
+      - entry_point: api/entry_point.md
+      - filter: api/filter.md
+      - io: api/io.md
+      - logging: api/logging.md
+      - plotting: api/plotting.md
+      - processing: api/processing.md
+      - run_modules: api/run_modules.md
       - slicer: api/slicer.md
+      - statistics: api/statistics.md
       - validation: api/validation.md
 
 extra:
@@ -56,16 +63,22 @@ plugins:
           inventories:
             - https://docs.python.org/3/objects.inv
           paths: [src]
-          options.extra:
-          docstring_options:
-            ignore_init_summary: true
-          docstring_section_style: true
-          signature_crossrefs: true
-          inherited_members: true
-          summary: true
-          heading_level: 1
-          parameter_headings: true
-          type_parameter_headings: true
+          options:
+            docstring_style: numpy
+            docstring_section_style: table
+            filters: ["!^_"]
+            heading_level: 1
+            inherited_members: true
+            parameter_headings: true
+            separate_signature: true
+            show_if_no_docstring: false
+            show_root_full_path: false
+            show_root_heading: false
+            show_signature_annotations: false
+            show_source: false
+            signature_crossrefs: true
+            summary: true
+            type_parameter_headings: true
   - autorefs
   - mermaid2
   - search

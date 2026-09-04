@@ -9,7 +9,7 @@ from loguru import logger
 
 def setup(level: str = "INFO") -> None:
     """
-    Loguru setup with the required logging level and format.
+    Loguru setup with the required logging level.
 
     Parameters
     ----------

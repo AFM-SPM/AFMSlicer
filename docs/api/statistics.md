@@ -1,6 +1,6 @@
-# Slicer
+# Statistics
 
-::: afmslicer.slicer
+::: afmslicer.statistics
     handler: python
     options:
         docstring_style: numpy

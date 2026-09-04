@@ -1,6 +1,6 @@
-# Slicer
+# IO
 
-::: afmslicer.slicer
+::: afmslicer.io
     handler: python
     options:
         docstring_style: numpy
