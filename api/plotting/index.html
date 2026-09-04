@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://AFMSlicer.readthedocs.org/api/slicer/">
+        <link rel="canonical" href="https://AFMSlicer.readthedocs.org/api/plotting/">
       
       
-        <link rel="prev" href="../run_modules/">
+        <link rel="prev" href="../logging/">
       
       
-        <link rel="next" href="../statistics/">
+        <link rel="next" href="../processing/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>slicer - AFMSlicer</title>
+        <title>plotting - AFMSlicer</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slicer" class="md-skip">
+        <a href="#plotting" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              slicer
+              plotting
             
           </span>
         </div>
@@ -872,10 +872,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../plotting/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -891,6 +900,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -956,19 +966,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../slicer/" class="md-nav__link">
         
   
   
@@ -984,7 +985,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1091,17 +1091,17 @@
   
 
 
-<h1 id="slicer">Slicer</h1>
+<h1 id="plotting">Plotting</h1>
 
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="afmslicer.slicer"></a>
+<a id="afmslicer.plotting"></a>
     <div class="doc doc-contents first">
 
-        <p>Module for slicing  two-dimensional arrays to three-dimensional arrays of stacked masks.</p>
+        <p>Plot processed images.</p>
 
 
 
@@ -1124,74 +1124,42 @@
       </thead>
       <tbody>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="calculate_region_properties (afmslicer.slicer.calculate_region_properties)" href="#afmslicer.slicer.calculate_region_properties">calculate_region_properties</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="generate_gif (afmslicer.plotting.generate_gif)" href="#afmslicer.plotting.generate_gif">generate_gif</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Calculate the region properties on a segmented array.</p>
+                  <p>Generate a GIF of all slices through the image.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_slices (afmslicer.slicer.mask_slices)" href="#afmslicer.slicer.mask_slices">mask_slices</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="plot_all_layers (afmslicer.plotting.plot_all_layers)" href="#afmslicer.plotting.plot_all_layers">plot_all_layers</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Convert a three-dimensional sliced array into masks based.</p>
+                  <p>Plot a three-dimensional numpy array.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_small_artefacts (afmslicer.slicer.mask_small_artefacts)" href="#afmslicer.slicer.mask_small_artefacts">mask_small_artefacts</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="plot_area_by_layer (afmslicer.plotting.plot_area_by_layer)" href="#afmslicer.plotting.plot_area_by_layer">plot_area_by_layer</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Mask labelled features that are less than a specified size from two-dimensional array.</p>
+                  <p>Plot the layer v total area of pores within it.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_small_artefacts_all_layers (afmslicer.slicer.mask_small_artefacts_all_layers)" href="#afmslicer.slicer.mask_small_artefacts_all_layers">mask_small_artefacts_all_layers</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="plot_layer (afmslicer.plotting.plot_layer)" href="#afmslicer.plotting.plot_layer">plot_layer</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Mask labelled features that are less than a specified size from three-dimensional array.</p>
+                  <p>Plot a two-dimensional numpy array.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="region_properties_by_slices (afmslicer.slicer.region_properties_by_slices)" href="#afmslicer.slicer.region_properties_by_slices">region_properties_by_slices</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="plot_pores_by_layer (afmslicer.plotting.plot_pores_by_layer)" href="#afmslicer.plotting.plot_pores_by_layer">plot_pores_by_layer</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Calculate region properties for each layer in a three-dimensinoal sliced array.</p>
-                </div>
-              </td>
-            </tr>
-            <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="segment (afmslicer.slicer.segment)" href="#afmslicer.slicer.segment">segment</a></code></td>
-              <td>
-                <div class="doc-md-description">
-                  <p>Segment an array.</p>
-                </div>
-              </td>
-            </tr>
-            <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="segment_slices (afmslicer.slicer.segment_slices)" href="#afmslicer.slicer.segment_slices">segment_slices</a></code></td>
-              <td>
-                <div class="doc-md-description">
-                  <p>Segment individual layers of a three-dimensional numpy array.</p>
-                </div>
-              </td>
-            </tr>
-            <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="show_layers (afmslicer.slicer.show_layers)" href="#afmslicer.slicer.show_layers">show_layers</a></code></td>
-              <td>
-                <div class="doc-md-description">
-                  <p>Helper function for debugging which shows individual layers of a three-dimensional numpy array.</p>
-                </div>
-              </td>
-            </tr>
-            <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="slicer (afmslicer.slicer.slicer)" href="#afmslicer.slicer.slicer">slicer</a></code></td>
-              <td>
-                <div class="doc-md-description">
-                  <p>Convert a two-dimensional array to a three-dimensional stacked array with copies of the original in each layer.</p>
+                  <p>Plot the layer v number of pores within it.</p>
                 </div>
               </td>
             </tr>
@@ -1216,21 +1184,19 @@
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.calculate_region_properties" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">calculate_region_properties</span>
+<h1 id="afmslicer.plotting.generate_gif" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">generate_gif</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">calculate_region_properties</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.calculate_region_properties(array))" href="#afmslicer.slicer.calculate_region_properties(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="spacing (afmslicer.slicer.calculate_region_properties(spacing))" href="#afmslicer.slicer.calculate_region_properties(spacing)">spacing</a></span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">generate_gif</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="sliced_segments (afmslicer.plotting.generate_gif(sliced_segments))" href="#afmslicer.plotting.generate_gif(sliced_segments)">sliced_segments</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="outdir (afmslicer.plotting.generate_gif(outdir))" href="#afmslicer.plotting.generate_gif(outdir)">outdir</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="img_name (afmslicer.plotting.generate_gif(img_name))" href="#afmslicer.plotting.generate_gif(img_name)">img_name</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="duration (afmslicer.plotting.generate_gif(duration))" href="#afmslicer.plotting.generate_gif(duration)">duration</a></span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="loop (afmslicer.plotting.generate_gif(loop))" href="#afmslicer.plotting.generate_gif(loop)">loop</a></span><span class="o">=</span><span class="mi">0</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Calculate the region properties on a segmented array.</p>
-<p>The arrays can be either individual slices from a three-dimensional image or the full three-dimensional array
-itself. If the later then the resulting attribute <code>area</code> will be a "volume". By including the <code>spacing</code>
-argument, which should be the <code>pixel_to_nm_scaling</code> attribute of the <code>AFMSlicer</code> object the area/volume is
-in the actual units measured rather than pixels.</p>
+        <p>Generate a GIF of all slices through the image.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1246,14 +1212,14 @@ in the actual units measured rather than pixels.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.calculate_region_properties(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.plotting.generate_gif(sliced_segments)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_segments</code>
 </h2>            </td>
             <td>
                   <code><span title="numpy.typing.NDArray">NDArray</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Array of labelled regions.</p>
+                <p>A three-dimensional array of slices through the image.</p>
               </div>
             </td>
             <td>
@@ -1262,97 +1228,30 @@ in the actual units measured rather than pixels.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.calculate_region_properties(spacing)" class="doc doc-heading doc-heading-parameter">                  <code>spacing</code>
+<h2 id="afmslicer.plotting.generate_gif(outdir)" class="doc doc-heading doc-heading-parameter">                  <code>outdir</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+                  <code><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Pixel to nm scaling.</p>
+                <p>Where to save the image to.</p>
               </div>
             </td>
             <td>
                 <em>required</em>
             </td>
           </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="RegionProperties">RegionProperties</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A list of <code>RegionProperties</code>.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.mask_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_slices</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_slices</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="stacked_array (afmslicer.slicer.mask_slices(stacked_array))" href="#afmslicer.slicer.mask_slices(stacked_array)">stacked_array</a></span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="slices (afmslicer.slicer.mask_slices(slices))" href="#afmslicer.slicer.mask_slices(slices)">slices</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="layers (afmslicer.slicer.mask_slices(layers))" href="#afmslicer.slicer.mask_slices(layers)">layers</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="min_height (afmslicer.slicer.mask_slices(min_height))" href="#afmslicer.slicer.mask_slices(min_height)">min_height</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="max_height (afmslicer.slicer.mask_slices(max_height))" href="#afmslicer.slicer.mask_slices(max_height)">max_height</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Convert a three-dimensional sliced array into masks based.</p>
-<p>A three-dimensional array is converted to masked layers where each layer indicates whether a position in the
-two-dimensional cross-section is above the threshold for that layer. Thresholds are determined from the data itself
-if not explicitly provided.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_slices(stacked_array)" class="doc doc-heading doc-heading-parameter">                  <code>stacked_array</code>
+<h2 id="afmslicer.plotting.generate_gif(img_name)" class="doc doc-heading doc-heading-parameter">                  <code>img_name</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional numpy array of image heights, each layer should be a copy of the original.</p>
+                <p>The original image filename, will have <code>.gif</code> extension added.</p>
               </div>
             </td>
             <td>
@@ -1361,138 +1260,88 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_slices(slices)" class="doc doc-heading doc-heading-parameter">                  <code>slices</code>
+<h2 id="afmslicer.plotting.generate_gif(duration)" class="doc doc-heading doc-heading-parameter">                  <code>duration</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of slices to mask. Determined directly from data if not provided (i.e. depth of three-dimensional array).</p>
+                <p>Duration between frames in the GIF, default is <code>100</code>.</p>
               </div>
             </td>
             <td>
-                  <code>None</code>
+                  <code>100</code>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_slices(layers)" class="doc doc-heading doc-heading-parameter">                  <code>layers</code>
+<h2 id="afmslicer.plotting.generate_gif(loop)" class="doc doc-heading doc-heading-parameter">                  <code>loop</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to loop the image, default is <code>0</code> which doesn't loop.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.plotting.plot_all_layers" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">plot_all_layers</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">plot_all_layers</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.plotting.plot_all_layers(array))" href="#afmslicer.plotting.plot_all_layers(array)">array</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="img_name (afmslicer.plotting.plot_all_layers(img_name))" href="#afmslicer.plotting.plot_all_layers(img_name)">img_name</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="outdir (afmslicer.plotting.plot_all_layers(outdir))" href="#afmslicer.plotting.plot_all_layers(outdir)">outdir</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="format (afmslicer.plotting.plot_all_layers(format))" href="#afmslicer.plotting.plot_all_layers(format)">format</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="cmap (afmslicer.plotting.plot_all_layers(cmap))" href="#afmslicer.plotting.plot_all_layers(cmap)">cmap</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Plot a three-dimensional numpy array.</p>
+<p>This function calls <code>plot_layer()</code> for each "slice" of a three-dimensional array.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_all_layers(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
 </h2>            </td>
             <td>
                   <code><span title="numpy.typing.NDArray">NDArray</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Array of height thresholds for each slice. Determined directly from data if not provided.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_slices(min_height)" class="doc doc-heading doc-heading-parameter">                  <code>min_height</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.float64">float64</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum height. Determined directly from data if not provided.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_slices(max_height)" class="doc doc-heading doc-heading-parameter">                  <code>max_height</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.float64">float64</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Maximum height. Determined directly from data if not provided.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Three-dimensional array of masks.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.mask_small_artefacts" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_small_artefacts</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_small_artefacts</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="labelled_array (afmslicer.slicer.mask_small_artefacts(labelled_array))" href="#afmslicer.slicer.mask_small_artefacts(labelled_array)">labelled_array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="properties (afmslicer.slicer.mask_small_artefacts(properties))" href="#afmslicer.slicer.mask_small_artefacts(properties)">properties</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="minimum_size (afmslicer.slicer.mask_small_artefacts(minimum_size))" href="#afmslicer.slicer.mask_small_artefacts(minimum_size)">minimum_size</a></span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Mask labelled features that are less than a specified size from two-dimensional array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(labelled_array)" class="doc doc-heading doc-heading-parameter">                  <code>labelled_array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A three-dimensional array with labelled regions.</p>
+                <p>Two-dimensional numpy array to be plotted, may be labelled or unlabelled data.</p>
               </div>
             </td>
             <td>
@@ -1501,354 +1350,67 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(properties)" class="doc doc-heading doc-heading-parameter">                  <code>properties</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The properties of labelled objects for each layer.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(minimum_size)" class="doc doc-heading doc-heading-parameter">                  <code>minimum_size</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum size below which labelled regions are removed.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Masked array with labelled regions smaller than <code>minimum_size</code> masked.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.mask_small_artefacts_all_layers" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_small_artefacts_all_layers</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_small_artefacts_all_layers</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="labelled_array (afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array)">labelled_array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="properties (afmslicer.slicer.mask_small_artefacts_all_layers(properties))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(properties)">properties</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="minimum_size (afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size)">minimum_size</a></span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Mask labelled features that are less than a specified size from three-dimensional array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array)" class="doc doc-heading doc-heading-parameter">                  <code>labelled_array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A three-dimensional array with labelled regions.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(properties)" class="doc doc-heading doc-heading-parameter">                  <code>properties</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The properties of labelled objects for each layer.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size)" class="doc doc-heading doc-heading-parameter">                  <code>minimum_size</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum size below which labelled regions are removed.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Masked array with labelled regions smaller than <code>minimum_size</code> masked.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.region_properties_by_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">region_properties_by_slices</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">region_properties_by_slices</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.region_properties_by_slices(array))" href="#afmslicer.slicer.region_properties_by_slices(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="spacing (afmslicer.slicer.region_properties_by_slices(spacing))" href="#afmslicer.slicer.region_properties_by_slices(spacing)">spacing</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Calculate region properties for each layer in a three-dimensinoal sliced array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.region_properties_by_slices(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Three-dimensional sliced and labelled array.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.region_properties_by_slices(spacing)" class="doc doc-heading doc-heading-parameter">                  <code>spacing</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Pixel to nanometer scaling.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Dictionary of <code>regionprops</code> calculated using skimage.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.segment" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">segment</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">segment</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.segment(array))" href="#afmslicer.slicer.segment(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="method (afmslicer.slicer.segment(method))" href="#afmslicer.slicer.segment(method)">method</a></span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="tidy_border (afmslicer.slicer.segment(tidy_border))" href="#afmslicer.slicer.segment(tidy_border)">tidy_border</a></span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n"><a class="autorefs autorefs-internal" title="**kwargs (afmslicer.slicer.segment(**kwargs))" href="#afmslicer.slicer.segment(**kwargs)">kwargs</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Segment an array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Two-dimensional numpy array to segment.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(method)" class="doc doc-heading doc-heading-parameter">                  <code>method</code>
+<h2 id="afmslicer.plotting.plot_all_layers(img_name)" class="doc doc-heading doc-heading-parameter">                  <code>img_name</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Segmentation method, supports the <code>label</code> (default) and <code>watershed</code> methods implemented by Scikit Image.</p>
+                <p>The image name from which the data is derived.</p>
               </div>
             </td>
             <td>
-                  <code>&#39;label&#39;</code>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment(tidy_border)" class="doc doc-heading doc-heading-parameter">                  <code>tidy_border</code>
+<h2 id="afmslicer.plotting.plot_all_layers(outdir)" class="doc doc-heading doc-heading-parameter">                  <code>outdir</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Whether to remove objects that straddle the border of the image.</p>
+                <p>Target output directory, will be created if it does not exist.</p>
               </div>
             </td>
             <td>
-                  <code>True</code>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment(**kwargs)" class="doc doc-heading doc-heading-parameter">                  <code>**kwargs</code>
+<h2 id="afmslicer.plotting.plot_all_layers(format)" class="doc doc-heading doc-heading-parameter">                  <code>format</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Additional arguments to pass for segmentation.</p>
+                <p>Image format for creating image. Default is <code>png</code>.</p>
               </div>
             </td>
             <td>
-                  <code>{}</code>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_all_layers(cmap)" class="doc doc-heading doc-heading-parameter">                  <code>cmap</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <span title="mpt.ColorType">ColorType</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colormap to plot as, defaults to <code>black</code> for binary images, <code>viridis</code> for heights. Labelled images are
+plotted as is.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>
@@ -1866,11 +1428,11 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<span title="matplotlib.pyplot.Figure">Figure</span>, <span title="matplotlib.pyplot.Axes">Axes</span>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Labelled array of objects.</p>
+                <p>Dictionary of Matplotlib <code>Figure</code> and <code>Axes</code> indexed by layer.</p>
               </div>
             </td>
           </tr>
@@ -1885,17 +1447,26 @@ if not explicitly provided.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.segment_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">segment_slices</span>
+<h1 id="afmslicer.plotting.plot_area_by_layer" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">plot_area_by_layer</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">segment_slices</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.segment_slices(array))" href="#afmslicer.slicer.segment_slices(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="method (afmslicer.slicer.segment_slices(method))" href="#afmslicer.slicer.segment_slices(method)">method</a></span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="tidy_border (afmslicer.slicer.segment_slices(tidy_border))" href="#afmslicer.slicer.segment_slices(tidy_border)">tidy_border</a></span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">plot_area_by_layer</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="area_per_layer (afmslicer.plotting.plot_area_by_layer(area_per_layer))" href="#afmslicer.plotting.plot_area_by_layer(area_per_layer)">area_per_layer</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="img_name (afmslicer.plotting.plot_area_by_layer(img_name))" href="#afmslicer.plotting.plot_area_by_layer(img_name)">img_name</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="min_size (afmslicer.plotting.plot_area_by_layer(min_size))" href="#afmslicer.plotting.plot_area_by_layer(min_size)">min_size</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="outdir (afmslicer.plotting.plot_area_by_layer(outdir))" href="#afmslicer.plotting.plot_area_by_layer(outdir)">outdir</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="format (afmslicer.plotting.plot_area_by_layer(format))" href="#afmslicer.plotting.plot_area_by_layer(format)">format</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n"><a class="autorefs autorefs-internal" title="fwhm (afmslicer.plotting.plot_area_by_layer(fwhm))" href="#afmslicer.plotting.plot_area_by_layer(fwhm)">fwhm</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n"><a class="autorefs autorefs-internal" title="log (afmslicer.plotting.plot_area_by_layer(log))" href="#afmslicer.plotting.plot_area_by_layer(log)">log</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n"><a class="autorefs autorefs-internal" title="grid (afmslicer.plotting.plot_area_by_layer(grid))" href="#afmslicer.plotting.plot_area_by_layer(grid)">grid</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Segment individual layers of a three-dimensional numpy array.</p>
+        <p>Plot the layer v total area of pores within it.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1911,14 +1482,14 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment_slices(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.plotting.plot_area_by_layer(area_per_layer)" class="doc doc-heading doc-heading-parameter">                  <code>area_per_layer</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.bool">bool</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional boolean array to be segmented.</p>
+                <p>A list of the total area of pores within each layer.</p>
               </div>
             </td>
             <td>
@@ -1927,30 +1498,110 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment_slices(method)" class="doc doc-heading doc-heading-parameter">                  <code>method</code>
+<h2 id="afmslicer.plotting.plot_area_by_layer(img_name)" class="doc doc-heading doc-heading-parameter">                  <code>img_name</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Sgementation method to use. Currne options are <code>label</code> (default) and <code>watershed</code>.</p>
+                <p>Image name.</p>
               </div>
             </td>
             <td>
-                  <code>&#39;label&#39;</code>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment_slices(tidy_border)" class="doc doc-heading doc-heading-parameter">                  <code>tidy_border</code>
+<h2 id="afmslicer.plotting.plot_area_by_layer(min_size)" class="doc doc-heading doc-heading-parameter">                  <code>min_size</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum size of objects to include when summing the area by layer.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_area_by_layer(outdir)" class="doc doc-heading doc-heading-parameter">                  <code>outdir</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output directory, if no <code>None</code> the image is saved there as <code>&lt;img_name&gt;_pores_per_layer_[log].&lt;format&gt;</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_area_by_layer(format)" class="doc doc-heading doc-heading-parameter">                  <code>format</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output file format as a string, defaults to <code>png</code> if not specified.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_area_by_layer(fwhm)" class="doc doc-heading doc-heading-parameter">                  <code>fwhm</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Full width half max limits for subsetting the data.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_area_by_layer(log)" class="doc doc-heading doc-heading-parameter">                  <code>log</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Whether to tidy the border.</p>
+                <p>Whether to plot with the logarithm (base10) of the number of pores.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_area_by_layer(grid)" class="doc doc-heading doc-heading-parameter">                  <code>grid</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to include a grid on the plot.</p>
               </div>
             </td>
             <td>
@@ -1972,11 +1623,11 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.bool">bool</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<span title="matplotlib.pyplot.Figure">Figure</span>, <span title="matplotlib.pyplot.Axes">Axes</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional array of labelled layers.</p>
+                <p>Returns a tuple of Matplotlib <code>fig</code> and <code>ax</code>.</p>
               </div>
             </td>
           </tr>
@@ -1991,17 +1642,24 @@ if not explicitly provided.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.show_layers" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">show_layers</span>
+<h1 id="afmslicer.plotting.plot_layer" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">plot_layer</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">show_layers</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.show_layers(array))" href="#afmslicer.slicer.show_layers(array)">array</a></span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">plot_layer</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.plotting.plot_layer(array))" href="#afmslicer.plotting.plot_layer(array)">array</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="img_name (afmslicer.plotting.plot_layer(img_name))" href="#afmslicer.plotting.plot_layer(img_name)">img_name</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="layer (afmslicer.plotting.plot_layer(layer))" href="#afmslicer.plotting.plot_layer(layer)">layer</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="outdir (afmslicer.plotting.plot_layer(outdir))" href="#afmslicer.plotting.plot_layer(outdir)">outdir</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="format (afmslicer.plotting.plot_layer(format))" href="#afmslicer.plotting.plot_layer(format)">format</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n"><a class="autorefs autorefs-internal" title="cmap (afmslicer.plotting.plot_layer(cmap))" href="#afmslicer.plotting.plot_layer(cmap)">cmap</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Helper function for debugging which shows individual layers of a three-dimensional numpy array.</p>
+        <p>Plot a two-dimensional numpy array.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2017,85 +1675,99 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.show_layers(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.plotting.plot_layer(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
 </h2>            </td>
             <td>
                   <code><span title="numpy.typing.NDArray">NDArray</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional numpy array.</p>
+                <p>Two-dimensional numpy array to be plotted, may be labelled or unlabelled data.</p>
               </div>
             </td>
             <td>
                 <em>required</em>
             </td>
           </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.slicer" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">slicer</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">slicer</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="heights (afmslicer.slicer.slicer(heights))" href="#afmslicer.slicer.slicer(heights)">heights</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="slices (afmslicer.slicer.slicer(slices))" href="#afmslicer.slicer.slicer(slices)">slices</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Convert a two-dimensional array to a three-dimensional stacked array with copies of the original in each layer.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.slicer(heights)" class="doc doc-heading doc-heading-parameter">                  <code>heights</code>
+<h2 id="afmslicer.plotting.plot_layer(img_name)" class="doc doc-heading doc-heading-parameter">                  <code>img_name</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.float64">float64</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Two-dimensional numpy array of heights.</p>
+                <p>The image name from which the data is derived.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.slicer(slices)" class="doc doc-heading doc-heading-parameter">                  <code>slices</code>
+<h2 id="afmslicer.plotting.plot_layer(layer)" class="doc doc-heading doc-heading-parameter">                  <code>layer</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of slices to make.</p>
+                <p>The layer that is being plotted.</p>
               </div>
             </td>
             <td>
-                <em>required</em>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_layer(outdir)" class="doc doc-heading doc-heading-parameter">                  <code>outdir</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Target output directory, will be created if it does not exist.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_layer(format)" class="doc doc-heading doc-heading-parameter">                  <code>format</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Image format for creating image. Default is <code>png</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_layer(cmap)" class="doc doc-heading doc-heading-parameter">                  <code>cmap</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colormap to plot as, defaults to <code>black</code> for binary images, <code>viridis</code> for heights. Labelled images are
+plotted as is.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>
@@ -2113,11 +1785,11 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.float64">float64</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<span title="matplotlib.pyplot.Figure">Figure</span>, <span title="matplotlib.pyplot.Axes">Axes</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Expanded numpy array with the original two-dimensional array copied <code>slices</code> in the third dimension.</p>
+                <p>Matplotlib <code>Figure</code> and <code>Axes</code>.</p>
               </div>
             </td>
           </tr>
@@ -2125,20 +1797,165 @@ if not explicitly provided.</p>
     </table>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">slicer</span><span class="p">(</span><span class="n">heights</span><span class="o">=</span><span class="n">simple</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">array([[[1, 1],</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">    [2, 2],</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">    [3, 3]],</span>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.plotting.plot_pores_by_layer" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">plot_pores_by_layer</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">plot_pores_by_layer</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="pores_per_layer (afmslicer.plotting.plot_pores_by_layer(pores_per_layer))" href="#afmslicer.plotting.plot_pores_by_layer(pores_per_layer)">pores_per_layer</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="img_name (afmslicer.plotting.plot_pores_by_layer(img_name))" href="#afmslicer.plotting.plot_pores_by_layer(img_name)">img_name</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="outdir (afmslicer.plotting.plot_pores_by_layer(outdir))" href="#afmslicer.plotting.plot_pores_by_layer(outdir)">outdir</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="format (afmslicer.plotting.plot_pores_by_layer(format))" href="#afmslicer.plotting.plot_pores_by_layer(format)">format</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="log (afmslicer.plotting.plot_pores_by_layer(log))" href="#afmslicer.plotting.plot_pores_by_layer(log)">log</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n"><a class="autorefs autorefs-internal" title="grid (afmslicer.plotting.plot_pores_by_layer(grid))" href="#afmslicer.plotting.plot_pores_by_layer(grid)">grid</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
 </span></code></pre></div>
-    <p>[[4, 4],
-    [5, 5],
-    [6, 6]],</p>
-<p>[[7, 7],
-    [8, 8],
-    [9, 9]]])</p>
+
+    <div class="doc doc-contents ">
+
+        <p>Plot the layer v number of pores within it.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(pores_per_layer)" class="doc doc-heading doc-heading-parameter">                  <code>pores_per_layer</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of the number of pores in each layer.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(img_name)" class="doc doc-heading doc-heading-parameter">                  <code>img_name</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Image name.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(outdir)" class="doc doc-heading doc-heading-parameter">                  <code>outdir</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output directory, if no <code>None</code> the image is saved there as <code>&lt;img_name&gt;_pores_per_layer_[log].&lt;format&gt;</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(format)" class="doc doc-heading doc-heading-parameter">                  <code>format</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output file format as a string, defaults to <code>png</code> if not specified.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(log)" class="doc doc-heading doc-heading-parameter">                  <code>log</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to plot with the logarithm (base10) of the number of pores.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.plotting.plot_pores_by_layer(grid)" class="doc doc-heading doc-heading-parameter">                  <code>grid</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to include a grid on the plot.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<span title="matplotlib.pyplot.Figure">Figure</span>, <span title="matplotlib.pyplot.Axes">Axes</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Returns a tuple of Matplotlib <code>fig</code> and <code>ax</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>

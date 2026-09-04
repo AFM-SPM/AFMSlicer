@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -899,6 +899,202 @@
   
   
     <li class="md-nav__item">
+      <a href="../../api/entry_point/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    entry_point
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/filter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    filter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    io
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    plotting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    processing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/run_modules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    run_modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api/slicer/" class="md-nav__link">
         
   
@@ -907,6 +1103,34 @@
     
   
     slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/statistics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    statistics
   
 
     
@@ -1114,17 +1338,19 @@ the <a href="../../installation/">installation</a> instructions.</p>
 <p>You can automatically load the Napari AFMSlicer widgets using...</p>
 <div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>napari<span class="w"> </span>-w<span class="w"> </span>napari-afmslicer<span class="w"> </span>__all__
 </span></code></pre></div>
-<p>This will bring up the widgets on the right-hand side. At the bottom are three tabs allowing you to move between the
-<em>Filtering</em>, <em>Slicing</em> and <em>3D Viewer</em>.</p>
+<p>This will bring up the widgets on the right-hand side. At the bottom are three tabs allowing you to switch between the
+<em>Filtering</em>, <em>Slicing</em> and <em>3D Viewer</em> components.</p>
+<p><img alt="Screenshot of napari with the filter, slicing and 3D viewer plugins loaded as tabs." src="napari_main.png" /></p>
 <p>Alternatively the widgets can be launched from the menu under <em>Plugins &gt; AFMSlicer &gt;</em> from which you can enable each
-component of the plugin. Currently there are three components, each of which can be enabled independently.</p>
+components of the plugin. Currently there are three components, each of which can be enabled independently.</p>
 <ul>
 <li>3D Viewer</li>
 <li>Filter</li>
 <li>Slicing</li>
 </ul>
-<p>Load each of the widgets by navigating to <em>Plugins &gt; AFMSlicer</em> and selecting each of <em>AFMSlicer Filter</em>, <em>AFMSlicer 3D
-Viewer</em> and <em>AFMSlicer Slicing</em> which will add the widgets to the right-hand side of Napari. A typical workflow will
+<p>The difference is that the options for each of the components are stacked on the right rather than being tabbed.</p>
+<p><img alt="Screenshot of napari with the filter, slicing and 3D viewer plugins loaded individually." src="napari_main.png" /></p>
+<p>A typical workflow will
 involve...</p>
 <ol>
 <li>Filtering an image and removing scars</li>
@@ -1136,13 +1362,18 @@ involve...</p>
 completely. Once you have adjusted the parameters to your preference click on the <em>Filter</em> button and the image will be
 filtered and a new layer will appear listed on the left and automatically selected showing the effects of filtering. It
 will have the original images name suffixed with <code>_filtered</code></p>
+<p><img alt="Screenshot of napari after filtering an image." src="napari_filtered.png" /></p>
 <h3 id="slicing">Slicing</h3>
-<p>Under the <em>Slicing</em> widget select the filtered image from the pull-down list to the right of <em>Image</em>", select the number
-of <em>Slices</em> to create, the <em>Segmentation method</em> and other options, in particular the <em>Output directory</em> should be
-explicitly set. When ready click the <em>Slice Image and Summarise</em>, the image will be sliced and summarised with the
-output saved to the parameter in the <em>Output directory</em> field.</p>
+<p>Under the <em>Slicing</em> widget select the filtered image from the pull-down list to the right of <em>Image</em> (typically it will
+be the layer with the <code>_filtered</code> suffix). Next select the number of <em>Slices</em> to create, the <em>Segmentation method</em>
+(<code>label</code> is the most common) and other options, in particular the <em>Output directory</em> should be explicitly set. When
+ready click the <em>Slice Image and Summarise</em>, the image will be sliced and summarised with the output saved to the
+parameter in the <em>Output directory</em> field.</p>
+<p><img alt="Screenshot of napari after slicing an image." src="napari_slicing_complete.png" /></p>
 <h3 id="3d-viewer">3D Viewer</h3>
-<p>The 3D viewer can be used to view the images in three dimensions.</p>
+<p>The 3D viewer can be used to view the images in three dimensions. Select the <code>_filtered</code> layer for the <em>Image</em> to be
+viewed and a number of slices to create this image with (it can be different to those the slicing was performed with).</p>
+<p><img alt="Screenshot of napari showing a 3D view of an image." src="napari_3d.png" /></p>
 
 
 
@@ -1195,7 +1426,7 @@ output saved to the parameter in the <em>Output directory</em> field.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

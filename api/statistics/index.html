@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://AFMSlicer.readthedocs.org/api/slicer/">
+        <link rel="canonical" href="https://AFMSlicer.readthedocs.org/api/statistics/">
       
       
-        <link rel="prev" href="../run_modules/">
+        <link rel="prev" href="../slicer/">
       
       
-        <link rel="next" href="../statistics/">
+        <link rel="next" href="../validation/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>slicer - AFMSlicer</title>
+        <title>statistics - AFMSlicer</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slicer" class="md-skip">
+        <a href="#statistics" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              slicer
+              statistics
             
           </span>
         </div>
@@ -956,6 +956,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../slicer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    slicer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -975,35 +1003,6 @@
   <span class="md-ellipsis">
     
   
-    slicer
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../statistics/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
     statistics
   
 
@@ -1013,6 +1012,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1091,17 +1091,17 @@
   
 
 
-<h1 id="slicer">Slicer</h1>
+<h1 id="statistics">Statistics</h1>
 
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="afmslicer.slicer"></a>
+<a id="afmslicer.statistics"></a>
     <div class="doc doc-contents first">
 
-        <p>Module for slicing  two-dimensional arrays to three-dimensional arrays of stacked masks.</p>
+        <p>Calculate statistics on grain volumes and aggregate and summarise the data.</p>
 
 
 
@@ -1124,74 +1124,82 @@
       </thead>
       <tbody>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="calculate_region_properties (afmslicer.slicer.calculate_region_properties)" href="#afmslicer.slicer.calculate_region_properties">calculate_region_properties</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="area_pores (afmslicer.statistics.area_pores)" href="#afmslicer.statistics.area_pores">area_pores</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Calculate the region properties on a segmented array.</p>
+                  <p>Extract area of objects in each layer.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_slices (afmslicer.slicer.mask_slices)" href="#afmslicer.slicer.mask_slices">mask_slices</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="calculate_pdf (afmslicer.statistics.calculate_pdf)" href="#afmslicer.statistics.calculate_pdf">calculate_pdf</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Convert a three-dimensional sliced array into masks based.</p>
+                  <p>Calculate the scaled probability density function for an array.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_small_artefacts (afmslicer.slicer.mask_small_artefacts)" href="#afmslicer.slicer.mask_small_artefacts">mask_small_artefacts</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="centroid_pores (afmslicer.statistics.centroid_pores)" href="#afmslicer.statistics.centroid_pores">centroid_pores</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Mask labelled features that are less than a specified size from two-dimensional array.</p>
+                  <p>Extract centroid of objects in each layer.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="mask_small_artefacts_all_layers (afmslicer.slicer.mask_small_artefacts_all_layers)" href="#afmslicer.slicer.mask_small_artefacts_all_layers">mask_small_artefacts_all_layers</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="classify_pore_size (afmslicer.statistics.classify_pore_size)" href="#afmslicer.statistics.classify_pore_size">classify_pore_size</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Mask labelled features that are less than a specified size from three-dimensional array.</p>
+                  <p>Classify pore sizes in a dataframe into colors.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="region_properties_by_slices (afmslicer.slicer.region_properties_by_slices)" href="#afmslicer.slicer.region_properties_by_slices">region_properties_by_slices</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="count_pores (afmslicer.statistics.count_pores)" href="#afmslicer.statistics.count_pores">count_pores</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Calculate region properties for each layer in a three-dimensinoal sliced array.</p>
+                  <p>Count the number of <code>region_properties</code>, each of which represents a pore for all layers.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="segment (afmslicer.slicer.segment)" href="#afmslicer.slicer.segment">segment</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="create_statistics_dictionary (afmslicer.statistics.create_statistics_dictionary)" href="#afmslicer.statistics.create_statistics_dictionary">create_statistics_dictionary</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Segment an array.</p>
+                  <p>Extract statistics of objects from each layer.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="segment_slices (afmslicer.slicer.segment_slices)" href="#afmslicer.slicer.segment_slices">segment_slices</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="feret_diameter_maximum_pores (afmslicer.statistics.feret_diameter_maximum_pores)" href="#afmslicer.statistics.feret_diameter_maximum_pores">feret_diameter_maximum_pores</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Segment individual layers of a three-dimensional numpy array.</p>
+                  <p>Extract the maximum feret diameter of objects in each layer.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="show_layers (afmslicer.slicer.show_layers)" href="#afmslicer.slicer.show_layers">show_layers</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="full_width_half_max (afmslicer.statistics.full_width_half_max)" href="#afmslicer.statistics.full_width_half_max">full_width_half_max</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Helper function for debugging which shows individual layers of a three-dimensional numpy array.</p>
+                  <p>Calculate the full-width half max.</p>
                 </div>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="slicer (afmslicer.slicer.slicer)" href="#afmslicer.slicer.slicer">slicer</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="sum_area_by_layer (afmslicer.statistics.sum_area_by_layer)" href="#afmslicer.statistics.sum_area_by_layer">sum_area_by_layer</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Convert a two-dimensional array to a three-dimensional stacked array with copies of the original in each layer.</p>
+                  <p>Sum the area of pores on each layer.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="summarise_pores (afmslicer.statistics.summarise_pores)" href="#afmslicer.statistics.summarise_pores">summarise_pores</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>Summarise pore types by image, layer and color.</p>
                 </div>
               </td>
             </tr>
@@ -1216,21 +1224,17 @@
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.calculate_region_properties" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">calculate_region_properties</span>
+<h1 id="afmslicer.statistics.area_pores" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">area_pores</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">calculate_region_properties</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.calculate_region_properties(array))" href="#afmslicer.slicer.calculate_region_properties(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="spacing (afmslicer.slicer.calculate_region_properties(spacing))" href="#afmslicer.slicer.calculate_region_properties(spacing)">spacing</a></span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">area_pores</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="sliced_region_properties (afmslicer.statistics.area_pores(sliced_region_properties))" href="#afmslicer.statistics.area_pores(sliced_region_properties)">sliced_region_properties</a></span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Calculate the region properties on a segmented array.</p>
-<p>The arrays can be either individual slices from a three-dimensional image or the full three-dimensional array
-itself. If the later then the resulting attribute <code>area</code> will be a "volume". By including the <code>spacing</code>
-argument, which should be the <code>pixel_to_nm_scaling</code> attribute of the <code>AFMSlicer</code> object the area/volume is
-in the actual units measured rather than pixels.</p>
+        <p>Extract area of objects in each layer.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1246,30 +1250,14 @@ in the actual units measured rather than pixels.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.calculate_region_properties(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.statistics.area_pores(sliced_region_properties)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_region_properties</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Array of labelled regions.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.calculate_region_properties(spacing)" class="doc doc-heading doc-heading-parameter">                  <code>spacing</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Pixel to nm scaling.</p>
+                <p>A list (one for each layer) of lists which contain the <code>region_props</code> for each object within that layer.</p>
               </div>
             </td>
             <td>
@@ -1291,11 +1279,12 @@ in the actual units measured rather than pixels.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="RegionProperties">RegionProperties</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>A list of <code>RegionProperties</code>.</p>
+                <p>A list with the same length as the number of layers, each item is a list of the area of objects within that
+layer.</p>
               </div>
             </td>
           </tr>
@@ -1310,26 +1299,17 @@ in the actual units measured rather than pixels.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.mask_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_slices</span>
+<h1 id="afmslicer.statistics.calculate_pdf" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">calculate_pdf</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_slices</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="stacked_array (afmslicer.slicer.mask_slices(stacked_array))" href="#afmslicer.slicer.mask_slices(stacked_array)">stacked_array</a></span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="slices (afmslicer.slicer.mask_slices(slices))" href="#afmslicer.slicer.mask_slices(slices)">slices</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="layers (afmslicer.slicer.mask_slices(layers))" href="#afmslicer.slicer.mask_slices(layers)">layers</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n"><a class="autorefs autorefs-internal" title="min_height (afmslicer.slicer.mask_slices(min_height))" href="#afmslicer.slicer.mask_slices(min_height)">min_height</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n"><a class="autorefs autorefs-internal" title="max_height (afmslicer.slicer.mask_slices(max_height))" href="#afmslicer.slicer.mask_slices(max_height)">max_height</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">calculate_pdf</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.statistics.calculate_pdf(array))" href="#afmslicer.statistics.calculate_pdf(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="xmin (afmslicer.statistics.calculate_pdf(xmin))" href="#afmslicer.statistics.calculate_pdf(xmin)">xmin</a></span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="xmax (afmslicer.statistics.calculate_pdf(xmax))" href="#afmslicer.statistics.calculate_pdf(xmax)">xmax</a></span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Convert a three-dimensional sliced array into masks based.</p>
-<p>A three-dimensional array is converted to masked layers where each layer indicates whether a position in the
-two-dimensional cross-section is above the threshold for that layer. Thresholds are determined from the data itself
-if not explicitly provided.</p>
+        <p>Calculate the scaled probability density function for an array.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1345,14 +1325,14 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_slices(stacked_array)" class="doc doc-heading doc-heading-parameter">                  <code>stacked_array</code>
+<h2 id="afmslicer.statistics.calculate_pdf(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional numpy array of image heights, each layer should be a copy of the original.</p>
+                <p>Array of data points to be summarised.</p>
               </div>
             </td>
             <td>
@@ -1361,14 +1341,14 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_slices(slices)" class="doc doc-heading doc-heading-parameter">                  <code>slices</code>
+<h2 id="afmslicer.statistics.calculate_pdf(xmin)" class="doc doc-heading doc-heading-parameter">                  <code>xmin</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of slices to mask. Determined directly from data if not provided (i.e. depth of three-dimensional array).</p>
+                <p>Minimum value.</p>
               </div>
             </td>
             <td>
@@ -1377,46 +1357,14 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_slices(layers)" class="doc doc-heading doc-heading-parameter">                  <code>layers</code>
+<h2 id="afmslicer.statistics.calculate_pdf(xmax)" class="doc doc-heading doc-heading-parameter">                  <code>xmax</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Array of height thresholds for each slice. Determined directly from data if not provided.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_slices(min_height)" class="doc doc-heading doc-heading-parameter">                  <code>min_height</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.float64">float64</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum height. Determined directly from data if not provided.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_slices(max_height)" class="doc doc-heading doc-heading-parameter">                  <code>max_height</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.float64">float64</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Maximum height. Determined directly from data if not provided.</p>
+                <p>Maximum value.</p>
               </div>
             </td>
             <td>
@@ -1438,11 +1386,11 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <span title="numpy.typing.NDArray">NDArray</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional array of masks.</p>
+                <p>Dictionary of x and y values for the PDF.</p>
               </div>
             </td>
           </tr>
@@ -1457,19 +1405,94 @@ if not explicitly provided.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.mask_small_artefacts" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_small_artefacts</span>
+<h1 id="afmslicer.statistics.centroid_pores" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">centroid_pores</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_small_artefacts</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="labelled_array (afmslicer.slicer.mask_small_artefacts(labelled_array))" href="#afmslicer.slicer.mask_small_artefacts(labelled_array)">labelled_array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="properties (afmslicer.slicer.mask_small_artefacts(properties))" href="#afmslicer.slicer.mask_small_artefacts(properties)">properties</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="minimum_size (afmslicer.slicer.mask_small_artefacts(minimum_size))" href="#afmslicer.slicer.mask_small_artefacts(minimum_size)">minimum_size</a></span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">centroid_pores</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="sliced_region_properties (afmslicer.statistics.centroid_pores(sliced_region_properties))" href="#afmslicer.statistics.centroid_pores(sliced_region_properties)">sliced_region_properties</a></span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Extract centroid of objects in each layer.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.centroid_pores(sliced_region_properties)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_region_properties</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list (one for each layer) of lists which contain the <code>region_props</code> for each object within that layer.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list with the same length as the number of layers, each item is a list of the centroid of objects within that
+layer.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.statistics.classify_pore_size" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">classify_pore_size</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">classify_pore_size</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="df (afmslicer.statistics.classify_pore_size(df))" href="#afmslicer.statistics.classify_pore_size(df)">df</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="area_thresholds (afmslicer.statistics.classify_pore_size(area_thresholds))" href="#afmslicer.statistics.classify_pore_size(area_thresholds)">area_thresholds</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="pore_colors (afmslicer.statistics.classify_pore_size(pore_colors))" href="#afmslicer.statistics.classify_pore_size(pore_colors)">pore_colors</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="area_val (afmslicer.statistics.classify_pore_size(area_val))" href="#afmslicer.statistics.classify_pore_size(area_val)">area_val</a></span><span class="o">=</span><span class="s2">"area"</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Mask labelled features that are less than a specified size from two-dimensional array.</p>
+        <p>Classify pore sizes in a dataframe into colors.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1485,14 +1508,14 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(labelled_array)" class="doc doc-heading doc-heading-parameter">                  <code>labelled_array</code>
+<h2 id="afmslicer.statistics.classify_pore_size(df)" class="doc doc-heading doc-heading-parameter">                  <code>df</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>A three-dimensional array with labelled regions.</p>
+                <p>Dataframe with areas to be classified.</p>
               </div>
             </td>
             <td>
@@ -1501,14 +1524,15 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(properties)" class="doc doc-heading doc-heading-parameter">                  <code>properties</code>
+<h2 id="afmslicer.statistics.classify_pore_size(area_thresholds)" class="doc doc-heading doc-heading-parameter">                  <code>area_thresholds</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The properties of labelled objects for each layer.</p>
+                <p>Dictionary of thresholds, there should be three values for low, medium and high thresholds resulting in four
+categories.</p>
               </div>
             </td>
             <td>
@@ -1517,90 +1541,14 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts(minimum_size)" class="doc doc-heading doc-heading-parameter">                  <code>minimum_size</code>
+<h2 id="afmslicer.statistics.classify_pore_size(pore_colors)" class="doc doc-heading doc-heading-parameter">                  <code>pore_colors</code>
 </h2>            </td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Minimum size below which labelled regions are removed.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Masked array with labelled regions smaller than <code>minimum_size</code> masked.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.mask_small_artefacts_all_layers" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">mask_small_artefacts_all_layers</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">mask_small_artefacts_all_layers</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="labelled_array (afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array)">labelled_array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="properties (afmslicer.slicer.mask_small_artefacts_all_layers(properties))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(properties)">properties</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="minimum_size (afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size))" href="#afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size)">minimum_size</a></span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Mask labelled features that are less than a specified size from three-dimensional array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(labelled_array)" class="doc doc-heading doc-heading-parameter">                  <code>labelled_array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A three-dimensional array with labelled regions.</p>
+                <p>Colors to use for the four categories.</p>
               </div>
             </td>
             <td>
@@ -1609,246 +1557,18 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(properties)" class="doc doc-heading doc-heading-parameter">                  <code>properties</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The properties of labelled objects for each layer.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.mask_small_artefacts_all_layers(minimum_size)" class="doc doc-heading doc-heading-parameter">                  <code>minimum_size</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum size below which labelled regions are removed.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Masked array with labelled regions smaller than <code>minimum_size</code> masked.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.region_properties_by_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">region_properties_by_slices</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">region_properties_by_slices</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.region_properties_by_slices(array))" href="#afmslicer.slicer.region_properties_by_slices(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="spacing (afmslicer.slicer.region_properties_by_slices(spacing))" href="#afmslicer.slicer.region_properties_by_slices(spacing)">spacing</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Calculate region properties for each layer in a three-dimensinoal sliced array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.region_properties_by_slices(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Three-dimensional sliced and labelled array.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.region_properties_by_slices(spacing)" class="doc doc-heading doc-heading-parameter">                  <code>spacing</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Pixel to nanometer scaling.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Dictionary of <code>regionprops</code> calculated using skimage.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.segment" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">segment</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">segment</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.segment(array))" href="#afmslicer.slicer.segment(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="method (afmslicer.slicer.segment(method))" href="#afmslicer.slicer.segment(method)">method</a></span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="tidy_border (afmslicer.slicer.segment(tidy_border))" href="#afmslicer.slicer.segment(tidy_border)">tidy_border</a></span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n"><a class="autorefs autorefs-internal" title="**kwargs (afmslicer.slicer.segment(**kwargs))" href="#afmslicer.slicer.segment(**kwargs)">kwargs</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Segment an array.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Two-dimensional numpy array to segment.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(method)" class="doc doc-heading doc-heading-parameter">                  <code>method</code>
+<h2 id="afmslicer.statistics.classify_pore_size(area_val)" class="doc doc-heading doc-heading-parameter">                  <code>area_val</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Segmentation method, supports the <code>label</code> (default) and <code>watershed</code> methods implemented by Scikit Image.</p>
+                <p>Column name containing the area data, default is <code>area</code> and is unlikely to need changing.</p>
               </div>
             </td>
             <td>
-                  <code>&#39;label&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(tidy_border)" class="doc doc-heading doc-heading-parameter">                  <code>tidy_border</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Whether to remove objects that straddle the border of the image.</p>
-              </div>
-            </td>
-            <td>
-                  <code>True</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment(**kwargs)" class="doc doc-heading doc-heading-parameter">                  <code>**kwargs</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Additional arguments to pass for segmentation.</p>
-              </div>
-            </td>
-            <td>
-                  <code>{}</code>
+                  <code>&#39;area&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -1866,11 +1586,11 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Labelled array of objects.</p>
+                <p>Dataframe with additional column with text categorisation of pore area.</p>
               </div>
             </td>
           </tr>
@@ -1885,17 +1605,17 @@ if not explicitly provided.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.segment_slices" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">segment_slices</span>
+<h1 id="afmslicer.statistics.count_pores" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">count_pores</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">segment_slices</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.segment_slices(array))" href="#afmslicer.slicer.segment_slices(array)">array</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="method (afmslicer.slicer.segment_slices(method))" href="#afmslicer.slicer.segment_slices(method)">method</a></span><span class="o">=</span><span class="s1">'label'</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="tidy_border (afmslicer.slicer.segment_slices(tidy_border))" href="#afmslicer.slicer.segment_slices(tidy_border)">tidy_border</a></span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">count_pores</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="sliced_region_properties (afmslicer.statistics.count_pores(sliced_region_properties))" href="#afmslicer.statistics.count_pores(sliced_region_properties)">sliced_region_properties</a></span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Segment individual layers of a three-dimensional numpy array.</p>
+        <p>Count the number of <code>region_properties</code>, each of which represents a pore for all layers.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1911,14 +1631,93 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment_slices(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.statistics.count_pores(sliced_region_properties)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_region_properties</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.bool">bool</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional boolean array to be segmented.</p>
+                <p>A list of region properties found on each layer.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.int32">int32</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of the number of region properties detected in each layer.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.statistics.create_statistics_dictionary" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">create_statistics_dictionary</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">create_statistics_dictionary</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><a class="autorefs autorefs-internal" title="sliced_region_properties (afmslicer.statistics.create_statistics_dictionary(sliced_region_properties))" href="#afmslicer.statistics.create_statistics_dictionary(sliced_region_properties)">sliced_region_properties</a></span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n"><a class="autorefs autorefs-internal" title="feret_maximum (afmslicer.statistics.create_statistics_dictionary(feret_maximum))" href="#afmslicer.statistics.create_statistics_dictionary(feret_maximum)">feret_maximum</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n"><a class="autorefs autorefs-internal" title="centroid (afmslicer.statistics.create_statistics_dictionary(centroid))" href="#afmslicer.statistics.create_statistics_dictionary(centroid)">centroid</a></span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Extract statistics of objects from each layer.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.create_statistics_dictionary(sliced_region_properties)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_region_properties</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of lists of region properties, the top level is layer, the nesting within it is each of the objects within
+the layer.</p>
               </div>
             </td>
             <td>
@@ -1927,30 +1726,30 @@ if not explicitly provided.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.segment_slices(method)" class="doc doc-heading doc-heading-parameter">                  <code>method</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Sgementation method to use. Currne options are <code>label</code> (default) and <code>watershed</code>.</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;label&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.segment_slices(tidy_border)" class="doc doc-heading doc-heading-parameter">                  <code>tidy_border</code>
+<h2 id="afmslicer.statistics.create_statistics_dictionary(feret_maximum)" class="doc doc-heading doc-heading-parameter">                  <code>feret_maximum</code>
 </h2>            </td>
             <td>
                   <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Whether to tidy the border.</p>
+                <p>Whether to extract the maximum feret distance.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.create_statistics_dictionary(centroid)" class="doc doc-heading doc-heading-parameter">                  <code>centroid</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to extract the centroid coordinates of the region.</p>
               </div>
             </td>
             <td>
@@ -1972,11 +1771,12 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.bool">bool</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional array of labelled layers.</p>
+                <p>Dictionary of statistics, top-level is the layer/slice through the image, and nested within are statistics for
+each pore.</p>
               </div>
             </td>
           </tr>
@@ -1991,17 +1791,17 @@ if not explicitly provided.</p>
 <div class="doc doc-object doc-function">
 
 
-<h1 id="afmslicer.slicer.show_layers" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">show_layers</span>
+<h1 id="afmslicer.statistics.feret_diameter_maximum_pores" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">feret_diameter_maximum_pores</span>
 
 
 </h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">show_layers</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="array (afmslicer.slicer.show_layers(array))" href="#afmslicer.slicer.show_layers(array)">array</a></span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">feret_diameter_maximum_pores</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="sliced_region_properties (afmslicer.statistics.feret_diameter_maximum_pores(sliced_region_properties))" href="#afmslicer.statistics.feret_diameter_maximum_pores(sliced_region_properties)">sliced_region_properties</a></span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Helper function for debugging which shows individual layers of a three-dimensional numpy array.</p>
+        <p>Extract the maximum feret diameter of objects in each layer.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2017,81 +1817,14 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-<h2 id="afmslicer.slicer.show_layers(array)" class="doc doc-heading doc-heading-parameter">                  <code>array</code>
+<h2 id="afmslicer.statistics.feret_diameter_maximum_pores(sliced_region_properties)" class="doc doc-heading doc-heading-parameter">                  <code>sliced_region_properties</code>
 </h2>            </td>
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Three-dimensional numpy array.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h1 id="afmslicer.slicer.slicer" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">slicer</span>
-
-
-</h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">slicer</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="heights (afmslicer.slicer.slicer(heights))" href="#afmslicer.slicer.slicer(heights)">heights</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="slices (afmslicer.slicer.slicer(slices))" href="#afmslicer.slicer.slicer(slices)">slices</a></span><span class="p">)</span>
-</span></code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Convert a two-dimensional array to a three-dimensional stacked array with copies of the original in each layer.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.slicer(heights)" class="doc doc-heading doc-heading-parameter">                  <code>heights</code>
-</h2>            </td>
-            <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.float64">float64</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Two-dimensional numpy array of heights.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-<h2 id="afmslicer.slicer.slicer(slices)" class="doc doc-heading doc-heading-parameter">                  <code>slices</code>
-</h2>            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Number of slices to make.</p>
+                <p>A list (one for each layer) of lists which contain the <code>region_props</code> for each object within that layer.</p>
               </div>
             </td>
             <td>
@@ -2113,11 +1846,12 @@ if not explicitly provided.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="numpy.typing.NDArray">NDArray</span>[<span title="numpy.float64">float64</span>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Expanded numpy array with the original two-dimensional array copied <code>slices</code> in the third dimension.</p>
+                <p>A list with the same length as the number of layers, each item is a list of the maximum feret diameter of
+objects within that layer.</p>
               </div>
             </td>
           </tr>
@@ -2125,20 +1859,261 @@ if not explicitly provided.</p>
     </table>
 
 
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">simple</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">slicer</span><span class="p">(</span><span class="n">heights</span><span class="o">=</span><span class="n">simple</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">array([[[1, 1],</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">    [2, 2],</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">    [3, 3]],</span>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.statistics.full_width_half_max" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">full_width_half_max</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">full_width_half_max</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="pdf (afmslicer.statistics.full_width_half_max(pdf))" href="#afmslicer.statistics.full_width_half_max(pdf)">pdf</a></span><span class="p">)</span>
 </span></code></pre></div>
-    <p>[[4, 4],
-    [5, 5],
-    [6, 6]],</p>
-<p>[[7, 7],
-    [8, 8],
-    [9, 9]]])</p>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculate the full-width half max.</p>
+<p>We are interested in the layers that cover the full-width half-max of the number of pores in an image. And therefore
+extract the indices the calculated PDF (<code>y_pdf</code>)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.full_width_half_max(pdf)" class="doc doc-heading doc-heading-parameter">                  <code>pdf</code>
+</h2>            </td>
+            <td>
+                  <code><span title="numpy.typing.NDArray">NDArray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Array probability density function for which peak and full-width half-max are to be calculated.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of the lower and upper layers for the full-width half-max range.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.statistics.sum_area_by_layer" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">sum_area_by_layer</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">sum_area_by_layer</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="areas (afmslicer.statistics.sum_area_by_layer(areas))" href="#afmslicer.statistics.sum_area_by_layer(areas)">areas</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="min_size (afmslicer.statistics.sum_area_by_layer(min_size))" href="#afmslicer.statistics.sum_area_by_layer(min_size)">min_size</a></span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Sum the area of pores on each layer.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.sum_area_by_layer(areas)" class="doc doc-heading doc-heading-parameter">                  <code>areas</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of areas of pores on each layer.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.sum_area_by_layer(min_size)" class="doc doc-heading doc-heading-parameter">                  <code>min_size</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum size to include in calculation.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list with the total area per slice.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h1 id="afmslicer.statistics.summarise_pores" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">summarise_pores</span>
+
+
+</h1>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">summarise_pores</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="df (afmslicer.statistics.summarise_pores(df))" href="#afmslicer.statistics.summarise_pores(df)">df</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="pore_colors (afmslicer.statistics.summarise_pores(pore_colors))" href="#afmslicer.statistics.summarise_pores(pore_colors)">pore_colors</a></span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Summarise pore types by image, layer and color.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.summarise_pores(df)" class="doc doc-heading doc-heading-parameter">                  <code>df</code>
+</h2>            </td>
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Pandas dataframe to aggregate, typically will be <code>AFMSlicer.statistics</code>. Must have columns <code>image</code>,
+<code>layer</code>, <code>pore_color</code> and <code>counter</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+<h2 id="afmslicer.statistics.summarise_pores(pore_colors)" class="doc doc-heading doc-heading-parameter">                  <code>pore_colors</code>
+</h2>            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of pore color columns that should be present in the resulting dataframe.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pandas.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Aggregated data frame of counts of <code>pore_color</code> by <code>image</code>/<code>layer</code> with counts of each <code>pore_color</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>
