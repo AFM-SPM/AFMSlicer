@@ -37,21 +37,17 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install and setup uv with python
-        uses: astral-sh/setup-uv@v8.0.0
+        uses: astral-sh/setup-uv@v10.0.1
         with:
+          activate-environment: true
           python-version: ${{ matrix.python-version }}
-      - run: |
-          uv venv
-      - name: Activate venv, install package deps and run pytest
+      - name: Install package dependencies in activated environment
         shell: bash
         run: |
-          if [ "${RUNNER_OS}" == "Windows" ]; then
-            source .venv/Scripts/activate
-          else
-            source .venv/bin/activate
-          fi
-          uv pip install -e . --group dev
-          pytest --cov=src --numprocesses=logical
+          uv sync --locked --all-extras --dev
+      - name: Pytest
+        run: |
+          uv run pytest --cov=src --cov-branch --numprocesses=logical tests
       - name: Determine coverage
         if: runner.os == 'Linux'
         shell: bash
