@@ -21,7 +21,7 @@ __release__ = ".".join(__version__.split(".")[:-2])
 AFMSLICER_VERSION = Version(__version__)
 if AFMSLICER_VERSION.is_prerelease and AFMSLICER_VERSION.is_devrelease:
     AFMSLICER_BASE_VERSION = str(AFMSLICER_VERSION.base_version)
-    AFMSLICER_COMMIT = str(AFMSLICER_VERSION).split("+g")[1]
+    AFMSLICER_COMMIT = str(AFMSLICER_VERSION).split("dev")[1]
 else:
     AFMSLICER_BASE_VERSION = str(AFMSLICER_VERSION)
     AFMSLICER_COMMIT = ""
