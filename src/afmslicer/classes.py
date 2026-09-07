@@ -17,6 +17,7 @@ from topostats.classes import TopoStats
 from afmslicer import __version__, io, plotting, slicer, statistics
 
 # pylint: disable=too-many-instance-attributes
+# ruff: noqa: TRY203
 
 
 @dataclass(
@@ -322,7 +323,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 centroid=self.config["slicing"]["centroid"],
             )
             self.statistics = io.dict_to_df(data=stats)
-        except AttributeError as e:
-            raise e
-        except TypeError as e:
-            raise e
+        except AttributeError:
+            raise
+        except TypeError:  # pylint: disable=try-except-raise
+            raise

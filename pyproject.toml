@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools_scm[toml]>=7"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
 
 
 [project]
@@ -89,8 +89,18 @@ write_to = "src/afmslicer/_version.py"
 
 
 [tool.pytest.ini_options]
-minversion = "8.0"
-addopts = ["-ra", "--mpl", "--cov", "--showlocals", "--strict-markers", "--strict-config"]
+minversion = "9.1"
+addopts = [
+  "-ra",
+  "--mpl",
+  "--mpl-baseline-path=__mpl_snapshots__",
+  "--cov",
+  "--cov-branch",
+  "--showlocals",
+  "--strict-markers",
+  "--strict-config",
+  # "--numprocesses=logical"
+]
 xfail_strict = true
 filterwarnings = [
   "error",
@@ -242,3 +252,9 @@ afmslicer = "afmslicer.entry_point:entry_point"
 allowed-unresolved-imports = [
   "topostats.**"
 ]
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.hatch.metadata]
+allow-direct-references = true

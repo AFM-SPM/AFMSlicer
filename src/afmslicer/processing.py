@@ -104,7 +104,7 @@ def filter_scan(
         return (topostats_object.filename, True)
     except KeyError as e:
         raise KeyError() from e
-    except Exception:  # pylint: disable=bare-except
+    except Exception:  # noqa: BLE001, pylint: disable=broad-exception-caught
         logger.info(f"[{topostats_object.filename}] : Filtering failed 😿")
         return (topostats_object.filename, False)
 
@@ -162,8 +162,8 @@ def slicer_scan(
         #     topostats_object=topostats_object,
         #     topostats_version=__release__,
         # )
-    except ValidationError as ve:
-        raise ve
-    except Exception:  # pylint: disable=bare-except
+    except ValidationError:
+        raise
+    except Exception:  # noqa: BLE001, pylint: disable=broad-exception-caught
         logger.info(f"[{topostats_object.filename}] Slicing failed 😿")
         return (topostats_object.filename, topostats_object)

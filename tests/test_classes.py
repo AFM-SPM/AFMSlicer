@@ -18,7 +18,7 @@ RESOURCES = BASE_DIR / "tests" / "resources"
 RESOURCES_SLICER = RESOURCES / "slicer"
 
 
-# @pytest.mark.mpl_image_compare(baseline_dir="img/classes/")
+# @pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     (
         "fixture",
@@ -111,7 +111,7 @@ def test_AFMSlicer(
     #     pkl.dump(afmslicer_object.sliced_clean_region_properties, f)
 
 
-@pytest.mark.mpl_image_compare(baseline_dir="img/classes/")
+@pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     (
         "fixture",
