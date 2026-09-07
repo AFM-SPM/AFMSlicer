@@ -43,7 +43,7 @@ def test_plot_layer_assert_params(
         plotting.plot_layer(array, img_name, layer, outdir=tmp_path)
 
 
-@pytest.mark.mpl_image_compare(baseline_dir="img/plot_layer/")
+@pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     ("array_fixture", "img_name", "layer", "format"),
     [
@@ -192,7 +192,7 @@ def test_plot_all_layers_attribute_error_wrong_dimensions(array: npt.NDArray) ->
         plotting.plot_all_layers(array)
 
 
-@pytest.mark.mpl_image_compare(baseline_dir="img/plot_all_layers/")
+@pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     ("array_fixture", "img_name", "layer", "format"),
     [
@@ -290,7 +290,7 @@ def test_plot_all_layers(
     return fig
 
 
-@pytest.mark.mpl_image_compare(baseline_dir="img/plot_pores_by_layer/")
+@pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     (
         "sliced_labels_fixture",
@@ -369,7 +369,7 @@ def test_plot_pores_by_layer(
     return fig
 
 
-@pytest.mark.mpl_image_compare(baseline_dir="img/plot_area_by_layer/")
+@pytest.mark.mpl_image_compare(baseline_dir="__mpl_snapshots__")
 @pytest.mark.parametrize(
     (
         "sliced_labels_fixture",
