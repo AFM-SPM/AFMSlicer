@@ -9,6 +9,7 @@ authors = [
   { name = "Neil Shephard", email = "n.shephard@sheffield.ac.uk" },
   { name = "Laia Pasquina-Lemonche", email = "l.pasquinalemonche@sheffield.ac.uk"},
   { name = "Matthew Barker", email = "mjbarker2@sheffield.ac.uk"},
+  { name = "Mai Q Nguyen", email ="m.q.nguyen@sheffield.ac.uk"}
 ]
 description = "Package for slicing AFM images."
 readme = "README.md"
