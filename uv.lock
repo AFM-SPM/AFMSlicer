@@ -104,7 +104,7 @@ requires-dist = [
     { name = "pandas" },
     { name = "pydantic" },
     { name = "schema" },
-    { name = "topostats", git = "https://github.com/AFM-SPM/TopoStats" },
+    { name = "topostats", specifier = ">=2.4.2" },
     { name = "tqdm" },
 ]
 
@@ -3226,7 +3226,7 @@ wheels = [
 [[package]]
 name = "topostats"
 version = "2.4.2"
-source = { git = "https://github.com/AFM-SPM/TopoStats#41cfcc5697f55e2ee1d1de1dffd801d5d0fbbc1e" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "afmreader" },
     { name = "art" },
@@ -3254,6 +3254,10 @@ dependencies = [
     { name = "tensorflow" },
     { name = "topoly" },
     { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7a/8e/0fb47e40c09247ebd869640852994dc132e1749e9e37993d7b7e4fe5b040/topostats-2.4.2.tar.gz", hash = "sha256:6b5f5920fd00c64854604eb4f015460fd753002007df5fb05cfc30adbec57b73", size = 237712, upload-time = "2026-08-18T15:20:08.396Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3d/07/887b1a881a7168f2d46b1c8d9400c080343170dec81568dbec6c264f97dd/topostats-2.4.2-py3-none-any.whl", hash = "sha256:813840fad6ef740b78e46a92c50cd16f86d308fe7307c24d70b10907918ab03c", size = 243737, upload-time = "2026-08-18T15:20:07.007Z" },
 ]
 
 [[package]]
