@@ -380,3 +380,27 @@ def mask_small_artefacts_all_layers(
             minimum_size=minimum_size,
         )
     return masked_array
+
+
+def slice_3d(array: npt.NDArray[np.float64], scaling: float) -> npt.NDArray[np.int8]:
+    """
+    Convert a two-dimensional array of heights into a three-dimensional binary array.
+
+    Rather than taking a fixed number of slices as with ``slicer()`` we here use the observed range and the scaling,
+    which typically comes from the scan itself to determine the appropriate number of slices to take so that they are
+    correctly scaled to the same as the x/y axis of the array.
+
+    Parameters
+    ----------
+    array : npt.NDArray[np.float64]
+        A two-dimensional array of heights.
+    scaling : float
+        Pixel to nanometre scaling.
+
+    Returns
+    -------
+    npt.NDArray[np.int8]
+        A three-dimensional binary array.
+    """
+    layers = np.round((np.max(array) - np.min(array)) / scaling)
+    return (array[..., np.newaxis] > np.arange(layers)).astype(np.int8)
