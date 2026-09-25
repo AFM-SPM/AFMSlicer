@@ -37,7 +37,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install and setup uv with python
-        uses: astral-sh/setup-uv@v10.0.1
+        uses: astral-sh/setup-uv@v10.2.0
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
