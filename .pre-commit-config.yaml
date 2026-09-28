@@ -119,7 +119,7 @@ repos:
     hooks:
       - id: pytest
         name: Pytest (testmon)
-        entry: pytest -vv --testmon
+        entry: pytest -vv --testmon --no-cov
         language: system
         files: \.py$
 

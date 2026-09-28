@@ -1,6 +1,5 @@
 """Module for slicing  two-dimensional arrays to three-dimensional arrays of stacked masks."""
 
-# from loguru import logger
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -8,6 +7,7 @@ from typing import Any
 
 import numpy as np
 import numpy.typing as npt
+from loguru import logger
 from skimage.measure import label, regionprops  # pylint: disable=no-name-in-module
 from skimage.segmentation import (  # pylint: disable=no-name-in-module
     clear_border,
@@ -382,7 +382,9 @@ def mask_small_artefacts_all_layers(
     return masked_array
 
 
-def slice_3d(array: npt.NDArray[np.float64], scaling: float) -> npt.NDArray[np.int8]:
+def slice_3d(
+    array: npt.NDArray[np.float64], scaling: float, binary: bool = False
+) -> npt.NDArray[np.int8, np.float64]:
     """
     Convert a two-dimensional array of heights into a three-dimensional binary array.
 
@@ -396,11 +398,38 @@ def slice_3d(array: npt.NDArray[np.float64], scaling: float) -> npt.NDArray[np.i
         A two-dimensional array of heights.
     scaling : float
         Pixel to nanometre scaling.
+    binary : bool
+        Whether to create a boolean array. If `True` each pixel is dichotomised to `0`/`1` if the height is within the
+        range for that layer. If `False` the value for that layer is returned, this is useful if you want to use colour
+        gradients when viewing three dimensional plots.
 
     Returns
     -------
-    npt.NDArray[np.int8]
-        A three-dimensional binary array.
+    npt.NDArray[np.int8, np.float64]
+        A three-dimensional array scaled by `scaling`.
     """
-    layers = np.round((np.max(array) - np.min(array)) / scaling)
-    return (array[..., np.newaxis] > np.arange(layers)).astype(np.int8)
+    min_height = array.min()
+    max_height = array.max()
+    # We want at least one layer even if all points are the same height (highly unlikely though!)
+    layers = (
+        1
+        if max_height - min_height == 0
+        else int(np.ceil(max_height - min_height) / scaling)
+    )
+    # Make two arrays of the lower and upper bounds for each layer
+    lower_bounds = min_height + (np.arange(layers) * scaling)
+    upper_bounds = lower_bounds + scaling
+    # Build a 3D boolean array of which values need using in each layer
+    in_slice = (array[np.newaxis, ...] >= lower_bounds[:, np.newaxis, np.newaxis]) & (
+        array[np.newaxis, ...] < upper_bounds[:, np.newaxis, np.newaxis]
+    )
+    # Add the final slice element by element
+    in_slice[-1] |= array == max_height
+    if binary:
+        logger.info("Creating a binary 3D array.")
+        # Zero bottom layer
+        in_slice[0] = False
+        return in_slice.astype(np.int8)
+    logger.info("Using heights in 3D array.")
+    # Return the values in each layer, otherwise replace with zero
+    return np.where(in_slice, array[np.newaxis, ...], 0)
