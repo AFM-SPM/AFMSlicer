@@ -165,6 +165,10 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             __version__ if self.afmslicer_version is None else self.afmslicer_version
         )
         logger.info(f"[{self.filename}] : AFMSlicer object created. 🔪")
+        self.config["output_dir"] = self.config["output_dir"] / self.filename
+        logger.info(
+            f"[{self.filename}] : Output will be in {self.config['output_dir']}"
+        )
 
     def update_heights(self) -> None:
         """
