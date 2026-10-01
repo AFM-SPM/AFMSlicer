@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import datetime
 import sys
 from collections import defaultdict
 from functools import partial
 from multiprocessing import Pool
+from pathlib import Path
 from pkgutil import get_data
 from pprint import pformat
 from typing import Any
@@ -75,7 +77,7 @@ def _log_setup(config: dict, args: argparse.Namespace | None, img_files: dict) -
     logger.debug(f"Configuration after update         : \n{pformat(config, indent=4)}")
 
 
-def _set_logging(log_level: str | None) -> None:
+def _set_logging(log_level: str | None, log_file: str | Path = "output.log") -> None:
     """
     Set up loguru logging.
 
@@ -83,9 +85,12 @@ def _set_logging(log_level: str | None) -> None:
     ----------
     log_level : str
         Logging level.
+    log_file : str
+        File to echo logs to, defaults to `output.log` if not specified.
     """
     logger.remove()
     logger.add(sys.stderr, level=log_level)
+    logger.add(log_file, level=log_level)
 
 
 def _parse_configuration(args: argparse.Namespace | None = None) -> tuple[dict, dict]:
@@ -114,7 +119,11 @@ def _parse_configuration(args: argparse.Namespace | None = None) -> tuple[dict, 
     )
 
     # Set logging level
-    _set_logging(log_level=config["log_level"].upper())
+    _set_logging(
+        log_level=config["log_level"].upper(),
+        log_file=config["output_dir"]
+        / f"{datetime.datetime.now(tz=datetime.UTC).strftime('%Y-%m-%d-%H-%M-%S')}.log",
+    )
 
     # Create base output directory
     config["output_dir"].mkdir(parents=True, exist_ok=True)
