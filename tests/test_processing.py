@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+import sys
 from pathlib import Path
 from platform import python_version
 from typing import Any
@@ -19,6 +21,8 @@ RESOURCES = BASE_DIR / "tests" / "resources"
 SPM_DIR = RESOURCES / "spm"
 
 PRECISION = 3
+
+GITHUB_WIN = os.getenv("GITHUB_ACTIONS") == "true" and sys.platform == "win32"
 
 
 def round_values(to_be_rounded: Any, precision: int) -> Any:
@@ -134,6 +138,9 @@ def test_slicer(
         )
 
 
+@pytest.mark.skipif(
+    GITHUB_WIN, reason="WindowsPath() doesn't match PosixPath() in snapshots"
+)
 @pytest.mark.parametrize(
     (
         "afmslicer_fixture",
@@ -201,6 +208,9 @@ def test_filter_scan(
         )
 
 
+@pytest.mark.skipif(
+    GITHUB_WIN, reason="WindowsPath() doesn't match PosixPath() in snapshots"
+)
 @pytest.mark.parametrize(
     (
         "afmslicer_fixture",
