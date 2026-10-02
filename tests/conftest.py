@@ -48,6 +48,8 @@ def fixture_default_config() -> dict[
     )
     config = yaml.safe_load(default_config_file.decode("utf-8"))  # type: ignore[union-attr]
     # Modify parameters for all tests here
+    for param in ["base_dir", "output_dir"]:
+        config[param] = Path(config[param])
     config["filter"]["remove_scars"]["run"] = True
     return config
 

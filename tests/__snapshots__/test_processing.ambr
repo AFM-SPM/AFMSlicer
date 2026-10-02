@@ -6,7 +6,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -28,7 +28,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample1'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -111,7 +111,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -131,7 +131,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample1'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -214,7 +214,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -236,7 +236,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample2'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -319,7 +319,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -339,7 +339,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample2'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -519,7 +519,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -541,7 +541,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample1'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -1139,7 +1139,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -1159,7 +1159,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample1'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -1676,7 +1676,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -1698,7 +1698,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample2'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
@@ -2045,7 +2045,7 @@
     basename=None,
     centroid_by_layer=None,
     config=dict({
-      'base_dir': './',
+      'base_dir': PosixPath('.'),
       'cores': 2,
       'file_ext': '.spm',
       'filter': dict({
@@ -2065,7 +2065,7 @@
         'extract': 'raw',
       }),
       'log_level': 'info',
-      'output_dir': './output',
+      'output_dir': PosixPath('output/sample2'),
       'plotting': dict({
         'cmap': 'viridis',
         'format': 'png',
