@@ -100,6 +100,9 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
             ),
         },
         "plotting": {
+            "plot_layers": bool,
+            "plot_gif": bool,
+            "plot_summary": bool,
             "format": Or(
                 "png",
                 "tiff",

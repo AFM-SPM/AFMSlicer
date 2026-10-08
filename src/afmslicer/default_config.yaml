@@ -37,6 +37,9 @@ slicing:
     - magenta
     - blue
 plotting:
+  plot_layers: true # Whether to plot individual layers
+  plot_gif: true # Whether to plot a GIF moving through layers
+  plot_summary: true # Whether to plot summary graphs
   format: png # Format for saving images as
   cmap: viridis # Matplotlib cmap to use 'viridis' / 'binary' / 'jet_r' are valid options
   gif_duration: 100 # duration in microseconds between frames in GIF

@@ -242,31 +242,34 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             sliced_region_properties=self.sliced_region_properties
         )
         logger.debug(f"[{self.filename}] : Pores per layer extracted")
-        # Plot all segmented layers
-        plotting.plot_all_layers(
-            array=self.sliced_segments_clean,
-            img_name=self.filename,
-            outdir=self.config["output_dir"],
-            format=self.config["plotting"]["format"],
-            cmap=self.config["plotting"]["cmap"],
-        )
-        # Create a GIF of all layers
-        plotting.generate_gif(
-            sliced_segments=self.sliced_segments_clean,
-            outdir=self.config["output_dir"],
-            img_name=self.filename,
-            duration=self.config["plotting"]["gif_duration"],
-            loop=self.config["plotting"]["gif_loop"],
-        )
-        # Plot pores per layer
-        self.fig_objects_per_layer = plotting.plot_pores_by_layer(
-            pores_per_layer=self.pores_per_layer,
-            img_name=self.filename,
-            outdir=self.config["output_dir"],
-            format=self.config["plotting"]["format"],
-            log=False,
-            grid=self.config["plotting"]["grid"],
-        )
+        if self.config["plotting"]["plot_layers"]:
+            # Plot all segmented layers
+            plotting.plot_all_layers(
+                array=self.sliced_segments_clean,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["plotting"]["format"],
+                cmap=self.config["plotting"]["cmap"],
+            )
+        if self.config["plotting"]["plot_gif"]:
+            # Create a GIF of all layers
+            plotting.generate_gif(
+                sliced_segments=self.sliced_segments_clean,
+                outdir=self.config["output_dir"],
+                img_name=self.filename,
+                duration=self.config["plotting"]["gif_duration"],
+                loop=self.config["plotting"]["gif_loop"],
+            )
+        if self.config["plotting"]["plot_summary"]:
+            # Plot pores per layer
+            self.fig_objects_per_layer = plotting.plot_pores_by_layer(
+                pores_per_layer=self.pores_per_layer,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["plotting"]["format"],
+                log=False,
+                grid=self.config["plotting"]["grid"],
+            )
         # Plot pores per layer (log scale)
         # self.fig_log_objects_per_layer = plotting.plot_pores_by_layer(
         #     pores_per_layer=self.pores_per_layer,

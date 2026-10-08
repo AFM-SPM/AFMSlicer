@@ -35,6 +35,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -138,6 +141,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -243,6 +249,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -346,6 +355,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -548,6 +560,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -1166,6 +1181,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -1705,6 +1723,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
@@ -2072,6 +2093,9 @@
         'gif_duration': 100,
         'gif_loop': 0,
         'grid': True,
+        'plot_gif': True,
+        'plot_layers': True,
+        'plot_summary': True,
       }),
       'slicing': dict({
         'area': True,
