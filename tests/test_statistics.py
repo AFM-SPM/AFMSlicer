@@ -246,6 +246,42 @@ def test_sum_area_by_layer(
 
 @pytest.mark.parametrize(
     (
+        "area_by_layer",
+        "scale",
+        "expected_volume_per_layer",
+        "total_volume",
+    ),
+    [
+        pytest.param(
+            [[1, 2], [3, 4]],
+            1,
+            np.asarray([[1, 2], [3, 4]], dtype=np.float64),
+            10.0,
+            id="scaling 1.0",
+        ),
+        pytest.param(
+            [[1, 2], [3, 4]],
+            0.5,
+            np.asarray([[0.5, 1], [1.5, 2]], dtype=np.float64),
+            5.0,
+            id="scaling 0.5",
+        ),
+    ],
+)
+def test_volume_by_layer(
+    area_by_layer: list[list[int | float]],
+    scale: float,
+    expected_volume_per_layer: npt.NDArray[np.float64],
+    total_volume: float,
+) -> None:
+    """Test for volume_by_layer()."""
+    volume_per_layer = statistics.volume_by_layer(areas=area_by_layer, scale=scale)
+    np.testing.assert_array_equal(volume_per_layer, expected_volume_per_layer)
+    assert volume_per_layer.sum() == total_volume
+
+
+@pytest.mark.parametrize(
+    (
         "sliced_labels_fixture",
         "scaling_fixture",
         "objects_per_layer",

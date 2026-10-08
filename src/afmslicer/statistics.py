@@ -47,7 +47,7 @@ def area_pores(sliced_region_properties: list[list[Any]]) -> list[list[float]]:
 
 
 def sum_area_by_layer(
-    areas: list[list[int | float] | int | float],
+    areas: list[list[float]],
     min_size: float | None = None,
 ) -> list[float]:
     """
@@ -82,6 +82,31 @@ def sum_area_by_layer(
             if isinstance(layer, (int, float)):  # type: ignore[unreachable]
                 total_area_per_layer.append(layer)
     return total_area_per_layer
+
+
+def volume_by_layer(
+    areas: list[list[int | float] | int | float],
+    scale: float | None = None,
+) -> npt.NDArray[np.float64]:
+    """
+    Calculate the volume of objects in each layer.
+
+    Parameters
+    ----------
+    areas :  list[list[int | float] | int | float]
+        List of areas of pores on each layer.
+    scale : float, optional
+        Scaling for calculating volume. This may be the pixel to nanometer scaling if slicing has been performed
+        relative to this factor, or if an arbitrary number of slices have been taken it should be the range of heights
+        divided by the number of slices.
+
+    Returns
+    -------
+    npt.NDArray[np.float64]
+        A numpy array of volumes for each object in each slice.
+    """
+    scale = 1 if scale is None else scale
+    return np.asarray(areas) * scale
 
 
 def centroid_pores(
