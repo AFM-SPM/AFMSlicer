@@ -35,8 +35,12 @@ def dict_to_df(data: dict[int | str, Any]) -> pd.DataFrame:
     return df
 
 
+# ns-rse 2026-10-09 : Consider removing the following function, it isn't used.
 def write_csv(
-    df: pd.DataFrame, outdir: Path | str = "output", filename: str = "results.csv"
+    df: pd.DataFrame,
+    outdir: Path | str = "output",
+    filename: str = "results.csv",
+    index: bool = False,
 ) -> None:
     """
     Write a dataframe to ``.csv`` file in ``output`` directory.
@@ -49,5 +53,7 @@ def write_csv(
         Path where file is to be written.
     filename : str
         Filename for output, defaults to ``results.csv``.
+    index : bool
+        Whether to include the index or not.
     """
-    df.to_csv(Path(outdir) / filename, index=True)
+    df.to_csv(Path(outdir) / filename, index=index)

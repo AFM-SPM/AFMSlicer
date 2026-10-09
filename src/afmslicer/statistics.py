@@ -350,3 +350,168 @@ def _add_missing_column(df: pd.DataFrame, pore_color: str) -> pd.DataFrame:
         df[pore_color] = 0
         return df
     return df
+
+
+def cumulative_area(areas: npt.NDArray[np.float64]) -> pd.DataFrame:
+    """Sort and calculate the cumulative sum of a single layer of areas.
+
+    Parameters
+    ----------
+    areas : npt.NDArray[np.float64]
+        An array of areas for a single slice.
+
+    Returns
+    -------
+    pd.DataFrame
+        Pandas dataframe of sorted area, cumulative sum of the area and the cumulative fraction.
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> from afmslicer import statistics
+    >>>
+    >>> areas = np.asarray([10, 1, 9, 2, 8, 3, 7, 4, 6, 5]),
+    >>> statistics.cumulative_area(areas)
+    """
+    sorted_areas = np.sort(areas)
+    cumulative_sum = np.cumsum(sorted_areas)
+    cumulative_fraction = cumulative_sum / cumulative_sum[-1]
+    return pd.DataFrame(
+        {
+            "area_sorted": sorted_areas.tolist(),
+            "cumulative_sum": cumulative_sum.tolist(),
+            "cumulative_fraction": cumulative_fraction.tolist(),
+        }
+    )
+
+
+def cumulative_areas(areas: list[npt.NDArray[np.float64]]) -> list[pd.DataFrame]:
+    """Calculate cumulative area for objects across slices.
+
+    Parameters
+    ----------
+    areas : list[npt.NDArray[np.float64]]
+        List of numpy arrays of the area of objects in layers.
+
+    Returns
+    -------
+    list[pd.DataFrame]
+        A list of dataframes with the areas sorted by size, the cumulative area and the cumulative area fraction.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from afmslicer import statistics
+    >>>
+    >>> areas = [
+                np.asarray([10, 1, 9, 2, 8, 3, 7, 4, 6, 5]),
+                np.asarray(
+                    [
+                        4.23384259,
+                        8.50731915,
+                        5.59014498,
+                        7.24935116,
+                        7.57840579,
+                        8.98832143,
+                        1.51457266,
+                        8.49551991,
+                        2.12878874,
+                        3.22178091,
+                    ]
+                ),
+            ]
+    >>> statistics.cumulative_areas(areas)
+    """
+    return [cumulative_area(area) for area in areas]
+
+
+def concatenate_areas(areas: list[pd.DataFrame]) -> pd.DataFrame:
+    """Concatenate a list of dataframes appending the layer id.
+
+    Used for concatenating the cumulative area across layers.
+
+    Parameters
+    ----------
+    areas : list[pd.DataFrame]
+        List of dataframes to be concatenated.
+
+    Returns
+    -------
+    pd.DataFrame
+        A single dataframe with the layer added to identify which layer data pertains to.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from afmslicer import statistics
+    >>>
+    >>> cumulative_areas = [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "area_sorted": [
+                            1.514573,
+                            2.128789,
+                            3.221781,
+                            4.233843,
+                            5.590145,
+                            7.249351,
+                            7.578406,
+                            8.495520,
+                            8.507319,
+                            8.988321,
+                        ],
+                        "cumulative_sum": [
+                            1.514573,
+                            3.643361,
+                            6.865142,
+                            11.098985,
+                            16.689130,
+                            23.938481,
+                            31.516887,
+                            40.012407,
+                            48.519726,
+                            57.508047,
+                        ],
+                        "cumulative_fraction": [
+                            0.026336708175331593,
+                            0.06335394035771619,
+                            0.11937707207826649,
+                            0.19299881350935774,
+                            0.29020512185250114,
+                            0.4162631519515137,
+                            0.5480430704702286,
+                            0.6957705678538069,
+                            0.8437032406962971,
+                            1.0,
+                        ],
+                    }
+                ),
+            ]
+    >>> statistics.concatenate_areas(cumulative_areas)
+    """
+    for layer, area in enumerate(areas):
+        area["layer"] = layer
+    return pd.concat(areas).reset_index(drop=True)
+
+
+# def hcaf() -> npt.NDArray[np.float64]:
+#     pass
