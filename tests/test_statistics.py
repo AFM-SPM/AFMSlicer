@@ -1216,3 +1216,93 @@ def test_concatenate_areas(
     pd.testing.assert_frame_equal(
         statistics.concatenate_areas(cumulative_areas), expected
     )
+
+
+@pytest.mark.parametrize(
+    ("areas", "fraction", "expected"),
+    [
+        pytest.param(
+            [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "area_sorted": [
+                            1.514573,
+                            2.128789,
+                            3.221781,
+                            4.233843,
+                            5.590145,
+                            7.249351,
+                            7.578406,
+                            8.495520,
+                            8.507319,
+                            8.988321,
+                        ],
+                        "cumulative_sum": [
+                            1.514573,
+                            3.643361,
+                            6.865142,
+                            11.098985,
+                            16.689130,
+                            23.938481,
+                            31.516887,
+                            40.012407,
+                            48.519726,
+                            57.508047,
+                        ],
+                        "cumulative_fraction": [
+                            0.026336708175331593,
+                            0.06335394035771619,
+                            0.11937707207826649,
+                            0.19299881350935774,
+                            0.29020512185250114,
+                            0.4162631519515137,
+                            0.5480430704702286,
+                            0.6957705678538069,
+                            0.8437032406962971,
+                            1.0,
+                        ],
+                    }
+                ),
+            ],
+            0.5,
+            pd.DataFrame(
+                {
+                    "layer": [
+                        0,
+                        1,
+                    ],
+                    "fraction": [0.5, 0.5],
+                    "area": [28.0, 31.516887],
+                    "cumulative_fraction": [0.509091, 0.548043],
+                }
+            ),
+            id="basic",
+        ),
+    ],
+)
+def test_hcfa(
+    areas: list[pd.DataFrame], fraction: float, expected: pd.DataFrame
+) -> None:
+    """Test for `hcfa()`."""
+    print(f"\n{statistics.hcfa(areas=areas, fraction=fraction)=}\n")
+    pd.testing.assert_frame_equal(
+        statistics.hcfa(areas=areas, fraction=fraction), expected
+    )

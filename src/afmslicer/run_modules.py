@@ -210,6 +210,11 @@ def process(args: argparse.Namespace | None = None) -> None:
     )
     statistics_all_df = statistics_all_df.sort_values(by=["image", "layer", "pore"])
     statistics_all_df.to_csv(config["output_dir"] / "all_statistics.csv", index=False)
+    # Aggregate HCFA statistics
+    hcfa_all_df = pd.concat(
+        {image_name: image.hcfa for image_name, image in processed_all.items()}
+    )
+    hcfa_all_df.to_csv(config["output_dir"] / "all_hcfa.csv", index=False)
     # Aggregate counts by image, layer and pore color, reshape and sum
     color_count_df = statistics.summarise_pores(
         df=statistics_all_df, pore_colors=config["slicing"]["pore_colors"]
