@@ -74,6 +74,7 @@ AFMSLICER_CONFIG_SCHEMA = Schema(
                 error="Invalid value in config for 'slicing.segment_method', valid values are 'watershed' or 'label'",
             ),
             "area": bool,
+            "fraction": lambda n: 0 < n <= 1.0,
             "minimum_size": lambda n: n >= 1,
             "centroid": bool,
             "feret_maximum": bool,

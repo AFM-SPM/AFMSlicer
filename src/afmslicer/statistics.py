@@ -513,5 +513,148 @@ def concatenate_areas(areas: list[pd.DataFrame]) -> pd.DataFrame:
     return pd.concat(areas).reset_index(drop=True)
 
 
-# def hcaf() -> npt.NDArray[np.float64]:
-#     pass
+def find_nearest(
+    areas: pd.DataFrame,
+    fraction: float = 0.5,
+    cum_fraction_col: str = "cumulative_fraction",
+    cum_area_col: str = "cumulative_sum",
+) -> dict[str, float]:
+    """Extract the area and proportion closes to the specified fraction.
+
+    Parameters
+    ----------
+    areas : pd.DataFrame
+        Pandas dataframe of the sorted area, cumulative area and cumulative fraction of the cumulative area.
+    fraction : float
+        Proportion of interest, default is `0.5` and typically won't need changing.
+    cum_fraction_col : str
+        Column name for the cumulative fraction. Default is `cumulative_fraction` and typically won't need changing.
+    cum_area_col : str
+        Column name for the cumulative area. Default is `cumulative_area` and typically won't need changing.
+
+    Returns
+    -------
+    dict[str, float]
+        A dictionary of the cumulative area and fraction.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from afmslicer import statistics
+    >>>
+    >>> cumulative_areas = pd.DataFrame(
+                {
+                    "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                    "cumulative_fraction": [
+                        0.018182,
+                        0.054545,
+                        0.109091,
+                        0.181818,
+                        0.272727,
+                        0.381818,
+                        0.509091,
+                        0.654545,
+                        0.818182,
+                        1.000000,
+                    ],
+                }
+            )
+    >>> statistics.find_nearest(cumulative_areas, fraction=0.5)
+    >>> statistics.find_nearest(cumulative_areas, fraction=0.2)
+    """
+    index = (np.abs(areas[cum_fraction_col].to_numpy() - fraction)).argmin()
+    return {
+        "fraction": fraction,
+        "area": areas[cum_area_col][index],
+        "cumulative_fraction": areas[cum_fraction_col][index],
+    }
+
+
+def hcfa(areas: list[pd.DataFrame], fraction: float = 0.5) -> pd.DataFrame:
+    """
+    Half Cumulative Fraction for the total Area (HCFA) for all layers.
+
+    Parameters
+    ----------
+    areas : list[pd.DataFrame]
+        List of pandas dictionaries with the `fraction`, `area` and `cumulative_fraction` for the given `fraction`.
+    fraction : float
+        The fraction at which to extract areas.
+
+    Returns
+    -------
+    pd.DataFrame
+        Pandas dataframe of the `layer`, `fraction`, `area` and `cumulative_fraction`.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from afmslicer import statistics
+    >>>
+    >>> areas = [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "area_sorted": [
+                            1.514573,
+                            2.128789,
+                            3.221781,
+                            4.233843,
+                            5.590145,
+                            7.249351,
+                            7.578406,
+                            8.495520,
+                            8.507319,
+                            8.988321,
+                        ],
+                        "cumulative_sum": [
+                            1.514573,
+                            3.643361,
+                            6.865142,
+                            11.098985,
+                            16.689130,
+                            23.938481,
+                            31.516887,
+                            40.012407,
+                            48.519726,
+                            57.508047,
+                        ],
+                        "cumulative_fraction": [
+                            0.026336708175331593,
+                            0.06335394035771619,
+                            0.11937707207826649,
+                            0.19299881350935774,
+                            0.29020512185250114,
+                            0.4162631519515137,
+                            0.5480430704702286,
+                            0.6957705678538069,
+                            0.8437032406962971,
+                            1.0,
+                        ],
+                    }
+                ),
+            ]
+    >>> statistics.hcfa(areas=areas, fraction=0.5)
+    """
+    half_area_fractions = [
+        find_nearest(areas=area, fraction=fraction) for area in areas
+    ]
+    return pd.DataFrame(half_area_fractions).reset_index(names="layer")

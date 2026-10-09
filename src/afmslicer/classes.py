@@ -80,6 +80,8 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         List of the area of each object within a given layer.
     cumulative_area_by_layer : pd.DataFrame, optional
         List of pandas dataframes of the sorted area, cumulative sum and cumulative fraction.
+    hcfa : pd.DataFrame, optional
+        Pandas dataframes of the Half Cumulative Fraction of the total Area for each layer.
     centroid_by_layer : list[list[tuple[float, float]]], optional
         List of the centroid (as a tuple) of each object within a given layer.
     feret_maximum_by_layer : list[list[float]], optional
@@ -112,6 +114,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     fig_log_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     area_by_layer: list[list[float]] | None = None
     cumulative_area_by_layer: list[pd.DataFrame] | None = None
+    hcfa: pd.DataFrame | None = None
     centroid_by_layer: list[list[tuple[float, float]]] | None = None
     feret_maximum_by_layer: list[list[float]] | None = None
     pores_per_layer_mean: float | None = None
@@ -284,11 +287,13 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         # Optionally calculate additional statistics
         # Areas
         if self.config["slicing"]["area"]:
+            logger.debug(f"[{self.filename}] : Calculating areas")
             # Calculate the area by layer
             self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
             )
             # Calculate the cumulative sum and fraction of areas across layers
+            logger.debug(f"[{self.filename}] : Calculating cumulative areas")
             self.cumulative_area_by_layer = statistics.cumulative_areas(
                 areas=self.area_by_layer
             )
@@ -297,8 +302,17 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
                 self.config["output_dir"] / "cumulative_area.csv",
                 index=False,
             )
+            # HCFA
+            logger.debug(f"[{self.filename}] : Calculating HCFA areas")
+            self.hcfa = statistics.hcfa(
+                areas=self.cumulative_area_by_layer,
+                fraction=self.config["slicing"]["fraction"],
+            )
+            self.hcfa.to_csv(self.config["output_dir"] / "hcfa.csv", index=False)
+            self.hcfa["image"] = self.filename
             # Calculate PDF of objects per layer
             pdf = statistics.calculate_pdf(array=self.pores_per_layer)
+            logger.debug(f"[{self.filename}] : Calculating FWHM areas")
             self.full_width_half_max = statistics.full_width_half_max(pdf=pdf["y"])
             # Plot area per layer
             # subset self.area_by_layer selecting the full_width_half_max derived from number of pores per layer
