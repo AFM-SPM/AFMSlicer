@@ -78,6 +78,8 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         Matplotlib figure and axes objects from plotting the layer vs the log of the total area of objects.
     area_by_layer : list[list[float]], optional
         List of the area of each object within a given layer.
+    cumulative_area_by_layer : pd.DataFrame, optional
+        List of pandas dataframes of the sorted area, cumulative sum and cumulative fraction.
     centroid_by_layer : list[list[tuple[float, float]]], optional
         List of the centroid (as a tuple) of each object within a given layer.
     feret_maximum_by_layer : list[list[float]], optional
@@ -109,6 +111,7 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
     fig_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     fig_log_area_per_layer: tuple[plt.Figure, plt.Axes] | None = None
     area_by_layer: list[list[float]] | None = None
+    cumulative_area_by_layer: list[pd.DataFrame] | None = None
     centroid_by_layer: list[list[tuple[float, float]]] | None = None
     feret_maximum_by_layer: list[list[float]] | None = None
     pores_per_layer_mean: float | None = None
@@ -242,31 +245,34 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
             sliced_region_properties=self.sliced_region_properties
         )
         logger.debug(f"[{self.filename}] : Pores per layer extracted")
-        # Plot all segmented layers
-        plotting.plot_all_layers(
-            array=self.sliced_segments_clean,
-            img_name=self.filename,
-            outdir=self.config["output_dir"],
-            format=self.config["plotting"]["format"],
-            cmap=self.config["plotting"]["cmap"],
-        )
-        # Create a GIF of all layers
-        plotting.generate_gif(
-            sliced_segments=self.sliced_segments_clean,
-            outdir=self.config["output_dir"],
-            img_name=self.filename,
-            duration=self.config["plotting"]["gif_duration"],
-            loop=self.config["plotting"]["gif_loop"],
-        )
-        # Plot pores per layer
-        self.fig_objects_per_layer = plotting.plot_pores_by_layer(
-            pores_per_layer=self.pores_per_layer,
-            img_name=self.filename,
-            outdir=self.config["output_dir"],
-            format=self.config["plotting"]["format"],
-            log=False,
-            grid=self.config["plotting"]["grid"],
-        )
+        if self.config["plotting"]["plot_layers"]:
+            # Plot all segmented layers
+            plotting.plot_all_layers(
+                array=self.sliced_segments_clean,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["plotting"]["format"],
+                cmap=self.config["plotting"]["cmap"],
+            )
+        if self.config["plotting"]["plot_gif"]:
+            # Create a GIF of all layers
+            plotting.generate_gif(
+                sliced_segments=self.sliced_segments_clean,
+                outdir=self.config["output_dir"],
+                img_name=self.filename,
+                duration=self.config["plotting"]["gif_duration"],
+                loop=self.config["plotting"]["gif_loop"],
+            )
+        if self.config["plotting"]["plot_summary"]:
+            # Plot pores per layer
+            self.fig_objects_per_layer = plotting.plot_pores_by_layer(
+                pores_per_layer=self.pores_per_layer,
+                img_name=self.filename,
+                outdir=self.config["output_dir"],
+                format=self.config["plotting"]["format"],
+                log=False,
+                grid=self.config["plotting"]["grid"],
+            )
         # Plot pores per layer (log scale)
         # self.fig_log_objects_per_layer = plotting.plot_pores_by_layer(
         #     pores_per_layer=self.pores_per_layer,
@@ -278,8 +284,18 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         # Optionally calculate additional statistics
         # Areas
         if self.config["slicing"]["area"]:
+            # Calculate the area by layer
             self.area_by_layer = statistics.area_pores(
                 sliced_region_properties=self.sliced_region_properties
+            )
+            # Calculate the cumulative sum and fraction of areas across layers
+            self.cumulative_area_by_layer = statistics.cumulative_areas(
+                areas=self.area_by_layer
+            )
+            # Write cumulative areas across all layers to csv
+            statistics.concatenate_areas(areas=self.cumulative_area_by_layer).to_csv(
+                self.config["output_dir"] / "cumulative_area.csv",
+                index=False,
             )
             # Calculate PDF of objects per layer
             pdf = statistics.calculate_pdf(array=self.pores_per_layer)

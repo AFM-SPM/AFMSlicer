@@ -12,7 +12,7 @@ from scipy.stats import norm
 
 from afmslicer import slicer, statistics
 
-# pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access
+# pylint: disable=too-many-arguments,too-many-locals,too-many-positional-arguments,protected-access,too-many-lines
 
 BASE_DIR = Path.cwd()
 RESOURCES = BASE_DIR / "tests" / "resources"
@@ -242,6 +242,42 @@ def test_sum_area_by_layer(
     else:
         assert area_per_layer == snapshot
     assert sum(area_per_layer) == total_area
+
+
+@pytest.mark.parametrize(
+    (
+        "area_by_layer",
+        "scale",
+        "expected_volume_per_layer",
+        "total_volume",
+    ),
+    [
+        pytest.param(
+            [[1, 2], [3, 4]],
+            1,
+            np.asarray([[1, 2], [3, 4]], dtype=np.float64),
+            10.0,
+            id="scaling 1.0",
+        ),
+        pytest.param(
+            [[1, 2], [3, 4]],
+            0.5,
+            np.asarray([[0.5, 1], [1.5, 2]], dtype=np.float64),
+            5.0,
+            id="scaling 0.5",
+        ),
+    ],
+)
+def test_volume_by_layer(
+    area_by_layer: list[list[int | float]],
+    scale: float,
+    expected_volume_per_layer: npt.NDArray[np.float64],
+    total_volume: float,
+) -> None:
+    """Test for volume_by_layer()."""
+    volume_per_layer = statistics.volume_by_layer(areas=area_by_layer, scale=scale)
+    np.testing.assert_array_equal(volume_per_layer, expected_volume_per_layer)
+    assert volume_per_layer.sum() == total_volume
 
 
 @pytest.mark.parametrize(
@@ -798,7 +834,385 @@ def test_add_missing_column(
 def test_summarise_pores(
     df: pd.DataFrame, pore_colors: list[str], expected: pd.DataFrame
 ) -> None:
-    """Test ``summarise_pores()`` function."""
+    """Test `summarise_pores()` function."""
     pd.testing.assert_frame_equal(
         statistics.summarise_pores(df=df, pore_colors=pore_colors), expected
+    )
+
+
+@pytest.mark.parametrize(
+    ("areas", "expected"),
+    [
+        pytest.param(
+            np.asarray([10, 1, 9, 2, 8, 3, 7, 4, 6, 5]),
+            pd.DataFrame(
+                {
+                    "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                    "cumulative_fraction": [
+                        0.018182,
+                        0.054545,
+                        0.109091,
+                        0.181818,
+                        0.272727,
+                        0.381818,
+                        0.509091,
+                        0.654545,
+                        0.818182,
+                        1.000000,
+                    ],
+                }
+            ),
+            id="example 1",
+        ),
+        pytest.param(
+            np.asarray(
+                [
+                    4.23384259,
+                    8.50731915,
+                    5.59014498,
+                    7.24935116,
+                    7.57840579,
+                    8.98832143,
+                    1.51457266,
+                    8.49551991,
+                    2.12878874,
+                    3.22178091,
+                ]
+            ),
+            pd.DataFrame(
+                {
+                    "area_sorted": [
+                        1.514573,
+                        2.128789,
+                        3.221781,
+                        4.233843,
+                        5.590145,
+                        7.249351,
+                        7.578406,
+                        8.495520,
+                        8.507319,
+                        8.988321,
+                    ],
+                    "cumulative_sum": [
+                        1.514573,
+                        3.643361,
+                        6.865142,
+                        11.098985,
+                        16.689130,
+                        23.938481,
+                        31.516887,
+                        40.012407,
+                        48.519726,
+                        57.508047,
+                    ],
+                    "cumulative_fraction": [
+                        0.026336708175331593,
+                        0.06335394035771619,
+                        0.11937707207826649,
+                        0.19299881350935774,
+                        0.29020512185250114,
+                        0.4162631519515137,
+                        0.5480430704702286,
+                        0.6957705678538069,
+                        0.8437032406962971,
+                        1.0,
+                    ],
+                }
+            ),
+            id="example 2",
+        ),
+    ],
+)
+def test_cumulative_area(
+    areas: npt.NDArray[np.float64], expected: pd.DataFrame
+) -> None:
+    """Test for `_cum_area()` function."""
+    pd.testing.assert_frame_equal(statistics.cumulative_area(areas=areas), expected)
+
+
+@pytest.mark.parametrize(
+    ("areas", "expected"),
+    [
+        pytest.param(
+            [np.asarray([10, 1, 9, 2, 8, 3, 7, 4, 6, 5])],
+            [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                )
+            ],
+            id="basic",
+        ),
+        pytest.param(
+            [
+                np.asarray([10, 1, 9, 2, 8, 3, 7, 4, 6, 5]),
+                np.asarray(
+                    [
+                        4.23384259,
+                        8.50731915,
+                        5.59014498,
+                        7.24935116,
+                        7.57840579,
+                        8.98832143,
+                        1.51457266,
+                        8.49551991,
+                        2.12878874,
+                        3.22178091,
+                    ]
+                ),
+            ],
+            [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "area_sorted": [
+                            1.514573,
+                            2.128789,
+                            3.221781,
+                            4.233843,
+                            5.590145,
+                            7.249351,
+                            7.578406,
+                            8.495520,
+                            8.507319,
+                            8.988321,
+                        ],
+                        "cumulative_sum": [
+                            1.514573,
+                            3.643361,
+                            6.865142,
+                            11.098985,
+                            16.689130,
+                            23.938481,
+                            31.516887,
+                            40.012407,
+                            48.519726,
+                            57.508047,
+                        ],
+                        "cumulative_fraction": [
+                            0.026336708175331593,
+                            0.06335394035771619,
+                            0.11937707207826649,
+                            0.19299881350935774,
+                            0.29020512185250114,
+                            0.4162631519515137,
+                            0.5480430704702286,
+                            0.6957705678538069,
+                            0.8437032406962971,
+                            1.0,
+                        ],
+                    }
+                ),
+            ],
+            id="two layers",
+        ),
+    ],
+)
+def test_cumulative_areas(
+    areas: list[npt.NDArray[np.float64]], expected: pd.DataFrame
+) -> None:
+    """Test for `cumulative_areas()`."""
+    all_areas = statistics.cumulative_areas(areas)
+    for area_df, expected_df in zip(all_areas, expected, strict=True):
+        pd.testing.assert_frame_equal(area_df, expected_df)
+
+
+@pytest.mark.parametrize(
+    ("cumulative_areas", "expected"),
+    [
+        pytest.param(
+            [
+                pd.DataFrame(
+                    {
+                        "area_sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                        "cumulative_sum": [1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
+                        "cumulative_fraction": [
+                            0.018182,
+                            0.054545,
+                            0.109091,
+                            0.181818,
+                            0.272727,
+                            0.381818,
+                            0.509091,
+                            0.654545,
+                            0.818182,
+                            1.000000,
+                        ],
+                    }
+                ),
+                pd.DataFrame(
+                    {
+                        "area_sorted": [
+                            1.514573,
+                            2.128789,
+                            3.221781,
+                            4.233843,
+                            5.590145,
+                            7.249351,
+                            7.578406,
+                            8.495520,
+                            8.507319,
+                            8.988321,
+                        ],
+                        "cumulative_sum": [
+                            1.514573,
+                            3.643361,
+                            6.865142,
+                            11.098985,
+                            16.689130,
+                            23.938481,
+                            31.516887,
+                            40.012407,
+                            48.519726,
+                            57.508047,
+                        ],
+                        "cumulative_fraction": [
+                            0.026336708175331593,
+                            0.06335394035771619,
+                            0.11937707207826649,
+                            0.19299881350935774,
+                            0.29020512185250114,
+                            0.4162631519515137,
+                            0.5480430704702286,
+                            0.6957705678538069,
+                            0.8437032406962971,
+                            1.0,
+                        ],
+                    }
+                ),
+            ],
+            pd.DataFrame(
+                {
+                    "area_sorted": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        1.514573,
+                        2.128789,
+                        3.221781,
+                        4.233843,
+                        5.590145,
+                        7.249351,
+                        7.578406,
+                        8.495520,
+                        8.507319,
+                        8.988321,
+                    ],
+                    "cumulative_sum": [
+                        1,
+                        3,
+                        6,
+                        10,
+                        15,
+                        21,
+                        28,
+                        36,
+                        45,
+                        55,
+                        1.514573,
+                        3.643361,
+                        6.865142,
+                        11.098985,
+                        16.689130,
+                        23.938481,
+                        31.516887,
+                        40.012407,
+                        48.519726,
+                        57.508047,
+                    ],
+                    "cumulative_fraction": [
+                        0.018182,
+                        0.054545,
+                        0.109091,
+                        0.181818,
+                        0.272727,
+                        0.381818,
+                        0.509091,
+                        0.654545,
+                        0.818182,
+                        1.000000,
+                        0.026336708175331593,
+                        0.06335394035771619,
+                        0.11937707207826649,
+                        0.19299881350935774,
+                        0.29020512185250114,
+                        0.4162631519515137,
+                        0.5480430704702286,
+                        0.6957705678538069,
+                        0.8437032406962971,
+                        1.0,
+                    ],
+                    "layer": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                    ],
+                }
+            ),
+            id="two layers",
+        ),
+    ],
+)
+def test_concatenate_areas(
+    cumulative_areas: list[pd.DataFrame], expected: pd.DataFrame
+) -> None:
+    """Test for `concatenate_areas()`."""
+    pd.testing.assert_frame_equal(
+        statistics.concatenate_areas(cumulative_areas), expected
     )

@@ -217,6 +217,28 @@ def afmslicer_parser() -> arg.ArgumentParser:
         required=False,
         help="Whether to ignore warnings.",
     )
+    process_parser.add_argument(
+        "--plot-layers",
+        dest="plot_layers",
+        type=bool,
+        required=False,
+        help="Whether to plot individual layers.",
+    )
+    process_parser.add_argument(
+        "--plot-gif",
+        dest="plot_gif",
+        type=bool,
+        required=False,
+        help="Whether to plot a GIF of layers.",
+    )
+    process_parser.add_argument(
+        "--plot-summary",
+        dest="plot_summary",
+        type=bool,
+        required=False,
+        help="Whether to generate summary plots.",
+    )
+
     # Run the relevant function with the arguments
     process_parser.set_defaults(func=run_modules.process)
 
