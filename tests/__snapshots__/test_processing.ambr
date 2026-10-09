@@ -48,6 +48,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 20000,
         'pore_colors': list([
           'yellow',
@@ -70,6 +71,7 @@
     full_mask_tensor=None,
     full_width_half_max=None,
     grain_crops=None,
+    hcfa=None,
     image=array([[ -73.311,  -73.128,  -72.941, ..., -176.808, -176.935, -177.027],
          [ -73.03 ,  -72.866,  -72.697, ..., -176.622, -176.746, -176.835],
          [ -72.69 ,  -72.546,  -72.396, ..., -176.427, -176.548, -176.635],
@@ -155,6 +157,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 20000,
         'pore_colors': list([
           'yellow',
@@ -177,6 +180,7 @@
     full_mask_tensor=None,
     full_width_half_max=None,
     grain_crops=None,
+    hcfa=None,
     image=array([[ -73.311,  -73.128,  -72.941, ..., -176.808, -176.935, -177.027],
          [ -73.03 ,  -72.866,  -72.697, ..., -176.622, -176.746, -176.835],
          [ -72.69 ,  -72.546,  -72.396, ..., -176.427, -176.548, -176.635],
@@ -264,6 +268,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 20000,
         'pore_colors': list([
           'yellow',
@@ -286,6 +291,7 @@
     full_mask_tensor=None,
     full_width_half_max=None,
     grain_crops=None,
+    hcfa=None,
     image=array([[-8.805, -8.741, -8.645, ..., -3.895, -3.608, -3.347],
          [-8.78 , -8.709, -8.609, ..., -4.075, -3.78 , -3.512],
          [-8.732, -8.655, -8.55 , ..., -4.268, -3.962, -3.686],
@@ -371,6 +377,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 20000,
         'pore_colors': list([
           'yellow',
@@ -393,6 +400,7 @@
     full_mask_tensor=None,
     full_width_half_max=None,
     grain_crops=None,
+    hcfa=None,
     image=array([[-8.805, -8.741, -8.645, ..., -3.895, -3.608, -3.347],
          [-8.78 , -8.709, -8.609, ..., -4.075, -3.78 , -3.512],
          [-8.732, -8.655, -8.55 , ..., -4.268, -3.962, -3.686],
@@ -577,6 +585,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 0,
         'pore_colors': list([
           'yellow',
@@ -703,6 +712,12 @@
       3,
     ),
     grain_crops=None,
+    hcfa=layer  fraction          area  cumulative_fraction    image
+  0      0       0.5  4.000000e+08             1.000000  sample1
+  1      1       0.5  1.838379e+07             0.059484  sample1
+  2      2       0.5  4.109650e+07             0.528326  sample1
+  3      3       0.5  1.519012e+07             0.476521  sample1
+  4      4       0.5  1.525879e+03             1.000000  sample1,
     image=array([[ -73.311,  -73.128,  -72.941, ..., -176.808, -176.935, -177.027],
          [ -73.03 ,  -72.866,  -72.697, ..., -176.622, -176.746, -176.835],
          [ -72.69 ,  -72.546,  -72.396, ..., -176.427, -176.548, -176.635],
@@ -1291,6 +1306,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 0,
         'pore_colors': list([
           'yellow',
@@ -1417,6 +1433,12 @@
       3,
     ),
     grain_crops=None,
+    hcfa=layer  fraction          area  cumulative_fraction    image
+  0      0       0.5  4.000000e+08             1.000000  sample1
+  1      1       0.5  1.838379e+07             0.059484  sample1
+  2      2       0.5  4.109650e+07             0.528326  sample1
+  3      3       0.5  1.519012e+07             0.476521  sample1
+  4      4       0.5  1.525879e+03             1.000000  sample1,
     image=array([[ -73.311,  -73.128,  -72.941, ..., -176.808, -176.935, -177.027],
          [ -73.03 ,  -72.866,  -72.697, ..., -176.622, -176.746, -176.835],
          [ -72.69 ,  -72.546,  -72.396, ..., -176.427, -176.548, -176.635],
@@ -1926,6 +1948,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 0,
         'pore_colors': list([
           'yellow',
@@ -1971,6 +1994,12 @@
       3,
     ),
     grain_crops=None,
+    hcfa=layer  fraction           area  cumulative_fraction    image
+  0      0       0.5  160000.000000                  1.0  sample2
+  1      1       0.5  160000.000000                  1.0  sample2
+  2      2       0.5  160000.000000                  1.0  sample2
+  3      3       0.5  160000.000000                  1.0  sample2
+  4      4       0.5       0.390625                  1.0  sample2,
     image=array([[-8.805, -8.741, -8.645, ..., -3.895, -3.608, -3.347],
          [-8.78 , -8.709, -8.609, ..., -4.075, -3.78 , -3.512],
          [-8.732, -8.655, -8.55 , ..., -4.268, -3.962, -3.686],
@@ -2308,6 +2337,7 @@
         }),
         'centroid': False,
         'feret_maximum': False,
+        'fraction': 0.5,
         'minimum_size': 0,
         'pore_colors': list([
           'yellow',
@@ -2353,6 +2383,12 @@
       3,
     ),
     grain_crops=None,
+    hcfa=layer  fraction           area  cumulative_fraction    image
+  0      0       0.5  160000.000000                  1.0  sample2
+  1      1       0.5  160000.000000                  1.0  sample2
+  2      2       0.5  160000.000000                  1.0  sample2
+  3      3       0.5  160000.000000                  1.0  sample2
+  4      4       0.5       0.390625                  1.0  sample2,
     image=array([[-8.805, -8.741, -8.645, ..., -3.895, -3.608, -3.347],
          [-8.78 , -8.709, -8.609, ..., -4.075, -3.78 , -3.512],
          [-8.732, -8.655, -8.55 , ..., -4.268, -3.962, -3.686],
