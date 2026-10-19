@@ -1302,7 +1302,6 @@ def test_hcfa(
     areas: list[pd.DataFrame], fraction: float, expected: pd.DataFrame
 ) -> None:
     """Test for `hcfa()`."""
-    print(f"\n{statistics.hcfa(areas=areas, fraction=fraction)=}\n")
     pd.testing.assert_frame_equal(
         statistics.hcfa(areas=areas, fraction=fraction), expected
     )
