@@ -10,11 +10,12 @@ You should place your raw AFM images as exported from the scanning machine in a 
 Virtual Environment will be activated. If you have installed AFMSlicer from GitHub this will be the `AFMSlicer` you have
 cloned the repository to. If you have installed from PyPI this will be whatever directory you created to setup a Virtual
 Environment in.
+
 <!-- markdownlint-disable MD046 -->
 !!! note
 
     This isn't actually essential as you can either use the `afmslicer --base-dir` flag to specify an alternative
-    directory to scan for images or modify ~base_dir: ./~ option in a [custom configuration][configuration.md].
+    directory to scan for images or modify ~base_dir: ./~ option in a [custom configuration](configuration.md).
 <!-- markdownlint-enable MD046 -->
 
 To keep data organised it is recommended to place it in the `data/raw` directory, optionally data from specific days or
@@ -41,6 +42,16 @@ specified extension (which defaults to `.spm`).
 <!-- markdownlint-disable MD046 -->
 !!! warning
 
-    If you edit your `.spm` file(s) in other software (e.g. Gwyddion) and then save them they may not load successfully
-    with AFMSlicer.
+    If you edit your `.spm` file(s) in other software (e.g. Gwyddion) and then save them with the same file extension
+    they may not load successfully with AFMSlicer.
+
+    If a file is edited in Gwyddion it should be saved in the native `.gwy` format as `.tiff` is _not_ supported by
+    [AFMReader](https://github.com/AFM-SPM/AFMReader/). For more information please refer to the [relevant issue in
+    AFMReader](https://github.com/AFM-SPM/AFMReader/issues/199) and the linked
+    [thread](https://sourceforge.net/p/gwyddion/discussion/fileformats/thread/95f93563/?limit=25#3a0f) in the Gwyddion.
 <!-- markdownlint-enable MD046 -->
+
+Once you have your data in an organised structure you can proceed to processing using either...
+
+- [Command line interface batch processing](cli.md)
+- [Napari Graphical User Interface](napari.md)
