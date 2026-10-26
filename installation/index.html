@@ -449,15 +449,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-afmslicer" class="md-nav__link">
+  <a href="#installing-afmslicernapari-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installing AFMSlicer
+        Installing AFMSlicer/Napari plugin
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Installing AFMSlicer">
+    <nav class="md-nav" aria-label="Installing AFMSlicer/Napari plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1276,15 +1276,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-afmslicer" class="md-nav__link">
+  <a href="#installing-afmslicernapari-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installing AFMSlicer
+        Installing AFMSlicer/Napari plugin
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Installing AFMSlicer">
+    <nav class="md-nav" aria-label="Installing AFMSlicer/Napari plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1412,7 +1412,8 @@ this will be resolved in the near future. In the mean time you have to explicitl
 </div>
 <h3 id="activate-virtual-environment">Activate Virtual Environment</h3>
 <p>You can now activate the environment and check that your are using the <code>python</code> binary from that environment.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux/OSX</label></div>
+<!-- markdownlint-disable MD046 -->
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Linux/OSX</label><label for="__tabbed_2_2">Windows</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><div class="language-shell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
@@ -1425,58 +1426,40 @@ where you created the <code>afm_slicing</code> programme.</p>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Python<span class="w"> </span><span class="m">3</span>.11.13
 </span></code></pre></div>
 </div>
+<div class="tabbed-block">
+<p><div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>where<span class="w"> </span>python
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python<span class="w"> </span>--version
+</span></code></pre></div>
+You should see output similar to the following although the first line will depend on your operating system and the
+path where you created the <code>afm_slicing</code> programme.</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>c:<span class="se">\w</span>ork<span class="se">\A</span>FMSlicer
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Python<span class="w"> </span><span class="m">3</span>.11.13
+</span></code></pre></div>
 </div>
 </div>
-<!-- markdownlint-disable MD046 -->
+</div>
 <div class="admonition tip">
 <p class="admonition-title"><code>direnv</code></p>
 <p>GNU/Linux and OSX users may want to consider using <a href="https://direnv.net">dirnev</a> to automate activation of virtual
 environments on navigation to the <code>AFMSlicer</code> directory. Add the following to <code>.envrc</code> to activate the environment
 from within the  <code>AFMSlicer</code> directory.</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"#!/bin/bash\nsource .venv/bin/activate"</span><span class="w"> </span>&gt;<span class="w"> </span>.envrc
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"#!/bin/bash\nsource .venv/bin/activate"</span><span class="w"> </span>&gt;<span class="w"> </span>.envrc
 </span></code></pre></div>
 </div>
 <!-- markdownlint-disable MD046 -->
 
-<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Windows</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>where<span class="w"> </span>python
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python<span class="w"> </span>--version
-</span></code></pre></div>
-You should see output similar to the following although the first line will depend on your operating system and the
-path where you created the <code>afm_slicing</code> programme.</p>
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>c:<span class="se">\w</span>ork<span class="se">\A</span>FMSlicer
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Python<span class="w"> </span><span class="m">3</span>.11.13
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<h2 id="installing-afmslicer">Installing AFMSlicer</h2>
+<h2 id="installing-afmslicernapari-plugin">Installing AFMSlicer/Napari plugin</h2>
 <h3 id="pypi">PyPI</h3>
-<!-- markdownlint-disable MD046 -->
-<div class="admonition failure">
-<p class="admonition-title">Failure</p>
-<p>Currently AFMSlicer has not been packaged and released to <a href="https://pypi.org">PyPi</a>. For now the following will <em>not</em>
-work and you should follow the <strong>Development</strong> isntructions.</p>
-</div>
-<!-- markdownlint-enable MD046 -->
-
 <p>You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.</p>
-<div class="admonition failure">
-<p class="admonition-title">Failure</p>
-<p>This will currently fail (see above).</p>
-</div>
-<!-- markdownlint-disable MD046 -->
-<div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-afmslicer
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-afmslicer<span class="w">  </span><span class="c1"># napari-afmslicer will pull in afmslicer</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>afmslicer<span class="w">         </span><span class="c1"># just install afmslicer</span>
 </span></code></pre></div>
-<!-- markdownlint-enable MD046 -->
-
+<p>You can now proceed with <a href="../usage/">using</a> AFMSlicer.</p>
 <h3 id="development">Development</h3>
 <p>AFMSlicer is in the early stages of development and as such must be installed from the GitHub repository along with the
 development versions of its dependency <a href="https://AFM-SPM.github.io/TopoStats">TopoStats</a>. The steps involved in installing the development version
-are described below and require that you install and use <a href="https://docs.astral.sh/uv">uv</a> to set things up.</p>
+are described below and require that you install and use <a href="https://docs.astral.sh/uv">uv</a> to set things up (see above for a brief overview).</p>
 <h4 id="cloning-repositories">Cloning Repositories</h4>
 <p>The following repositories need cloning.</p>
 <ul>
