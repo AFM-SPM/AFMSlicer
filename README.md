@@ -24,15 +24,28 @@ For the full documentation please refer to [AFMSlicer Docs][doc-gh-pages] which 
 
 ## Installation
 
-Currently AFMSlicer is only available via GitHub, although a release to the [Python Package Index (PyPI)][pypi] is
-planned. There are two options for installing from GitHub.
+**NB** The instructions below are only a brief guide, please refer to the [official installation
+instructions][afmslicer_install] for more detailed information.
 
-1. Install directly from GitHub.
-2. Clone and install from a local copy.
+There are three options for installing AFMSlicer, the options and reasons for using different releases are..
 
-Which you use depends on your use case. If you are going to just be using AFMSlicer then Option 1 will suffice. If you
-will be developing and making contributions to the code base then Option 2 is recommended. In either case it is
-recommended that use use [uv][uv] to setup a virtual environment in which to install AFMSlicer.
+1. Install from [Python Package Index (PyPI)][pypi] - use this if you only want to use a stable version AFMSlicer.
+2. Install directly from GitHub - use this if you want to try out the latest features.
+3. Clone and install from a local copy - use this if you wish to develop and contribute to AFMSlicer.
+
+Regardless of which version you choose it is recommended that use use [uv][uv] to setup a virtual environment in which
+to install AFMSlicer. The following instructions include creating a virtual environment with [uv][uv].
+
+### Install from PyPI
+
+``` shell
+cd path/to/work
+mkdir afmslicer
+cd afmslicer
+uv venv --python 3.11
+source .venv/bin/activate   # This command works on GNU/Linux and OSX but will not under Windows, see output from previous step
+uv pip install afmslicer
+```
 
 ### Install directly from GitHub
 
@@ -42,8 +55,7 @@ recommended that use use [uv][uv] to setup a virtual environment in which to ins
 mkdir afmslicer
 cd afmslicer
 uv venv --python 3.11
-source .venv/bin/activate   # This command works on GNU/Linux and OSX but will not under Windows, see output from
-previous step
+source .venv/bin/activate   # This command works on GNU/Linux and OSX but will not under Windows, see output from previous step
 uv pip install git+https://github.com/AFM-SPM/AFMSlicer.git@main
 ```
 
@@ -72,6 +84,7 @@ This software is licensed under the [GNU GPLv3 License](COPYING.md).
 <!-- prettier-ignore-start -->
 [actions-badge]:            https://github.com/ns-rse/AFMSlicer/workflows/CI/badge.svg
 [actions-link]:             https://github.com/ns-rse/AFMSlicer/actions
+[afmslicer_install]:        https://afm-spm.github.io/AFMSlicer/installation/
 [code-style-black-badge]:   https://img.shields.io/badge/code%20style-black-000000.svg
 [code-style-black-link]:    https://github.com/psf/black
 [codecov-badge]:            https://codecov.io/gh/ns-rse/AFMSlicer/branch/dev/graph/badge.svg

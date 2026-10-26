@@ -61,6 +61,7 @@ this will be resolved in the near future. In the mean time you have to explicitl
 
 You can now activate the environment and check that your are using the `python` binary from that environment.
 
+<!-- markdownlint-disable MD046 -->
 === "Linux/OSX"
 
     ```shell
@@ -75,18 +76,6 @@ You can now activate the environment and check that your are using the `python` 
     /home/user/work/AFMSlicer
     Python 3.11.13
     ```
-
-<!-- markdownlint-disable MD046 -->
-!!! tip "`direnv`"
-
-    GNU/Linux and OSX users may want to consider using [dirnev](https://direnv.net) to automate activation of virtual
-    environments on navigation to the `AFMSlicer` directory. Add the following to `.envrc` to activate the environment
-    from within the  `AFMSlicer` directory.
-
-    ```shell
-    echo "#!/bin/bash\nsource .venv/bin/activate" > .envrc
-    ```
-<!-- markdownlint-disable MD046 -->
 
 === "Windows"
 
@@ -103,33 +92,35 @@ You can now activate the environment and check that your are using the `python` 
     Python 3.11.13
     ```
 
-## Installing AFMSlicer
+!!! tip "`direnv`"
+
+    GNU/Linux and OSX users may want to consider using [dirnev](https://direnv.net) to automate activation of virtual
+    environments on navigation to the `AFMSlicer` directory. Add the following to `.envrc` to activate the environment
+    from within the  `AFMSlicer` directory.
+
+    ```shell
+    echo "#!/bin/bash\nsource .venv/bin/activate" > .envrc
+    ```
+<!-- markdownlint-disable MD046 -->
+
+## Installing AFMSlicer/Napari plugin
 
 ### PyPI
 
-<!-- markdownlint-disable MD046 -->
-!!! failure
-
-    Currently AFMSlicer has not been packaged and released to [PyPi](https://pypi.org). For now the following will _not_
-    work and you should follow the **Development** isntructions.
-<!-- markdownlint-enable MD046 -->
-
 You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.
 
-!!! failure
-    This will currently fail (see above).
-
-<!-- markdownlint-disable MD046 -->
 ``` shell
-uv pip install napari-afmslicer
+uv pip install napari-afmslicer  # napari-afmslicer will pull in afmslicer
+uv pip install afmslicer         # just install afmslicer
 ```
-<!-- markdownlint-enable MD046 -->
+
+You can now proceed with [using](usage/index.md) AFMSlicer.
 
 ### Development
 
 AFMSlicer is in the early stages of development and as such must be installed from the GitHub repository along with the
 development versions of its dependency [TopoStats][topostats]. The steps involved in installing the development version
-are described below and require that you install and use [uv][uvdocs] to set things up.
+are described below and require that you install and use [uv][uvdocs] to set things up (see above for a brief overview).
 
 #### Cloning Repositories
 
