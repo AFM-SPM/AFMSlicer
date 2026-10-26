@@ -111,9 +111,12 @@ def test_process(
     assert "~~~~~~~~~~~~~~~~~~~~ COMPLETE ~~~~~~~~~~~~~~~~~~~~" in captured.err
     assert "Successfully Processed^1    : 2 (100.0%)" in captured.err
     assert Path(tmp_path / "all_statistics.csv").is_file()
-    assert Path(tmp_path / "color_count.csv").is_file()
+    assert Path(tmp_path / "all_color_count.csv").is_file()
+    assert Path(tmp_path / "all_hcfa.csv").is_file()
     # Loads the results and check against a Syrupy snapshot
     all_statistics_df = pd.read_csv(tmp_path / "all_statistics.csv")
     assert all_statistics_df.to_string() == snapshot
-    color_count_df = pd.read_csv(tmp_path / "color_count.csv")
-    assert color_count_df.to_string() == snapshot
+    all_color_count_df = pd.read_csv(tmp_path / "all_color_count.csv")
+    assert all_color_count_df.to_string() == snapshot
+    all_hcfa_df = pd.read_csv(tmp_path / "all_hcfa.csv")
+    assert all_hcfa_df.to_string() == snapshot

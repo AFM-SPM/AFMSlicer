@@ -60,6 +60,24 @@ involve...
 
 Hovering over any of the text associated with the options will show a short explanation of what it does.
 
+### Opening Files
+
+Open files using the menu item `File > Open File(s)` (accessible via the shortcut `Ctrl + O`).
+
+![Opening files in napari](napari/napari_opening_files.png)
+
+For each image you have opened you are prompted to select the channel for which you wish to load data. This defaults to
+`Height Sensor` so unless you want a different channel just hit return and the dialogue box will disappear and the image
+will open.
+
+Once opened each image is listed as its own "Layer" in the bottom left of Napari in the _Layer List_. You can toggle
+whether a given layer is shown by clicking on the "eye" icon next to it in the _Layer List_.
+
+### Plugins
+
+Plugins, if not already loaded, can be accessed from the _Plugins_ menu where each installed plugin has its own menu
+item. You can also _Install/Uninstall Plugins_ if there is a particular plugin you want to use that is not available.
+
 ### Filtering
 
 The parameters for filtering can be configured easily. Unchecking _Remove scars_ will prevent scar removal from running
@@ -68,6 +86,28 @@ filtered and a new layer will appear listed on the left and automatically select
 will have the original images name suffixed with `_filtered`
 
 ![Screenshot of napari after filtering an image.](napari/napari_filtered.png)
+
+By filtering _before_ cropping a region you will have a clearer view of the features to select.
+
+### Cropping
+
+_Plugins > napari\_crop_ has three options for cropping, by _Crop Regions_ is the one you are most likely to want to
+use which allows free hand selection of a region to crop.
+
+Select the filtered layer in the _Layer list_ on the bottom left of the image and click on the _Shapes_ button at the
+top of the _Layer List_ region (its a box with a trapezoid in).
+
+![Creating a Shapes layer](napari/napari_shapes_layer.png)
+
+This creates a new layer and the _Layer controls_ box on the left above the _Layer List_ will change and have a number
+of buttons for selecting and drawing shapes in the image. In the example below we have selected a rectangular region
+(roughly square) from the image. This is automatically filled in in the _Shapes layer_ of the _Crop Regions_ plugin in
+the bottom-right of the screen.
+
+![Selecting a rectangular region](napari/napari_select_region.png)
+
+Once you've select the region you wish to crop click the _Run_ button in the _Crop Regions_ plugin and a new layer will
+be created.
 
 ### Slicing
 

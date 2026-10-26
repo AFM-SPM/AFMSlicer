@@ -214,13 +214,14 @@ def process(args: argparse.Namespace | None = None) -> None:
     hcfa_all_df = pd.concat(
         {image_name: image.hcfa for image_name, image in processed_all.items()}
     )
+    hcfa_all_df = hcfa_all_df.sort_values(by=["image", "layer"])
     hcfa_all_df.to_csv(config["output_dir"] / "all_hcfa.csv", index=False)
     # Aggregate counts by image, layer and pore color, reshape and sum
     color_count_df = statistics.summarise_pores(
         df=statistics_all_df, pore_colors=config["slicing"]["pore_colors"]
     )
     color_count_df = color_count_df.sort_values(by=["image", "layer"])
-    color_count_df.to_csv(config["output_dir"] / "color_count.csv", index=False)
+    color_count_df.to_csv(config["output_dir"] / "all_color_count.csv", index=False)
     # Write config to file
     write_yaml(config, output_dir=config["output_dir"], header_message=HEADER_MESSAGE)
     images_processed = len(processed_all)

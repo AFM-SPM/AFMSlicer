@@ -94,91 +94,7 @@ Processing images from tests, results are under output:   0%|                   
 2026-03-26 11:14:23.577 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_10.png
 2026-03-26 11:14:23.616 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_11.png
 2026-03-26 11:14:23.654 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_12.png
-2026-03-26 11:14:23.695 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_13.png
-2026-03-26 11:14:23.736 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_14.png
-2026-03-26 11:14:23.775 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_15.png
-2026-03-26 11:14:23.814 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_16.png
-2026-03-26 11:14:23.847 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_17.png
-2026-03-26 11:14:23.879 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_18.png
-2026-03-26 11:14:23.912 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_19.png
-2026-03-26 11:14:23.946 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_20.png
-2026-03-26 11:14:23.983 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_21.png
-2026-03-26 11:14:24.026 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_22.png
-2026-03-26 11:14:24.063 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_23.png
-2026-03-26 11:14:24.088 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_0.png
-2026-03-26 11:14:24.104 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_24.png
-2026-03-26 11:14:24.135 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_1.png
-2026-03-26 11:14:24.145 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_25.png
-2026-03-26 11:14:24.191 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_2.png
-2026-03-26 11:14:24.192 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_26.png
-2026-03-26 11:14:24.233 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_27.png
-2026-03-26 11:14:24.242 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_3.png
-2026-03-26 11:14:24.272 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_28.png
-2026-03-26 11:14:24.296 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_4.png
-2026-03-26 11:14:24.320 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_29.png
-2026-03-26 11:14:24.345 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_5.png
-2026-03-26 11:14:24.362 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_30.png
-2026-03-26 11:14:24.395 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_6.png
-2026-03-26 11:14:24.408 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_31.png
-2026-03-26 11:14:24.442 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_7.png
-2026-03-26 11:14:24.448 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_32.png
-2026-03-26 11:14:24.489 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_33.png
-2026-03-26 11:14:24.497 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_8.png
-2026-03-26 11:14:24.528 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_34.png
-2026-03-26 11:14:24.545 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_9.png
-2026-03-26 11:14:24.573 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_35.png
-2026-03-26 11:14:24.596 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_10.png
-2026-03-26 11:14:24.614 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_36.png
-2026-03-26 11:14:24.645 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_11.png
-2026-03-26 11:14:24.655 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_37.png
-2026-03-26 11:14:24.698 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_38.png
-2026-03-26 11:14:24.702 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_12.png
-2026-03-26 11:14:24.738 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_39.png
-2026-03-26 11:14:24.747 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_13.png
-2026-03-26 11:14:24.801 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_14.png
-2026-03-26 11:14:24.849 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_15.png
-2026-03-26 11:14:24.885 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_40.png
-2026-03-26 11:14:24.904 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_16.png
-2026-03-26 11:14:24.922 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_41.png
-2026-03-26 11:14:24.956 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_17.png
-2026-03-26 11:14:24.956 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_42.png
-2026-03-26 11:14:24.990 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_43.png
-2026-03-26 11:14:25.010 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_18.png
-2026-03-26 11:14:25.030 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_44.png
-2026-03-26 11:14:25.065 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_45.png
-2026-03-26 11:14:25.067 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_19.png
-2026-03-26 11:14:25.100 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_46.png
-2026-03-26 11:14:25.119 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_20.png
-2026-03-26 11:14:25.140 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_47.png
-2026-03-26 11:14:25.176 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_48.png
-2026-03-26 11:14:25.177 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_21.png
-2026-03-26 11:14:25.215 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample1_49.png
-2026-03-26 11:14:25.236 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_22.png
-2026-03-26 11:14:25.284 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_23.png
-2026-03-26 11:14:25.331 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_24.png
-2026-03-26 11:14:25.384 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_25.png
-2026-03-26 11:14:25.438 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_26.png
-2026-03-26 11:14:25.485 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_27.png
-2026-03-26 11:14:25.536 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_28.png
-2026-03-26 11:14:25.596 | INFO     | afmslicer.plotting:generate_gif:278 - GIF saved to : output/sample1.gif
-2026-03-26 11:14:25.599 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_29.png
-2026-03-26 11:14:25.649 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_30.png
-2026-03-26 11:14:25.674 | INFO     | afmslicer.plotting:plot_pores_by_layer:177 - Image saved to : output/sample1_pores_per_layer.png
-2026-03-26 11:14:25.703 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_31.png
-2026-03-26 11:14:25.747 | INFO     | afmslicer.plotting:plot_pores_by_layer:177 - Image saved to : output/sample1_pores_per_layer_log.png
-2026-03-26 11:14:25.751 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_32.png
-2026-03-26 11:14:25.802 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_33.png
-2026-03-26 11:14:25.839 | INFO     | afmslicer.plotting:plot_area_by_layer:240 - Image saved to : output/sample1_area_per_layer.png
-2026-03-26 11:14:25.857 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_34.png
-2026-03-26 11:14:25.904 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_35.png
-2026-03-26 11:14:25.906 | INFO     | afmslicer.plotting:plot_area_by_layer:240 - Image saved to : output/sample1_area_per_layer_log.png
-2026-03-26 11:14:25.923 | INFO     | afmslicer.processing:slicer_scan:156 - [sample1] Slicing complete 😻
-2026-03-26 11:14:25.955 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_36.png
-2026-03-26 11:14:26.001 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_37.png
-2026-03-26 11:14:26.043 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_38.png
-2026-03-26 11:14:26.085 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_39.png
-2026-03-26 11:14:26.135 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_40.png
-2026-03-26 11:14:26.191 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_41.png
+...
 2026-03-26 11:14:26.256 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_42.png
 2026-03-26 11:14:26.370 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_43.png
 2026-03-26 11:14:26.414 | INFO     | afmslicer.plotting:plot_layer:74 - Image saved to : output/sample2_44.png
@@ -242,8 +158,35 @@ Processing images from tests, results are under output: 100%|██████�
 
 ## Output
 
-Output is saved, by default to the `output/` directory. You will find a `.png` image for each slice of each input file
-as well as a `.gif` for each image. Results are saved to `.csv` files and there are two files ``.
+Output is saved, by default to the `output/` directory. Within this directory there is a sub-directory for each image
+file that has been processed which contains the output from processing that specific image.
+
+For each image that has been processed you will find a `.png` image for each slice as well as a `.gif` for each
+image. Results are saved to `.csv` files.
+
+At the top level of the output directory (default `output/`) there are three `.csv` files that hold the aggregated
+output across all processed images as well as a copy of the configuration and a log file.
+
+```shell
+(.venv) ❱ l output
+drwxr-xr-x user1 user1  4.0 KB Thu Oct 22 14:08:18 2026  .
+drwxr-xr-x user1 user1  4.0 KB Thu Oct 22 14:07:43 2026  ..
+.rw-r--r-- user1 user1   64 KB Thu Oct 22 14:08:18 2026  2026-10-22-13-07-43.log
+.rw-r--r-- user1 user1   11 KB Thu Oct 22 14:08:18 2026  all_color_count.csv
+.rw-r--r-- user1 user1   22 KB Thu Oct 22 14:08:18 2026  all_hcfa.csv
+.rw-r--r-- user1 user1  295 KB Thu Oct 22 14:08:18 2026  all_statistics.csv
+.rw-r--r-- user1 user1 1022 B  Thu Oct 22 14:08:18 2026  config.yaml
+drwxr-xr-x user1 user1   12 KB Thu Oct 22 14:08:06 2026  sample1
+drwxr-xr-x user1 user1   12 KB Thu Oct 22 14:08:09 2026  sample2
+```
+
+| File                      | Description                                                                                    |
+|---------------------------|------------------------------------------------------------------------------------------------|
+| `all_hcfa.csv`            | HCFA statistics aggregated from all processed files.                                           |
+| `all_statistics.csv`      | All statistics aggregated from all processed files.                                            |
+| `all_colour_count.csv`    | Counts of objects classified by size into coloured groups aggregated across all process files. |
+| `YYYY-MM-DD-hh-mm-ss.log` | Log-file from run.                                                                             |
+| `config.yaml`             | Copy of configuration used for the run.                                                        |
 
 ### `all_statistics.csv`
 
@@ -272,7 +215,7 @@ This file has five columns
   11 | ...
 ```
 
-### `color_count.csv`
+### `all_color_count.csv`
 
 This file has seven columns.
 
@@ -301,8 +244,77 @@ This file has seven columns.
   11 │ ...
 ```
 
-### Plots
+### `all_hcfa.csv`
+
+This file has five columns.
+
+- `layer` - the slice/layer the row refers to.
+- `fraction` - the fraction of area covered by objects, the default is `0.5` and typically never needs changing,
+  although it is possible if desirable.
+- `area` - the area covered by the objects in this layer.
+- `cumulative_fraction` - the cumulative fraction of the area covered, for those near the top and bottom slices this
+  will be close to `0.0` or `1.0` but for the middle slices that are of interest this will be closed to `fraction`
+  (i.e. `~0.5`).
+- `image` - the filename (minus extension) the row refers to.
+
+```shell
+─────┬──────────────────────────────────────────────
+     │ File: all_hcfa.csv
+─────┼──────────────────────────────────────────────
+   1 │ layer,fraction,area,cumulative_fraction,image
+   2 │ 0,0.5,399998474.12109375,1.0,sample1
+   3 │ 1,0.5,399374389.6484375,1.0,sample1
+   4 │ 2,0.5,398596191.40625,1.0,sample1
+   5 │ 3,0.5,397831726.07421875,1.0,sample1
+   6 │ 4,0.5,397215270.99609375,1.0,sample1
+   7 │ 5,0.5,396640014.6484375,1.0,sample1
+   8 │ 6,0.5,395877075.1953125,1.0,sample1
+   9 │ 7,0.5,394754028.3203125,1.0,sample1
+```
+
+### Individual Images
+
+For each AFM scan that has been processed there is a directory within the specified output directory (default `output/`)
+with the name of the scan file (minus the file extension). There are two `.csv` files, a `.gif` and many `.png` files.
+
+```shell
+(.venv) ❱ l output/sample1
+drwxr-xr-x user1 user1  12 KB Thu Oct 22 14:08:06 2026  .
+drwxr-xr-x user1 user1 4.0 KB Thu Oct 22 14:08:18 2026  ..
+.rw-r--r-- user1 user1 292 KB Thu Oct 22 14:08:06 2026  cumulative_area.csv
+.rw-r--r-- user1 user1  10 KB Thu Oct 22 14:08:06 2026  hcfa.csv
+.rw-r--r-- user1 user1 904 KB Thu Oct 22 14:08:06 2026  sample1.gif
+.rw-r--r-- user1 user1 2.3 KB Thu Oct 22 14:07:49 2026  sample1_0.png
+.rw-r--r-- user1 user1 2.4 KB Thu Oct 22 14:07:49 2026  sample1_1.png
+.rw-r--r-- user1 user1 3.0 KB Thu Oct 22 14:07:50 2026  sample1_10.png
+...
+.rw-r--r-- user1 user1 7.6 KB Thu Oct 22 14:07:55 2026  sample1_99.png
+.rw-r--r-- user1 user1  35 KB Thu Oct 22 14:08:06 2026  sample1_area_per_layer.png
+.rw-r--r-- user1 user1  27 KB Thu Oct 22 14:08:06 2026  sample1_area_per_layer_log.png
+.rw-r--r-- user1 user1  34 KB Thu Oct 22 14:08:06 2026  sample1_pores_per_layer.png
+```
+
+| File                             | Description                                                                                              |
+|----------------------------------|----------------------------------------------------------------------------------------------------------|
+| `cumulative_area.csv`            | The cumulative area of each layer, used to produce `hcfa.csv`.                                           |
+| `hcfa.csv`                       | Half Cumulative Fraction Area for each layer.                                                            |
+| `<image>.gif`                    | A `.gif` animation of areas by slice in sequential order.                                                |
+| `<image>_#.png`                  | A plot of a single layer `#`, there is one plot for the number of slices requested in the configuration. |
+| `<image>_area_per_layer_log.png` | A graph of the layer v's the logarithm of the area of pores within it.                                   |
+| `<image>_area_per_layer.png`     | A graph of the layer v's the area of pores within it.                                                    |
+| `<image>_area_per_layer.png`     | A graph of the layer v's the number of pores within it.                                                  |
+
+#### Plots
+
+An example of an individual plot is shown below. Each independent pore/object is labelled in a unique colour with the
+background areas as dark blue.
+
+![A single labelled slice from processing an image.](output/single_slice.png)
+
+![A GIF moving through layers](output/example.gif)
 
 For each input file a number of summary plots are also generated  in the output directory. These show the number of
 pores per layer with a Gaussian distribution overlaid and the full-width half max range marked on the graph. This
 determines the range of layers for which the area per layer and the log-area per layer are then plotted.
+
+**TODO** - Add in plots from a good run
