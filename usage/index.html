@@ -905,34 +905,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/logging/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../api/plotting/" class="md-nav__link">
         
   
@@ -1171,7 +1143,7 @@ Environment in.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This isn't actually essential as you can either use the <code>afmslicer --base-dir</code> flag to specify an alternative
-directory to scan for images or modify ~base_dir: ./~ option in a [custom configuration][configuration.md].</p>
+directory to scan for images or modify ~base_dir: ./~ option in a <a href="configuration/">custom configuration</a>.</p>
 </div>
 <!-- markdownlint-enable MD046 -->
 
@@ -1197,10 +1169,20 @@ specified extension (which defaults to <code>.spm</code>).</p>
 <!-- markdownlint-disable MD046 -->
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you edit your <code>.spm</code> file(s) in other software (e.g. Gwyddion) and then save them they may not load successfully
-with AFMSlicer.</p>
+<p>If you edit your <code>.spm</code> file(s) in other software (e.g. Gwyddion) and then save them with the same file extension
+they may not load successfully with AFMSlicer.</p>
+<p>If a file is edited in Gwyddion it should be saved in the native <code>.gwy</code> format as <code>.tiff</code> is <em>not</em> supported by
+<a href="https://github.com/AFM-SPM/AFMReader/">AFMReader</a>. For more information please refer to the <a href="https://github.com/AFM-SPM/AFMReader/issues/199">relevant issue in
+AFMReader</a> and the linked
+<a href="https://sourceforge.net/p/gwyddion/discussion/fileformats/thread/95f93563/?limit=25#3a0f">thread</a> in the Gwyddion.</p>
 </div>
 <!-- markdownlint-enable MD046 -->
+
+<p>Once you have your data in an organised structure you can proceed to processing using either...</p>
+<ul>
+<li><a href="cli/">Command line interface batch processing</a></li>
+<li><a href="napari/">Napari Graphical User Interface</a></li>
+</ul>
 
 
 

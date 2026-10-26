@@ -599,10 +599,43 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#opening-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
         Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cropping
       
     </span>
   </a>
@@ -983,34 +1016,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/logging/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    logging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../api/plotting/" class="md-nav__link">
         
   
@@ -1257,10 +1262,43 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#opening-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
         Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cropping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cropping
       
     </span>
   </a>
@@ -1357,12 +1395,37 @@ involve...</p>
 <li>Running slicing.</li>
 </ol>
 <p>Hovering over any of the text associated with the options will show a short explanation of what it does.</p>
+<h3 id="opening-files">Opening Files</h3>
+<p>Open files using the menu item <code>File &gt; Open File(s)</code> (accessible via the shortcut <code>Ctrl + O</code>).</p>
+<p><img alt="Opening files in napari" src="napari/napari_opening_files.png" /></p>
+<p>For each image you have opened you are prompted to select the channel for which you wish to load data. This defaults to
+<code>Height Sensor</code> so unless you want a different channel just hit return and the dialogue box will disappear and the image
+will open.</p>
+<p>Once opened each image is listed as its own "Layer" in the bottom left of Napari in the <em>Layer List</em>. You can toggle
+whether a given layer is shown by clicking on the "eye" icon next to it in the <em>Layer List</em>.</p>
+<h3 id="plugins">Plugins</h3>
+<p>Plugins, if not already loaded, can be accessed from the <em>Plugins</em> menu where each installed plugin has its own menu
+item. You can also <em>Install/Uninstall Plugins</em> if there is a particular plugin you want to use that is not available.</p>
 <h3 id="filtering">Filtering</h3>
 <p>The parameters for filtering can be configured easily. Unchecking <em>Remove scars</em> will prevent scar removal from running
 completely. Once you have adjusted the parameters to your preference click on the <em>Filter</em> button and the image will be
 filtered and a new layer will appear listed on the left and automatically selected showing the effects of filtering. It
 will have the original images name suffixed with <code>_filtered</code></p>
 <p><img alt="Screenshot of napari after filtering an image." src="napari_filtered.png" /></p>
+<p>By filtering <em>before</em> cropping a region you will have a clearer view of the features to select.</p>
+<h3 id="cropping">Cropping</h3>
+<p><em>Plugins &gt; napari_crop</em> has three options for cropping, by <em>Crop Regions</em> is the one you are most likely to want to
+use which allows free hand selection of a region to crop.</p>
+<p>Select the filtered layer in the <em>Layer list</em> on the bottom left of the image and click on the <em>Shapes</em> button at the
+top of the <em>Layer List</em> region (its a box with a trapezoid in).</p>
+<p><img alt="Creating a Shapes layer" src="napari_shapes_layer.png" /></p>
+<p>This creates a new layer and the <em>Layer controls</em> box on the left above the <em>Layer List</em> will change and have a number
+of buttons for selecting and drawing shapes in the image. In the example below we have selected a rectangular region
+(roughly square) from the image. This is automatically filled in in the <em>Shapes layer</em> of the <em>Crop Regions</em> plugin in
+the bottom-right of the screen.</p>
+<p><img alt="Selecting a rectangular region" src="napari_select_region.png" /></p>
+<p>Once you've select the region you wish to crop click the <em>Run</em> button in the <em>Crop Regions</em> plugin and a new layer will
+be created.</p>
 <h3 id="slicing">Slicing</h3>
 <p>Under the <em>Slicing</em> widget select the filtered image from the pull-down list to the right of <em>Image</em> (typically it will
 be the layer with the <code>_filtered</code> suffix). Next select the number of <em>Slices</em> to create, the <em>Segmentation method</em>
