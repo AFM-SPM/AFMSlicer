@@ -42,10 +42,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ns-rse/AFMSlicer"
-"Bug Tracker" = "https://github.com/ns-rse/AFMSlicer/issues"
-Discussions = "https://github.com/ns-rse/AFMSlicer/discussions"
-Changelog = "https://github.com/ns-rse/AFMSlicer/releases"
+Homepage = "https://github.com/AFM-SPM/AFMSlicer"
+"Bug Tracker" = "https://github.com/AFM-SPM/AFMSlicer/issues"
+Discussions = "https://github.com/AFM-SPM/AFMSlicer/discussions"
+Changelog = "https://github.com/AFM-SPM/AFMSlicer/releases"
 
 
 [dependency-groups]
