@@ -50,13 +50,9 @@ Changelog = "https://github.com/AFM-SPM/AFMSlicer/releases"
 
 [dependency-groups]
 docs = [
-  "mkdocs",
-  "mkdocs-autorefs",
-  "mkdocs-material",
-  "mkdocs-mermaid2-plugin",
-  "mkdocstrings[python]",
-  "pymdown-extensions",
-  "zensical",
+  "griffe-pydantic>=1.3.2",
+  "mkdocstrings-python>=2.0.9",
+  "zensical>=0.0.72",
 ]
 tests = [
   "pytest",
