@@ -1,4 +1,4 @@
-# AFMSlicer at the Command Line
+# Command Line Interface (CLI)
 
 Once you have [installed](../installation.md) AFMSlicer within a virtual environment you can start using the Command Line
 Interface. The command is called `afmslicer` and it has a useful `--help` flag which lists the available options.
@@ -50,8 +50,13 @@ The most common step is to batch process each image from end-to-end. This involv
 - calculating statistics on each segment and generating images.
 - aggregating statistics and writing output to disk.
 
-AFMSlicer comes with a default configuration file that will be loaded, to use these defaults to process images in the
-`data/` directory run
+AFMSlicer comes with a default configuration file that will be loaded, but command line options will over-ride those in
+the configuration file. The `base-dir` is the directory that is scanned for images to load and process. If you keep all
+your images in `data/` then you can over-ride the default (which is `./` which means the current directory) to just
+process images from the `data/` directory.
+
+**NB** For more on configuring how AFMSlicer runs at the command line please refer to the
+  [Configuration](configuration/)
 
 ``` shell
 afmslicer --base-dir data/ process
@@ -156,13 +161,92 @@ Processing images from tests, results are under output: 100%|██████�
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
+<!-- markdownlint-disable MD046 -->
+??? example "Avoid Repeat Analyses, structure your data"
+
+    To avoid repeating analyses of existing data that has already been analysed it is recommended to devise a structured
+    hierarchy to organise your data. This might nest all scans within the `data/` directory by experiment/project type
+    and then have nested directories indicating the date of the experiment (ideally using [ISO-8601] to name dated
+    directories), with a `YYYY/MM/DD` structure. The following shows an example of such a structure with experiments on
+    two bacterial species spanning a number of months over 2025 and 2026
+
+    ```shell
+    ❱ tree -d data
+    [4.0K Nov 23 16:02]  data
+    ├── [4.0K Nov 23 16:02]  data/e_coli
+    │   ├── [4.0K Nov 23 16:03]  data/e_coli/2025
+    │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/09
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/09/21
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/09/25
+    │   │   │   └── [4.0K Nov 23 16:04]  data/e_coli/2025/09/26
+    │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/10
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/10/01
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/10/14
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/10/16
+    │   │   │   └── [4.0K Nov 23 16:04]  data/e_coli/2025/10/18
+    │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/11
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/11/07
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/11/17
+    │   │   │   ├── [4.0K Nov 23 16:04]  data/e_coli/2025/11/27
+    │   │   │   └── [4.0K Nov 23 16:04]  data/e_coli/2025/11/30
+    │   │   └── [4.0K Nov 23 16:04]  data/e_coli/2025/12
+    │   │       ├── [4.0K Nov 23 16:04]  data/e_coli/2025/12/04
+    │   │       ├── [4.0K Nov 23 16:04]  data/e_coli/2025/12/09
+    │   │       ├── [4.0K Nov 23 16:04]  data/e_coli/2025/12/10
+    │   │       ├── [4.0K Nov 23 16:04]  data/e_coli/2025/12/13
+    │   │       └── [4.0K Nov 23 16:04]  data/e_coli/2025/12/16
+    │   └── [4.0K Nov 23 16:05]  data/e_coli/2026
+    │       ├── [4.0K Nov 23 16:04]  data/e_coli/2026/01
+    │       │   ├── [4.0K Nov 23 16:04]  data/e_coli/2026/01/04
+    │       │   ├── [4.0K Nov 23 16:04]  data/e_coli/2026/01/06
+    │       │   └── [4.0K Nov 23 16:04]  data/e_coli/2026/01/09
+    │       ├── [4.0K Nov 23 16:05]  data/e_coli/2026/02
+    │       │   ├── [4.0K Nov 23 16:05]  data/e_coli/2026/02/12
+    │       │   ├── [4.0K Nov 23 16:05]  data/e_coli/2026/02/17
+    │       │   ├── [4.0K Nov 23 16:05]  data/e_coli/2026/02/18
+    │       │   └── [4.0K Nov 23 16:05]  data/e_coli/2026/02/23
+    │       └── [4.0K Nov 23 16:05]  data/e_coli/2026/03
+    │           ├── [4.0K Nov 23 16:05]  data/e_coli/2026/03/08
+    │           ├── [4.0K Nov 23 16:05]  data/e_coli/2026/03/09
+    │           ├── [4.0K Nov 23 16:05]  data/e_coli/2026/03/21
+    │           ├── [4.0K Nov 23 16:05]  data/e_coli/2026/03/22
+    │           └── [4.0K Nov 23 16:05]  data/e_coli/2026/03/23
+    └── [4.0K Nov 23 16:08]  data/s_aureus
+        └── [4.0K Nov 23 16:08]  data/s_aureus/2025
+            ├── [4.0K Nov 23 16:07]  data/s_aureus/2025/07
+            │   ├── [4.0K Nov 23 16:07]  data/s_aureus/2025/07/08
+            │   ├── [4.0K Nov 23 16:07]  data/s_aureus/2025/07/09
+            │   ├── [4.0K Nov 23 16:07]  data/s_aureus/2025/07/24
+            │   ├── [4.0K Nov 23 16:07]  data/s_aureus/2025/07/26
+            │   └── [4.0K Nov 23 16:07]  data/s_aureus/2025/07/28
+            └── [4.0K Nov 23 16:08]  data/s_aureus/2025/08
+                ├── [4.0K Nov 23 16:08]  data/s_aureus/2025/08/11
+                ├── [4.0K Nov 23 16:08]  data/s_aureus/2025/08/13
+                ├── [4.0K Nov 23 16:08]  data/s_aureus/2025/08/14
+                ├── [4.0K Nov 23 16:08]  data/s_aureus/2025/08/15
+                └── [4.0K Nov 23 16:08]  data/s_aureus/2025/08/18
+
+    53 directories
+    ```
+
+    Such a structure means that it is very easy to run analyses on an individual days experiments. For example to
+    analyse the _S. aureus_ data from 2025-08-14 you would specify the relevant `base-dir`
+
+    ```shell
+    afmslicer --base-dir data/a_aureus/2025/08/14 process
+    ```
+<!-- markdownlint-enable MD046 -->
+
 ## Output
 
-Output is saved, by default to the `output/` directory. Within this directory there is a sub-directory for each image
-file that has been processed which contains the output from processing that specific image.
+Output is saved, by default to the `output/` directory although this can be modified in your [YAML Configuration
+file](configuration/) or via the command line option `--output-dir` / `-o`.
 
-For each image that has been processed you will find a `.png` image for each slice as well as a `.gif` for each
-image. Results are saved to `.csv` files.
+Within this directory there is a sub-directory for each image file that has been processed which contains the output
+from processing just that image.
+
+You will find a `.png` image for each slice as well as a `.gif` for each image that shows the changes in objects as you
+move through slices. Results are saved to `.csv` files.
 
 At the top level of the output directory (default `output/`) there are three `.csv` files that hold the aggregated
 output across all processed images as well as a copy of the configuration and a log file.
@@ -270,6 +354,7 @@ This file has five columns.
    7 │ 5,0.5,396640014.6484375,1.0,sample1
    8 │ 6,0.5,395877075.1953125,1.0,sample1
    9 │ 7,0.5,394754028.3203125,1.0,sample1
+  10 | ...
 ```
 
 ### Individual Images
@@ -318,3 +403,5 @@ pores per layer with a Gaussian distribution overlaid and the full-width half ma
 determines the range of layers for which the area per layer and the log-area per layer are then plotted.
 
 **TODO** - Add in plots from a good run
+
+[ISO-8601]:
