@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-import datetime
+import datetime as dt
 import sys
 from collections import defaultdict
 from functools import partial
@@ -122,7 +122,7 @@ def _parse_configuration(args: argparse.Namespace | None = None) -> tuple[dict, 
     _set_logging(
         log_level=config["log_level"].upper(),
         log_file=config["output_dir"]
-        / f"{datetime.datetime.now(tz=datetime.UTC).strftime('%Y-%m-%d-%H-%M-%S')}.log",
+        / f"{dt.datetime.now(tz=dt.UTC).strftime('%Y-%m-%d-%H-%M-%S')}.log",
     )
 
     # Create base output directory
