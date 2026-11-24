@@ -26,7 +26,7 @@ options:
 To create your own configuration file within the current directory called `e_coli_config_20260326.yaml` you would run
 
 ``` shell
-afmslicer create-config --filename e_coli_config_20260306.yaml
+afmslicer create-config --filename e_coli_config_20260322.yaml
 [Thu, 26 Mar 2026 11:35:22] [INFO    ] [topostats] A sample configuration has been written to : e_coli_20260306.yaml
 ```
 
@@ -89,14 +89,14 @@ plotting:
 
 If you wanted to change...
 
-- the default `base_dir` to always be `data/`
+- the default `base_dir` to always be `data/e_coli/2026/03/22`
 - the number of slices/layers from `50` to `180`
 - the area threshold boundaries
 
-...you would edit the values under...
+...you would edit the values under the following lines...
 
 ``` yaml
-base_dir: data/
+base_dir: data/e_coli/2026/03/22
 ...
 slicing:
   slices: 180
@@ -108,11 +108,12 @@ slicing:
 ```
 
 ...save the file and you can then run your analysis with this modified configuration by specifying the name of your YAML
-file.
+file as the parameter to the `--config` (/ `-c`) flag
 
 ``` shell
 rm -rf output/      # Optionally remove the output/ directory first
-afmslicer --config e_coli_config_20260306.yaml
+afmslicer --config e_coli_config_20260306.yaml process
+afmslicer -c e_coli_config_20260306.yaml process         # These two commands are identical
 ```
 
 [yaml]: https://yaml.org

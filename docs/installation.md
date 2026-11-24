@@ -1,10 +1,10 @@
 # Installation
 
-Usage of AFMSlicer and the Napari plugin require installation and usage of a
-[Python Virtual Environment](https://realpython.com/python-virtual-environments-a-primer).
-This page details how to setup a [Python](https://python.org) virtual environment using
-[uv](https://docs.astral.sh/uv) and
-how to install AFMSlicer and the Napari plugin within this virtual environment.
+Usage of AFMSlicer and the Napari plugin require installation and usage of a [Python Virtual
+Environment](https://realpython.com/python-virtual-environments-a-primer). This page details how to setup a
+[Python](https://python.org) virtual environment using [uv](https://docs.astral.sh/uv) and how to install AFMSlicer and
+the Napari plugin within this virtual environment using either stable releases to [PyPI][pypi] or installing development
+versions from GitHub.
 
 ## Virtual Environment
 
@@ -96,31 +96,52 @@ You can now activate the environment and check that your are using the `python` 
 
     GNU/Linux and OSX users may want to consider using [dirnev](https://direnv.net) to automate activation of virtual
     environments on navigation to the `AFMSlicer` directory. Add the following to `.envrc` to activate the environment
-    from within the  `AFMSlicer` directory.
+    from within the `AFMSlicer` directory and grant `direnv` the ability to be activated in this directory.
 
     ```shell
     echo "#!/bin/bash\nsource .venv/bin/activate" > .envrc
+    direnv allow
     ```
 <!-- markdownlint-disable MD046 -->
 
 ## Installing AFMSlicer/Napari plugin
 
+You now have the choice of whether to install a stable released version from the [Python Package Index](#pypi) or
+install a [development](#development) version from GitHub.
+
 ### PyPI
 
-You can install both AFMSlicer and the Napari plugin within the virtual environment using the following command.
+You can install both AFMSlicer and the Napari plugin from the [Python Package Index (PyPI)][pypi] within the virtual
+environment using the following command.
 
-``` shell
-uv pip install napari-afmslicer  # napari-afmslicer will pull in afmslicer
-uv pip install afmslicer         # just install afmslicer
-```
+<!-- markdownlint-disable MD046 -->
+=== "Linux/OSX"
+
+    ``` shell
+    cd ~/work/AFMSlicer
+    source .venv/bin/activate        # Activate the virtual environment
+    uv pip install napari-afmslicer  # napari-afmslicer will pull in afmslicer
+    uv pip install afmslicer         # just install afmslicer
+    ```
+
+=== "Windows"
+
+    ```
+    cd c:\work\AFMSlicer
+    .venv\Scripts\activate           # Activate the virtual environment
+    uv pip install napari-afmslicer  # napari-afmslicer will pull in afmslicer
+    uv pip install afmslicer         # just install afmslicer
+    ```
+<!-- markdownlint-disable MD046 -->
 
 You can now proceed with [using](usage/index.md) AFMSlicer.
 
 ### Development
 
-AFMSlicer is in the early stages of development and as such must be installed from the GitHub repository along with the
+AFMSlicer is in continual development and as such can be installed from the GitHub repository along with the
 development versions of its dependency [TopoStats][topostats]. The steps involved in installing the development version
-are described below and require that you install and use [uv][uvdocs] to set things up (see above for a brief overview).
+are slightly more involved but are described below and require that you install and use [uv][uvdocs] to set things up
+(see above for a brief overview).
 
 #### Cloning Repositories
 
@@ -142,14 +163,17 @@ git clone https://github.com/AFM-SPM/napari-afmslicer.git
 <!-- markdownlint-enable MD046 -->
 
 <!-- markdownlint-disable MD046 -->
-!!! note "TopoStats"
+<!-- !!! note "TopoStats" -->
 
-    Unfortunately the TopoStats repository is large and will take a while to clone.
+<!--     Unfortunately the TopoStats repository is large and will take a while to clone. -->
 <!-- markdownlint-enable MD046 -->
 
 ### Create a virtual environment and install packages
 
-If you haven't already create a virtual environment using `uv` and activate it (see above)
+If you haven't already create a virtual environment using `uv` and activate it (see above). Whether you are using just
+`AFMSlicer` at the [Command Line Interface](usage/cli.md) or the [Napari Graphical User
+Interface](usage/napari.md) you should create the virtual environment in the directory from which you ran the
+above `git clone` commands, which in the above example is `~/work/AFMSlicer`.
 
 **NB** TopoStats is constrained to using Python >=3.10 and < 3.12 hence why Python 3.11 is explicitly installed.
 
@@ -157,8 +181,10 @@ Install AFMSlicer and napari-afmslicer from the cloned repositories using the fo
 
 <!-- markdownlint-disable MD046 -->
 ```shell
-uv pip install -e AFMSlicer/.
-uv pip install -e napari-afmslicer/.
+cd ~/work/AFMSlicer
+uv venv --python 3.11
+uv pip install -e AFMSlicer/. --group dev
+uv pip install -e napari-afmslicer/. --group dev
 ```
 <!-- markdownlint-enable MD046 -->
 
@@ -169,6 +195,7 @@ uv pip install -e napari-afmslicer/.
 You can now proceed to the [usage](usage/index.md) section to learn how to use AFMSlicer.
 
 [miniforge]: https://github.com/conda-forge/miniforge
+[pypi]: https://pypi.org
 [uvdocs]: https://docs.astral.sh/uv
 [topostats]: https://AFM-SPM.github.io/TopoStats
 [topolyissue]: https://github.com/ilbsm/topoly_tutorial/issues/4

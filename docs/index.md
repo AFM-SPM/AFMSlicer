@@ -6,8 +6,8 @@ walls.
 It leverages the [TopoStats][topostats] package for loading and flattening/filtering images and as such follows a
 similar structure in terms of configuration and design patterns.
 
-After filtering/flattening of an image it is then "sliced" into an 3-D [numpy][numpy] array of masks which are analysed
-to obtain statistics on the structure of images at different heights.
+After filtering/flattening an image it is then "sliced" into an 3-D [numpy][numpy] array of masks and objects are
+identified within each layer. These are analysed their structure and aggregate statistics are calculated across layers.
 
 [afm]: https://en.wikipedia.org/wiki/Atomic_force_microscopy
 [afmslicer]: https://afmslicer.readthedocs.org/

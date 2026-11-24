@@ -1,14 +1,14 @@
 [project]
-site_url = "https://www.example.com/"
-site_name = "Documentation"
-# site_description = "Your project description"
-# site_author = "Your name"
+site_url = "https://afm-spm.github.io/AFMSlicer"
+site_name = "AFMSlicer"
+site_description = "Bacterial cell wall image analysis"
+site_author = "Neil Shephard"
 
-# copyright = "Copyright &copy; 2026 Your name"
+copyright = "Copyright &copy; 2026 "
 
-# repo_url = "https://github.com/user/repo"
-# repo_name = "user/repo"
-# edit_uri = "edit/main/docs/"
+repo_url = "https://github.com/AFM-SPM/AFMSlicer"
+repo_name = "AFM-SPM/AFMSlicer"
+edit_uri = "edit/main/docs/"
 
 nav = [
   { "Overview" = "index.md" },
@@ -91,9 +91,9 @@ scheme = "slate"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to system preference"
 
-# [[project.extra.social]]
-# icon = "fontawesome/brands/github"
-# link = "https://github.com/user/repo"
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/user/repo"
 
 # [[project.extra.social]]
 # icon = "fontawesome/brands/mastodon"
