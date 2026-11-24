@@ -211,7 +211,6 @@ class AFMSlicer(TopoStats):  # type: ignore[misc]
         logger.debug(f"[{self.filename}] : Mask created 👹")
         # Detect segments within each slice
         self.sliced_segments = slicer.segment_slices(
-            # self.sliced_mask, method=self.segment_method
             self.sliced_mask,
             method=self.segment_method,
         )
